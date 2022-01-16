@@ -1,0 +1,43 @@
+name: qurany_karim
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.2
+  dio: ^4.0.4
+  dartz: ^0.10.1
+  provider: ^6.0.2
+  shared_preferences: ^2.0.7
+  flutter_spinkit: ^5.1.0
+  toast: ^0.1.5
+  localize_and_translate: ^4.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/langs/ar.json
+    - assets/langs/en.json
+    - assets/images/
+    - assets/icons/
+
+
+  fonts:
+    - family: Tajawal
+      fonts:
+        - asset: assets/fonts/Tajawal-Regular.ttf
