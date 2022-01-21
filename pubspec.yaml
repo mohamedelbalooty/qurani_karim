@@ -41,3 +41,7 @@ flutter:
     - family: Tajawal
       fonts:
         - asset: assets/fonts/Tajawal-Regular.ttf
+    - family: ReemKufi
+      fonts:
+        - asset: assets/fonts/ReemKufi-Regular.ttf
+

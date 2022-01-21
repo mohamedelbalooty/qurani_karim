@@ -1,8 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/view/home_view/home_view.dart';
 import '../app_components.dart';
 
 class WelcomeView extends StatelessWidget {
@@ -80,7 +79,9 @@ class WelcomeView extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 60.0),
                           child: BuildDefaultButton(
                             title: 'start_reading'.tr(),
-                            onClick: () {},
+                            onClick: () {
+                              replacementNamedNavigator(context, HomeView.id);
+                            },
                           ),
                         ),
                       ),
