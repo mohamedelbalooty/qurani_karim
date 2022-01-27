@@ -2,10 +2,107 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/view/askar_view/azkar_view.dart';
+import 'package:qurany_karim/view/listening_view/listening_view.dart';
 import 'package:qurany_karim/view/reading_view/reading_view.dart';
+import 'package:qurany_karim/view/tasbih_view/tasbih_view.dart';
 import '../app_components.dart';
 
+List<BuildGridCategoryItem> portraitGridWidgets(BuildContext context,
+    {bool isPortrait}) {
+  return [
+    BuildGridCategoryItem(
+        title: 'read_moshaf'.tr(),
+        icon: 'assets/icons/quran.png',
+        onClick: () {
+          namedNavigator(context, ReadingView.id);
+        }),
+    BuildGridCategoryItem(
+        title: 'listen_moshaf'.tr(),
+        icon: 'assets/icons/listen.png',
+        onClick: () {
+          namedNavigator(context, ListeningView.id);
+        }),
+    BuildGridCategoryItem(
+        title: 'hades'.tr(), icon: 'assets/icons/prays.png', onClick: () {}),
+    BuildGridCategoryItem(
+        title: 'azkar'.tr(),
+        icon: 'assets/icons/azkar.png',
+        onClick: () {
+          namedNavigator(context, AzkarView.id);
+        }),
+  ];
+}
+
+List<BuildGridCategoryItem> landScapeGridWidgets(BuildContext context,
+    {bool isPortrait}) {
+  return [
+    BuildGridCategoryItem(
+        title: 'read_moshaf'.tr(),
+        icon: 'assets/icons/quran.png',
+        onClick: () {
+          namedNavigator(context, ReadingView.id);
+        }),
+    BuildGridCategoryItem(
+        title: 'listen_moshaf'.tr(),
+        icon: 'assets/icons/listen.png',
+        onClick: () {
+          namedNavigator(context, ListeningView.id);
+        }),
+    BuildGridCategoryItem(
+        title: 'hades'.tr(), icon: 'assets/icons/prays.png', onClick: () {}),
+    BuildGridCategoryItem(
+        title: 'azkar'.tr(),
+        icon: 'assets/icons/azkar.png',
+        onClick: () {
+          namedNavigator(context, AzkarView.id);
+        }),
+    BuildGridCategoryItem(
+        title: 'tasbeh'.tr(),
+        icon: 'assets/icons/tasbih.png',
+        onClick: () {
+          namedNavigator(context, TasbihView.id);
+        }),
+    BuildGridCategoryItem(
+        title: 'kebla'.tr(), icon: 'assets/icons/kaaba.png', onClick: () {}),
+  ];
+}
+
+List<BuildListCategoryItem> portraitListWidgets(BuildContext context,
+    {bool isPortrait}) {
+  return [
+    BuildListCategoryItem(
+        title: 'tasbeh'.tr(),
+        icon: 'assets/icons/tasbih.png',
+        onClick: () {
+          namedNavigator(context, TasbihView.id);
+        }),
+    BuildListCategoryItem(
+        title: 'kebla'.tr(), icon: 'assets/icons/kaaba.png', onClick: () {}),
+    BuildListCategoryItem(
+        title: 'times'.tr(),
+        icon: 'assets/icons/time-zone.png',
+        onClick: () {}),
+    BuildListCategoryItem(
+        title: 'live'.tr(), icon: 'assets/icons/live.png', onClick: () {}),
+  ];
+}
+
+List<BuildListCategoryItem> landScapeListWidgets(BuildContext context,
+    {bool isPortrait}) {
+  return [
+    BuildListCategoryItem(
+        title: 'times'.tr(),
+        icon: 'assets/icons/time-zone.png',
+        onClick: () {}),
+    BuildListCategoryItem(
+        title: 'live'.tr(), icon: 'assets/icons/live.png', onClick: () {}),
+  ];
+}
+
 class BuildHomeCoverWidget extends StatelessWidget {
+  const BuildHomeCoverWidget({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -80,88 +177,20 @@ class BuildHomeCoverWidget extends StatelessWidget {
   }
 }
 
-List<BuildGridCategoryItem> portraitGridWidgets(BuildContext context,
-    {bool isPortrait}) {
-  return [
-    BuildGridCategoryItem(
-        title: 'read_moshaf'.tr(),
-        icon: 'assets/icons/quran.png',
-        onClick: () {
-          namedNavigator(context, ReadingView.id);
-        }),
-    BuildGridCategoryItem(
-        title: 'listen_moshaf'.tr(),
-        icon: 'assets/icons/listen.png',
-        onClick: () {}),
-    BuildGridCategoryItem(
-        title: 'hades'.tr(), icon: 'assets/icons/prays.png', onClick: () {}),
-    BuildGridCategoryItem(
-        title: 'azkar'.tr(), icon: 'assets/icons/azkar.png', onClick: () {}),
-  ];
-}
-
-List<BuildGridCategoryItem> landScapeGridWidgets(BuildContext context,
-    {bool isPortrait}) {
-  return [
-    BuildGridCategoryItem(
-        title: 'read_moshaf'.tr(),
-        icon: 'assets/icons/quran.png',
-        onClick: () {
-          namedNavigator(context, ReadingView.id);
-        }),
-    BuildGridCategoryItem(
-        title: 'listen_moshaf'.tr(),
-        icon: 'assets/icons/listen.png',
-        onClick: () {}),
-    BuildGridCategoryItem(
-        title: 'hades'.tr(), icon: 'assets/icons/prays.png', onClick: () {}),
-    BuildGridCategoryItem(
-        title: 'azkar'.tr(), icon: 'assets/icons/azkar.png', onClick: () {}),
-    BuildGridCategoryItem(
-        title: 'tasbeh'.tr(), icon: 'assets/icons/tasbih.png', onClick: () {}),
-    BuildGridCategoryItem(
-        title: 'kebla'.tr(), icon: 'assets/icons/kaaba.png', onClick: () {}),
-  ];
-}
-
-List<BuildListCategoryItem> portraitListWidgets(BuildContext context,
-    {bool isPortrait}) {
-  return [
-    BuildListCategoryItem(
-        title: 'tasbeh'.tr(), icon: 'assets/icons/tasbih.png', onClick: () {}),
-    BuildListCategoryItem(
-        title: 'kebla'.tr(), icon: 'assets/icons/kaaba.png', onClick: () {}),
-    BuildListCategoryItem(
-        title: 'times'.tr(),
-        icon: 'assets/icons/time-zone.png',
-        onClick: () {}),
-    BuildListCategoryItem(
-        title: 'live'.tr(), icon: 'assets/icons/live.png', onClick: () {}),
-  ];
-}
-
-List<BuildListCategoryItem> landScapeListWidgets(BuildContext context,
-    {bool isPortrait}) {
-  return [
-    BuildListCategoryItem(
-        title: 'times'.tr(),
-        icon: 'assets/icons/time-zone.png',
-        onClick: () {}),
-    BuildListCategoryItem(
-        title: 'live'.tr(), icon: 'assets/icons/live.png', onClick: () {}),
-  ];
-}
-
 class BuildListCategoryItem extends StatelessWidget {
   final String title, icon;
   final Function onClick;
 
   const BuildListCategoryItem(
-      {@required this.title, @required this.icon, @required this.onClick});
+      {Key key,
+      @required this.title,
+      @required this.icon,
+      @required this.onClick})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BuildHomeButton(
+    return BuildDefaultGradientButton(
       height: 80.0,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -175,9 +204,12 @@ class BuildListCategoryItem extends StatelessWidget {
               fit: BoxFit.fill,
             ),
             minimumHorizontalSpace(),
-            Text(
-              title,
-              style: Theme.of(context).textTheme.headline2,
+            Hero(
+              tag: title,
+              child: Text(
+                title,
+                style: Theme.of(context).textTheme.headline2,
+              ),
             ),
             const Spacer(),
             Text(
@@ -205,11 +237,15 @@ class BuildGridCategoryItem extends StatelessWidget {
   final Function onClick;
 
   const BuildGridCategoryItem(
-      {@required this.title, @required this.icon, @required this.onClick});
+      {Key key,
+      @required this.title,
+      @required this.icon,
+      @required this.onClick})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BuildHomeButton(
+    return BuildDefaultGradientButton(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -251,43 +287,6 @@ class BuildGridCategoryItem extends StatelessWidget {
         ),
       ),
       onClick: onClick,
-    );
-  }
-}
-
-class BuildHomeButton extends StatelessWidget {
-  final double height, width;
-  final Widget child;
-  final Function onClick;
-
-  const BuildHomeButton(
-      {@required this.child,
-      @required this.onClick,
-      this.height = 100.0,
-      this.width = double.infinity});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onClick,
-      child: Container(
-        height: height,
-        width: width,
-        decoration: BoxDecoration(
-          gradient: defaultGradient(),
-          borderRadius: defaultBorderRadius(),
-          border: Border.all(color: whiteColor, width: 1.5),
-          boxShadow: [
-            const BoxShadow(
-              color: Colors.black26,
-              offset: Offset(0.5, 0.5),
-              spreadRadius: 1.5,
-              blurRadius: 4,
-            ),
-          ],
-        ),
-        child: child,
-      ),
     );
   }
 }

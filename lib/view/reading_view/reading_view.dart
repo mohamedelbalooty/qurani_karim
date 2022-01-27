@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
-import 'package:qurany_karim/view/surah_view/surah_view.dart';
 import '../app_components.dart';
-import 'reading_view_components.dart';
+import 'surah_text_view/surah_text_view.dart';
 
 class ReadingView extends StatelessWidget {
+  const ReadingView({Key key}) : super(key: key);
+
   static const String id = 'ReadingView';
 
   @override
@@ -22,13 +23,22 @@ class ReadingView extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         itemCount: 13,
         itemBuilder: (_, index) {
-          return BuildSurahWidgetItem(surahName: 'البقرة', surahNumber: 4.toString(), onClick: (){
-            materialNavigator(context, SurahView(appBarTitle: 'البقرة',));
-          },);
+          return BuildSurahWidgetItem(
+            surahName: 'البقرة',
+            surahNumber: 4.toString(),
+            isListen: false,
+            onClick: () {
+              materialNavigator(
+                context,
+                SurahTextView(
+                  appBarTitle: 'البقرة',
+                ),
+              );
+            },
+          );
         },
         separatorBuilder: (_, index) => minimumVerticalSpace(),
       ),
     );
   }
 }
-

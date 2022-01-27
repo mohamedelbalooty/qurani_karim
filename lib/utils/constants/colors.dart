@@ -5,3 +5,4 @@ const Color secondColor = Color(0xFF4B216A);
 const Color thirdColor = Color(0xFFFF708A);
 const Color whiteColor = Colors.white;
 const Color blackColor = Colors.black;
+const Color transparent = Colors.transparent;

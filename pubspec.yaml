@@ -21,6 +21,8 @@ dependencies:
   flutter_spinkit: ^5.1.0
   toast: ^0.1.5
   localize_and_translate: ^4.1.1
+  dotted_border: ^2.0.0+2
+  share_plus: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -35,6 +37,7 @@ flutter:
     - assets/langs/en.json
     - assets/images/
     - assets/icons/
+    - assets/json_db/
 
 
   fonts:

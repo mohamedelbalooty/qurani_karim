@@ -1,13 +1,22 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 
-class DioHelper{
+class DioHelper {
   static Dio dio;
-  static init(){
-    dio = Dio();
+
+  static init() {
+    dio = Dio(
+      // BaseOptions(baseUrl: baseUrl),
+    );
   }
 
-  static Future<Response> getData({@required String url}) async{
-    return await dio.get(url);
+  static Future<Response> getData(
+      {@required String url, Options options}) async {
+    return await dio.get(url, options: options);
+  }
+
+  static Future<Response> postData(
+      {@required String url, @required Options options, @required data}) async {
+    return await dio.post(url, options: options, data: data);
   }
 }

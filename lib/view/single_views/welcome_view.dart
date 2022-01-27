@@ -5,6 +5,7 @@ import 'package:qurany_karim/view/home_view/home_view.dart';
 import '../app_components.dart';
 
 class WelcomeView extends StatelessWidget {
+  const WelcomeView({Key key}) : super(key: key);
   static const String id = 'WelcomeView';
 
   @override
@@ -58,7 +59,8 @@ class WelcomeView extends StatelessWidget {
                                 'read_question'.tr(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2.copyWith(fontSize: 24.0,height: 1.5),
+                                    .headline2
+                                    .copyWith(fontSize: 24.0, height: 1.5),
                                 textAlign: TextAlign.center,
                               ),
                               minimumVerticalSpace(),
@@ -66,7 +68,8 @@ class WelcomeView extends StatelessWidget {
                                 'read_answer'.tr(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2.copyWith(fontSize: 20.0,height: 1.5),
+                                    .headline2
+                                    .copyWith(fontSize: 20.0, height: 1.5),
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -78,6 +81,7 @@ class WelcomeView extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 60.0),
                           child: BuildDefaultButton(
+                            key,
                             title: 'start_reading'.tr(),
                             onClick: () {
                               replacementNamedNavigator(context, HomeView.id);

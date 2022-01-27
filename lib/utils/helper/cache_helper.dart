@@ -32,6 +32,14 @@ class CacheHelper {
     return sharedPreferences.getString(key);
   }
 
+  static Future<bool> setListData({@required String key, @required List<String> value}){
+    return sharedPreferences.setStringList(key, value);
+  }
+
+  static List<String> getListData({@required String key}) {
+    return sharedPreferences.getStringList(key);
+  }
+
   ///REMOVE FROM SHARED PREFERENCES
   static Future<bool> removeData({@required String key}) async {
     return await sharedPreferences.remove(key);

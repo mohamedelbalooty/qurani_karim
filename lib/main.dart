@@ -3,10 +3,16 @@ import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:qurany_karim/ui_provider/change_font_size.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/view/askar_view/azkar_view.dart';
+import 'package:qurany_karim/view_model/azkar/azkar_view_model.dart';
+import 'ui_provider/tasbih_provider.dart';
 import 'utils/helper/dio_helper.dart';
 import 'view/home_view/home_view.dart';
+
+import 'view/listening_view/listening_view.dart';
 import 'view/reading_view/reading_view.dart';
 import 'view/single_views/welcome_view.dart';
+import 'view/tasbih_view/tasbih_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,16 +35,42 @@ class QuranyKarim extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<ChangeFontSizeProvider>(create: (_) => ChangeFontSizeProvider()),
+        ChangeNotifierProvider<ChangeFontSizeProvider>(
+            create: (_) => ChangeFontSizeProvider()),
+        ChangeNotifierProvider<TasbihProvider>(
+            create: (_) => TasbihProvider()),
+        ChangeNotifierProvider<AzkarViewModel>(
+            create: (_) => AzkarViewModel()),
+        // ChangeNotifierProvider<ChangeFontSizeProvider>(
+        //     create: (_) => ChangeFontSizeProvider()),
+        // ChangeNotifierProvider<ChangeFontSizeProvider>(
+        //     create: (_) => ChangeFontSizeProvider()),
+        // ChangeNotifierProvider<ChangeFontSizeProvider>(
+        //     create: (_) => ChangeFontSizeProvider()),
+        // ChangeNotifierProvider<ChangeFontSizeProvider>(
+        //     create: (_) => ChangeFontSizeProvider()),
+        // ChangeNotifierProvider<ChangeFontSizeProvider>(
+        //     create: (_) => ChangeFontSizeProvider()),
+        // ChangeNotifierProvider<ChangeFontSizeProvider>(
+        //     create: (_) => ChangeFontSizeProvider()),
+        // ChangeNotifierProvider<ChangeFontSizeProvider>(
+        //     create: (_) => ChangeFontSizeProvider()),
+        // ChangeNotifierProvider<ChangeFontSizeProvider>(
+        //     create: (_) => ChangeFontSizeProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: WelcomeView.id,
+        initialRoute: HomeView.id,
         routes: {
           WelcomeView.id: (_) => WelcomeView(),
           HomeView.id: (_) => HomeView(),
           ReadingView.id: (_) => ReadingView(),
-          // SurahView.id: (_) => SurahView(),
+          TasbihView.id: (_) => TasbihView(),
+          ListeningView.id: (_) => ListeningView(),
+          AzkarView.id: (_) => AzkarView(),
+          // ReadingView.id: (_) => ReadingView(),
+          // ReadingView.id: (_) => ReadingView(),
+          // ReadingView.id: (_) => ReadingView(),
           // ReadingView.id: (_) => ReadingView(),
           // ReadingView.id: (_) => ReadingView(),
           // ReadingView.id: (_) => ReadingView(),
@@ -48,6 +80,7 @@ class QuranyKarim extends StatelessWidget {
         supportedLocales: translator.locals(),
         theme: ThemeData(
           primaryColor: mainColor,
+          primarySwatch: Colors.purple,
           fontFamily: 'Tajawal',
           scaffoldBackgroundColor: Colors.grey.shade50,
           appBarTheme: AppBarTheme(
@@ -64,6 +97,7 @@ class QuranyKarim extends StatelessWidget {
               fontSize: 38.0,
               fontWeight: FontWeight.bold,
             ),
+
             ///button
             headline2: const TextStyle(
               color: whiteColor,

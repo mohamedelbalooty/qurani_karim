@@ -3,14 +3,13 @@ import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import '../app_components.dart';
 
-class BuildSurahWidgetItem extends StatelessWidget {
-  final String surahName, surahNumber;
+class BuildAzkarCategoryWidgetItem extends StatelessWidget {
+  final String name;
   final Function onClick;
 
-  const BuildSurahWidgetItem(
-      {@required this.surahName,
-      @required this.surahNumber,
-      @required this.onClick});
+  const BuildAzkarCategoryWidgetItem(
+      {Key key, @required this.name, @required this.onClick})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,28 +33,10 @@ class BuildSurahWidgetItem extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                const Icon(
-                  Icons.brightness_5,
-                  size: 60,
-                  color: whiteColor,
-                ),
-                Text(
-                  surahNumber,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2
-                      .copyWith(fontWeight: FontWeight.bold, height: 1.6),
-                ),
-              ],
-            ),
-            minimumHorizontalSpace(),
             Text(
-              surahName,
+              name,
               style:
-                  Theme.of(context).textTheme.headline2.copyWith(height: 1.6),
+              Theme.of(context).textTheme.headline2.copyWith(height: 1.6),
             ),
             const Spacer(),
             Row(

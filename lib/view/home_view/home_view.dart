@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import '../app_components.dart';
-import 'home_view_components.dart';
+import 'components.dart';
 
 class HomeView extends StatefulWidget {
+  const HomeView({Key key}) : super(key: key);
+
   static const String id = 'HomeView';
 
   @override
