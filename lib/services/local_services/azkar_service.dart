@@ -11,7 +11,7 @@ class AzkarService {
       BuildContext context) async {
     try {
       var response = await DefaultAssetBundle.of(context)
-          .loadString('assets/json_db/azkar_category.json');
+          .loadString('assets/json_db/azkar_book/azkar_category.json');
       List<dynamic> jsonData = jsonDecode(response);
       List<AzkarCategory> categories =
           jsonData.map((e) => AzkarCategory.fromJson(e)).toList();
@@ -25,10 +25,11 @@ class AzkarService {
   }
 
   Future<Either<List<AzkarDetails>, ErrorResult>> getAzkarDetails(
-      BuildContext context) async {
+      BuildContext context,
+      {@required int categoryId}) async {
     try {
       var response = await DefaultAssetBundle.of(context)
-          .loadString('assets/json_db/azkar_category_details.json');
+          .loadString('assets/json_db/azkar_book/azkar_category_details.json');
       List<dynamic> jsonData = jsonDecode(response);
       List<AzkarDetails> details =
           jsonData.map((e) => AzkarDetails.fromJson(e)).toList();

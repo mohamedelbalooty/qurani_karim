@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:qurany_karim/view_model/azkar/azkar_view_model.dart';
 import '../app_components.dart';
 import 'components.dart';
+import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key key}) : super(key: key);
@@ -74,12 +76,16 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'qurany_karim'.tr(),
-          style: const TextStyle(
-            fontSize: 28.0,
-            fontWeight: FontWeight.w500,
-            fontFamily: 'ReemKufi',
+        title: InkWell(
+          onTap: (){          print(Provider.of<AzkarViewModel>(context, listen: false).azkarDetails);
+          },
+          child: Text(
+            'qurany_karim'.tr(),
+            style: const TextStyle(
+              fontSize: 28.0,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'ReemKufi',
+            ),
           ),
         ),
         centerTitle: true,

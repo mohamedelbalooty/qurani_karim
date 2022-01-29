@@ -38,12 +38,12 @@ class AzkarView extends StatelessWidget {
               itemBuilder: (_, index) {
                 return BuildAzkarCategoryWidgetItem(
                   name: provider.categories[index].name,
-                  onClick: () {
+                  onClick: () async {
+                    await provider.getAzkarDetails(context,
+                        categoryId: provider.categories[index].id);
                     materialNavigator(
                       context,
-                      AzkarDetailsView(
-                          id: provider.categories[index].id,
-                          title: provider.categories[index].name),
+                      AzkarDetailsView(title: provider.categories[index].name),
                     );
                   },
                 );
@@ -51,7 +51,9 @@ class AzkarView extends StatelessWidget {
               separatorBuilder: (_, index) => minimumVerticalSpace(),
             );
           } else {
-            return Text('error');
+            return BuildErrorWidget(
+              errorResult: provider.error,
+            );
           }
         },
       ),

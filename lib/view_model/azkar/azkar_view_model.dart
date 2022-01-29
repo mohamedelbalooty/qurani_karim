@@ -17,7 +17,7 @@ class AzkarViewModel extends ChangeNotifier {
 
   List<AzkarCategory> get categories => _categories;
 
-  List<AzkarDetails> _azkarDetails = [];
+  List<AzkarDetails> _azkarDetails;
 
   List<AzkarDetails> get azkarDetails => _azkarDetails;
 
@@ -43,20 +43,29 @@ class AzkarViewModel extends ChangeNotifier {
 
   Future<void> getAzkarDetails(BuildContext context,
       {@required int categoryId}) async {
+    _azkarDetails = [];
     detailsStates = AzkarDetailsStates.Loading;
-    await _service.getAzkarDetails(context).then((value) {
+    notifyListeners();
+    await _service
+        .getAzkarDetails(context, categoryId: categoryId)
+        .then((value) {
       value.fold((left) {
         for (var item in left) {
           if (item.id == categoryId) {
             _azkarDetails.add(item);
-            detailsStates = AzkarDetailsStates.Loaded;
           }
         }
+        detailsStates = AzkarDetailsStates.Loaded;
+        notifyListeners();
       }, (right) {
         _error = right;
         detailsStates = AzkarDetailsStates.Error;
       });
     });
     notifyListeners();
+  }
+
+  void disposeData() {
+    _azkarDetails.clear();
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter/services.dart';
+import 'package:qurany_karim/model/error_result.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:toast/toast.dart';
 
 class BuildSurahWidgetItem extends StatelessWidget {
@@ -311,9 +313,55 @@ class BuildLoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: SpinKitRotatingCircle(
-        size: 50.0,
-        color: mainColor,
+      child: CircularProgressIndicator(),
+    );
+  }
+}
+
+class BuildErrorWidget extends StatelessWidget {
+  final ErrorResult errorResult;
+
+  const BuildErrorWidget({Key key, @required this.errorResult})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        height: 220.0,
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        color: transparent,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              errorResult.errorImage,
+              height: 150.0,
+              width: 150.0,
+              fit: BoxFit.fill,
+            ),
+            Container(
+              // height: 50.0,
+              width: double.infinity,
+              padding: const EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                color: mainColor,
+                borderRadius: defaultBorderRadius(),
+              ),
+              child: Center(
+                child: Text(
+                  errorResult.errorMessage,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -338,8 +386,19 @@ SizedBox mediumHorizontalSpace() => const SizedBox(width: 20);
 
 SizedBox minimumHorizontalSpace() => const SizedBox(width: 10);
 
-void showToast(BuildContext context, {@required String toastValue}){
-  Toast.show(toastValue, context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
+void showToast(BuildContext context, {@required String toastValue}) {
+  Toast.show(toastValue, context,
+      duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+}
+
+Future<void> copyText(BuildContext context, {@required String textValue}) async {
+  await Clipboard.setData(ClipboardData(
+      text: textValue));
+  showToast(context, toastValue: 'copy_text'.tr());
+}
+
+Future<void> shareText({@required String textValue}) async{
+  await Share.share(textValue);
 }
 
 void namedNavigator(BuildContext context, String routeName) =>

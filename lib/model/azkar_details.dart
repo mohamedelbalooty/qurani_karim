@@ -13,7 +13,7 @@ class AzkarDetails {
 
   factory AzkarDetails.fromJson(Map<String, dynamic> json) {
     return AzkarDetails(
-        id: json['id'],
+        id: json['category_id'],
         count: json['count'],
         description: json['description'],
         reference: json['reference'],
