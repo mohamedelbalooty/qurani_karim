@@ -2,11 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/view/ahadith_view/ahadith_view.dart';
 import 'package:qurany_karim/view/askar_view/azkar_view.dart';
 import 'package:qurany_karim/view/listening_view/listening_view.dart';
 import 'package:qurany_karim/view/reading_view/reading_view.dart';
 import 'package:qurany_karim/view/tasbih_view/tasbih_view.dart';
+import 'package:qurany_karim/view_model/ahadith/ahadith_view_model.dart';
 import '../app_components.dart';
+import 'package:provider/provider.dart';
 
 List<BuildGridCategoryItem> portraitGridWidgets(BuildContext context,
     {bool isPortrait}) {
@@ -24,7 +27,12 @@ List<BuildGridCategoryItem> portraitGridWidgets(BuildContext context,
           namedNavigator(context, ListeningView.id);
         }),
     BuildGridCategoryItem(
-        title: 'hades'.tr(), icon: 'assets/icons/prays.png', onClick: () {}),
+        title: 'hades'.tr(),
+        icon: 'assets/icons/prays.png',
+        onClick: () {
+          context.read<AhadithViewModel>().getAhadith(context);
+          namedNavigator(context, AhadithView.id);
+        }),
     BuildGridCategoryItem(
         title: 'azkar'.tr(),
         icon: 'assets/icons/azkar.png',
@@ -50,7 +58,12 @@ List<BuildGridCategoryItem> landScapeGridWidgets(BuildContext context,
           namedNavigator(context, ListeningView.id);
         }),
     BuildGridCategoryItem(
-        title: 'hades'.tr(), icon: 'assets/icons/prays.png', onClick: () {}),
+        title: 'hades'.tr(),
+        icon: 'assets/icons/prays.png',
+        onClick: () {
+          context.read<AhadithViewModel>().getAhadith(context);
+          namedNavigator(context, AhadithView.id);
+        }),
     BuildGridCategoryItem(
         title: 'azkar'.tr(),
         icon: 'assets/icons/azkar.png',
@@ -58,19 +71,29 @@ List<BuildGridCategoryItem> landScapeGridWidgets(BuildContext context,
           namedNavigator(context, AzkarView.id);
         }),
     BuildGridCategoryItem(
+        title: 'asmaa_allah'.tr(),
+        icon: 'assets/icons/asmaa_allah.png',
+        onClick: () {
+          // namedNavigator(context, TasbihView.id);
+        }),
+    BuildGridCategoryItem(
         title: 'tasbeh'.tr(),
         icon: 'assets/icons/tasbih.png',
         onClick: () {
           namedNavigator(context, TasbihView.id);
         }),
-    BuildGridCategoryItem(
-        title: 'kebla'.tr(), icon: 'assets/icons/kaaba.png', onClick: () {}),
   ];
 }
 
 List<BuildListCategoryItem> portraitListWidgets(BuildContext context,
     {bool isPortrait}) {
   return [
+    BuildListCategoryItem(
+        title: 'asmaa_allah'.tr(),
+        icon: 'assets/icons/asmaa_allah.png',
+        onClick: () {
+          // namedNavigator(context, TasbihView.id);
+        }),
     BuildListCategoryItem(
         title: 'tasbeh'.tr(),
         icon: 'assets/icons/tasbih.png',
@@ -91,6 +114,8 @@ List<BuildListCategoryItem> portraitListWidgets(BuildContext context,
 List<BuildListCategoryItem> landScapeListWidgets(BuildContext context,
     {bool isPortrait}) {
   return [
+    BuildListCategoryItem(
+        title: 'kebla'.tr(), icon: 'assets/icons/kaaba.png', onClick: () {}),
     BuildListCategoryItem(
         title: 'times'.tr(),
         icon: 'assets/icons/time-zone.png',

@@ -12,9 +12,9 @@ class HadithService {
       var response = await DefaultAssetBundle.of(context)
           .loadString('assets/json_db/hadith_book/hadith.json');
       List<dynamic> jsonData = jsonDecode(response);
-      List<Hadith> hadithList =
+      List<Hadith> ahadithList =
           jsonData.map((e) => Hadith.fromJson(e)).toList();
-      return Left(hadithList);
+      return Left(ahadithList);
     } catch (exception) {
       ErrorResult error = ErrorResult(
           errorMessage: 'local_exception'.tr(),

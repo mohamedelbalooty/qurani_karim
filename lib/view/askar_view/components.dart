@@ -34,6 +34,13 @@ class BuildAzkarCategoryWidgetItem extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Image.asset(
+              'assets/icons/azkar.png',
+              height: 40.0,
+              width: 40.0,
+              fit: BoxFit.fill,
+            ),
+            minimumHorizontalSpace(),
             Text(
               name,
               style:
@@ -111,14 +118,8 @@ class BuildAzkarDetailsItemWidget extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              BuildDefaultIconButton(
-                icon: Icons.copy,
-                onClick: () => copyText(context, textValue: details.content),
-              ),
-              BuildDefaultIconButton(
-                icon: Icons.share,
-                onClick: () => shareText(textValue: details.content),
-              ),
+              copyButton(context, textValue: details.content),
+              shareButton(textValue: details.content),
             ],
           ),
           Padding(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:qurany_karim/view_model/ahadith/ahadith_view_model.dart';
 import 'package:qurany_karim/view_model/azkar/azkar_view_model.dart';
 import '../app_components.dart';
 import 'components.dart';
@@ -77,7 +78,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         title: InkWell(
-          onTap: (){          print(Provider.of<AzkarViewModel>(context, listen: false).azkarDetails);
+          onTap: (){          print(Provider.of<AhadithViewModel>(context, listen: false).ahadithDisplayed);
           },
           child: Text(
             'qurany_karim'.tr(),

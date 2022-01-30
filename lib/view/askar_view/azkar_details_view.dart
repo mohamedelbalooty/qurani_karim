@@ -39,9 +39,9 @@ class _AzkarDetailsViewState extends State<AzkarDetailsView>
             return BuildLoadingWidget();
           } else if (provider.detailsStates == AzkarDetailsStates.Loaded) {
             return ListView.separated(
-              itemCount: provider.azkarDetails.length,
               padding: const EdgeInsets.all(10.0),
               physics: const BouncingScrollPhysics(),
+              itemCount: provider.azkarDetails.length,
               itemBuilder: (_, index) {
                 return BuildAzkarDetailsItemWidget(details: provider.azkarDetails[index],);
               },

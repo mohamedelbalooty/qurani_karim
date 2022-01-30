@@ -204,54 +204,6 @@ class BuildDefaultIconButton extends StatelessWidget {
   }
 }
 
-// class BuildDefaultCircleButton extends StatelessWidget {
-//   final double radius;
-//   final IconData icon;
-//   final Function onClick;
-//
-//   const BuildDefaultCircleButton(
-//       {Key key,
-//       @required this.icon,
-//       @required this.onClick,
-//       this.radius = 50.0})
-//       : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return InkWell(
-//       onTap: onClick,
-//       splashColor: mainColor.withOpacity(0.3),
-//       highlightColor: mainColor.withOpacity(0.3),
-//       hoverColor: mainColor.withOpacity(0.2),
-//       borderRadius: BorderRadius.circular(20.0),
-//       child: Container(
-//         height: radius,
-//         width: radius,
-//         decoration: BoxDecoration(
-//           gradient: defaultGradient(),
-//           shape: BoxShape.circle,
-//           border: Border.all(color: whiteColor, width: 1.5),
-//           boxShadow: [
-//             const BoxShadow(
-//               color: Colors.black26,
-//               offset: Offset(0.5, 0.5),
-//               spreadRadius: 1.5,
-//               blurRadius: 4,
-//             ),
-//           ],
-//         ),
-//         child: Center(
-//           child: Icon(
-//             icon,
-//             size: 24.0,
-//             color: whiteColor,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class BuildDefaultTextButton extends StatelessWidget {
   final Function onClick;
   final String text;
@@ -283,6 +235,16 @@ class BuildDefaultTextButton extends StatelessWidget {
     );
   }
 }
+
+BuildDefaultIconButton copyButton(BuildContext context, {@required String textValue}) => BuildDefaultIconButton(
+  icon: Icons.copy,
+  onClick: () => copyText(context, textValue: textValue),
+);
+
+BuildDefaultIconButton shareButton({@required String textValue}) => BuildDefaultIconButton(
+  icon: Icons.share,
+  onClick: () => shareText(textValue: textValue),
+);
 
 class GradientText extends StatelessWidget {
   const GradientText(this.text, {this.style, this.textAlign});
@@ -391,13 +353,13 @@ void showToast(BuildContext context, {@required String toastValue}) {
       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
 }
 
-Future<void> copyText(BuildContext context, {@required String textValue}) async {
-  await Clipboard.setData(ClipboardData(
-      text: textValue));
+Future<void> copyText(BuildContext context,
+    {@required String textValue}) async {
+  await Clipboard.setData(ClipboardData(text: textValue));
   showToast(context, toastValue: 'copy_text'.tr());
 }
 
-Future<void> shareText({@required String textValue}) async{
+Future<void> shareText({@required String textValue}) async {
   await Share.share(textValue);
 }
 
