@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
@@ -43,52 +44,54 @@ class _AhadithViewState extends State<AhadithView> with AfterLayoutMixin {
           if (provider.states == AhadithStates.Loading) {
             return BuildLoadingWidget();
           } else if (provider.states == AhadithStates.Loaded) {
-            return SmartRefresher(
-              key: _refreshKey,
-              controller: this._refreshController,
-              enablePullUp: true,
-              physics: BouncingScrollPhysics(),
-              footer: ClassicFooter(
-                loadStyle: LoadStyle.ShowWhenLoading,
-              ),
-              onRefresh: () {
-                provider.onRefresh(context, controller: _refreshController);
-                if (provider.refreshState ==
-                    AhadithOnRefreshState.OnRefreshErrorState) {
-                  showToast(context, toastValue: provider.refreshError);
-                }
-              },
-              onLoading: () {
-                provider.onLoad(context, controller: _refreshController);
-                if (provider.loadState == AhadithOnLoadState.OnLoadErrorState) {
-                  showToast(context, toastValue: provider.refreshError);
-                }
-              },
-              child: ListView.separated(
-                padding: const EdgeInsets.all(10.0),
-                physics: const BouncingScrollPhysics(),
-                itemCount: provider.ahadithDisplayed.length + 1,
-                itemBuilder: (_, index) {
-                  return index == 0
-                      ? BuildSearchWidget(
-                          controller: _controller,
-                          suffixIcon: BuildDefaultIconButton(
-                            icon: _controller.text == ''
-                                ? Icons.search
-                                : Icons.close,
-                            onClick: () {
-                              _controller.clear();
-                              provider.clearSearchTerms();
-                            },
-                          ),
-                          onChanged: (String value) {
-                            provider.searchQuery(value);
-                          },
-                        )
-                      : BuildHadithItemWidget(
-                          hadith: provider.ahadithDisplayed[index - 1]);
+            return FadeInRight(
+              child: SmartRefresher(
+                key: _refreshKey,
+                controller: this._refreshController,
+                enablePullUp: true,
+                physics: BouncingScrollPhysics(),
+                footer: ClassicFooter(
+                  loadStyle: LoadStyle.ShowWhenLoading,
+                ),
+                onRefresh: () {
+                  provider.onRefresh(context, controller: _refreshController);
+                  if (provider.refreshState ==
+                      AhadithOnRefreshState.OnRefreshErrorState) {
+                    showToast(context, toastValue: provider.refreshError);
+                  }
                 },
-                separatorBuilder: (_, index) => minimumVerticalSpace(),
+                onLoading: () {
+                  provider.onLoad(context, controller: _refreshController);
+                  if (provider.loadState == AhadithOnLoadState.OnLoadErrorState) {
+                    showToast(context, toastValue: provider.refreshError);
+                  }
+                },
+                child: ListView.separated(
+                  padding: const EdgeInsets.all(10.0),
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: provider.ahadithDisplayed.length + 1,
+                  itemBuilder: (_, index) {
+                    return index == 0
+                        ? BuildSearchWidget(
+                            controller: _controller,
+                            suffixIcon: BuildDefaultIconButton(
+                              icon: _controller.text == ''
+                                  ? Icons.search
+                                  : Icons.close,
+                              onClick: () {
+                                _controller.clear();
+                                provider.clearSearchTerms();
+                              },
+                            ),
+                            onChanged: (String value) {
+                              provider.searchQuery(value);
+                            },
+                          )
+                        : BuildHadithItemWidget(
+                            hadith: provider.ahadithDisplayed[index - 1]);
+                  },
+                  separatorBuilder: (_, index) => minimumVerticalSpace(),
+                ),
               ),
             );
           } else {

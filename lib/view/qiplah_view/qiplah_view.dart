@@ -34,7 +34,7 @@ class QiplahView extends StatelessWidget {
                 child: Text("Error: ${snapshot.error.toString()}"),
               );
             if (snapshot.data)
-              return Center(child: QiblahCompass());
+              return Center(child: QiblahCompass(),);
             else
               return LocationErrorWidget();
           },

@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -38,17 +39,23 @@ class _AzkarDetailsViewState extends State<AzkarDetailsView>
           if (provider.detailsStates == AzkarDetailsStates.Loading) {
             return BuildLoadingWidget();
           } else if (provider.detailsStates == AzkarDetailsStates.Loaded) {
-            return ListView.separated(
-              padding: const EdgeInsets.all(10.0),
-              physics: const BouncingScrollPhysics(),
-              itemCount: provider.azkarDetails.length,
-              itemBuilder: (_, index) {
-                return BuildAzkarDetailsItemWidget(details: provider.azkarDetails[index],);
-              },
-              separatorBuilder: (_, index) => minimumVerticalSpace(),
+            return ElasticInUp(
+              child: ListView.separated(
+                padding: const EdgeInsets.all(10.0),
+                physics: const BouncingScrollPhysics(),
+                itemCount: provider.azkarDetails.length,
+                itemBuilder: (_, index) {
+                  return BuildAzkarDetailsItemWidget(
+                    details: provider.azkarDetails[index],
+                  );
+                },
+                separatorBuilder: (_, index) => minimumVerticalSpace(),
+              ),
             );
           } else {
-            return BuildErrorWidget(errorResult: provider.error,);
+            return BuildErrorWidget(
+              errorResult: provider.error,
+            );
           }
         },
       ),

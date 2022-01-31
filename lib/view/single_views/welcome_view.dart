@@ -24,7 +24,7 @@ class WelcomeView extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .headline1
-                      .copyWith(color: mainColor),
+                      .copyWith(color: mainColor, fontFamily: 'ReemKufi'),
                 ),
                 minimumVerticalSpace(),
                 Text(

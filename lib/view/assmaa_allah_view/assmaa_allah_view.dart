@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
@@ -47,77 +48,79 @@ class _AssmaaAllahViewState extends State<AssmaaAllahView>
           if (provider.states == AssmaaAllahStates.Loading) {
             return BuildLoadingWidget();
           } else if (provider.states == AssmaaAllahStates.Loaded) {
-            return SmartRefresher(
-              key: _refreshKey,
-              controller: this._refreshController,
-              enablePullUp: true,
-              physics: BouncingScrollPhysics(),
-              footer: ClassicFooter(
-                loadStyle: LoadStyle.ShowWhenLoading,
+            return FadeInRight(
+              child: SmartRefresher(
+                key: _refreshKey,
+                controller: this._refreshController,
+                enablePullUp: true,
+                physics: BouncingScrollPhysics(),
+                footer: ClassicFooter(
+                  loadStyle: LoadStyle.ShowWhenLoading,
+                ),
+                onRefresh: () {
+                  provider.onRefresh(context, controller: _refreshController);
+                  if (provider.refreshState ==
+                      AssmaaAllahOnRefreshState.OnRefreshErrorState) {
+                    showToast(context, toastValue: provider.refreshError);
+                  }
+                },
+                onLoading: () {
+                  provider.onLoad(context, controller: _refreshController);
+                  if (provider.loadState ==
+                      AssmaaAllahOnLoadState.OnLoadErrorState) {
+                    showToast(context, toastValue: provider.refreshError);
+                  }
+                },
+                child: GridView.builder(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    itemCount: provider.assmaaAllah.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: isPortrait ? 3 : 5,
+                      mainAxisSpacing: 5.0,
+                      crossAxisSpacing: 5.0,
+                    ),
+                    itemBuilder: (_, index) {
+                      return InkWell(
+                        onTap: () {
+                          context
+                              .read<ToggleProvider>()
+                              .toggle(index)
+                              .then((value) => showDialog(
+                                    context: context,
+                                    builder: (_) {
+                                      return BuildAlertDialogWidget(
+                                          text: provider
+                                              .assmaaAllah[index].description);
+                                    },
+                                  ));
+                        },
+                        child: context.watch<ToggleProvider>().selectedIndex ==
+                                index
+                            ? Container(
+                                color: whiteColor,
+                                child: Center(
+                                  child: GradientText(
+                                    provider.assmaaAllah[index].name,
+                                    style: Theme.of(context).textTheme.headline2,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                decoration: BoxDecoration(
+                                  gradient: defaultGradient(),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    provider.assmaaAllah[index].name,
+                                    style: Theme.of(context).textTheme.headline2,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                      );
+                    }),
               ),
-              onRefresh: () {
-                provider.onRefresh(context, controller: _refreshController);
-                if (provider.refreshState ==
-                    AssmaaAllahOnRefreshState.OnRefreshErrorState) {
-                  showToast(context, toastValue: provider.refreshError);
-                }
-              },
-              onLoading: () {
-                provider.onLoad(context, controller: _refreshController);
-                if (provider.loadState ==
-                    AssmaaAllahOnLoadState.OnLoadErrorState) {
-                  showToast(context, toastValue: provider.refreshError);
-                }
-              },
-              child: GridView.builder(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                  itemCount: provider.assmaaAllah.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: isPortrait ? 3 : 5,
-                    mainAxisSpacing: 5.0,
-                    crossAxisSpacing: 5.0,
-                  ),
-                  itemBuilder: (_, index) {
-                    return InkWell(
-                      onTap: () {
-                        context
-                            .read<ToggleProvider>()
-                            .toggle(index)
-                            .then((value) => showDialog(
-                                  context: context,
-                                  builder: (_) {
-                                    return BuildAlertDialogWidget(
-                                        text: provider
-                                            .assmaaAllah[index].description);
-                                  },
-                                ));
-                      },
-                      child: context.watch<ToggleProvider>().selectedIndex ==
-                              index
-                          ? Container(
-                              color: whiteColor,
-                              child: Center(
-                                child: GradientText(
-                                  provider.assmaaAllah[index].name,
-                                  style: Theme.of(context).textTheme.headline2,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            )
-                          : Container(
-                              decoration: BoxDecoration(
-                                gradient: defaultGradient(),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  provider.assmaaAllah[index].name,
-                                  style: Theme.of(context).textTheme.headline2,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                    );
-                  }),
             );
           } else {
             return BuildErrorWidget(

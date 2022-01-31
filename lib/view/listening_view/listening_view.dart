@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
@@ -18,46 +19,48 @@ class ListeningView extends StatelessWidget {
           child: Text('listen_moshaf'.tr()),
         ),
       ),
-      body: ListView.separated(
-        padding: const EdgeInsets.all(10.0),
-        physics: const BouncingScrollPhysics(),
-        itemCount: 13,
-        itemBuilder: (_, index) {
-          return BuildDefaultGradientButton(
-            key: key,
-            height: 60.0,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.music_note,
-                    size: 26.0,
-                    color: whiteColor,
-                  ),
-                  Expanded(
-                    child: Text(
-                      'محمد صديق المنشاوي',
-                      style: Theme.of(context).textTheme.headline2,
-                      textAlign: TextAlign.center,
+      body: FadeInRight(
+        child: ListView.separated(
+          padding: const EdgeInsets.all(10.0),
+          physics: const BouncingScrollPhysics(),
+          itemCount: 13,
+          itemBuilder: (_, index) {
+            return BuildDefaultGradientButton(
+              key: key,
+              height: 60.0,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.music_note,
+                      size: 26.0,
+                      color: whiteColor,
                     ),
-                  ),
-                ],
-              ),
-            ),
-            onClick: () {
-              materialNavigator(
-                context,
-                SurahAudioView(
-                  key: key,
-                  id: '',
-                  name: '',
+                    Expanded(
+                      child: Text(
+                        'محمد صديق المنشاوي',
+                        style: Theme.of(context).textTheme.headline2,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
                 ),
-              );
-            },
-          );
-        },
-        separatorBuilder: (_, index) => minimumVerticalSpace(),
+              ),
+              onClick: () {
+                materialNavigator(
+                  context,
+                  SurahAudioView(
+                    key: key,
+                    id: '',
+                    name: '',
+                  ),
+                );
+              },
+            );
+          },
+          separatorBuilder: (_, index) => minimumVerticalSpace(),
+        ),
       ),
     );
   }

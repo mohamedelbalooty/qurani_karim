@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
@@ -31,24 +32,26 @@ class AzkarView extends StatelessWidget {
             return BuildLoadingWidget();
           } else if (provider.categoriesStates ==
               AzkarCategoriesStates.Loaded) {
-            return ListView.separated(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              physics: const BouncingScrollPhysics(),
-              itemCount: provider.categories.length,
-              itemBuilder: (_, index) {
-                return BuildAzkarCategoryWidgetItem(
-                  name: provider.categories[index].name,
-                  onClick: () async {
-                    await provider.getAzkarDetails(context,
-                        categoryId: provider.categories[index].id);
-                    materialNavigator(
-                      context,
-                      AzkarDetailsView(title: provider.categories[index].name),
-                    );
-                  },
-                );
-              },
-              separatorBuilder: (_, index) => minimumVerticalSpace(),
+            return FadeInRight(
+              child: ListView.separated(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                physics: const BouncingScrollPhysics(),
+                itemCount: provider.categories.length,
+                itemBuilder: (_, index) {
+                  return BuildAzkarCategoryWidgetItem(
+                    name: provider.categories[index].name,
+                    onClick: () async {
+                      await provider.getAzkarDetails(context,
+                          categoryId: provider.categories[index].id);
+                      materialNavigator(
+                        context,
+                        AzkarDetailsView(title: provider.categories[index].name),
+                      );
+                    },
+                  );
+                },
+                separatorBuilder: (_, index) => minimumVerticalSpace(),
+              ),
             );
           } else {
             return BuildErrorWidget(

@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
@@ -93,28 +94,30 @@ class QiblahCompassWidget extends StatelessWidget {
 
         final qiblahDirection = snapshot.data;
 
-        return SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Transform.rotate(
-                angle: ((qiblahDirection.qiblah ?? 0) * (pi / 180) * -1),
-                alignment: Alignment.center,
-                child: Image.asset(
-                  'assets/icons/qibla_compass.png',
-                  fit: BoxFit.fill,
-                  height: 250,
-                  width: 250,
+        return FadeInRight(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Transform.rotate(
+                  angle: ((qiblahDirection.qiblah ?? 0) * (pi / 180) * -1),
                   alignment: Alignment.center,
+                  child: Image.asset(
+                    'assets/icons/qibla_compass.png',
+                    fit: BoxFit.fill,
+                    height: 250,
+                    width: 250,
+                    alignment: Alignment.center,
+                  ),
                 ),
-              ),
-              bigVerticalSpace(),
-              Text(
-                "${qiblahDirection.offset.toStringAsFixed(3)}°",
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
-            ],
+                bigVerticalSpace(),
+                Text(
+                  "${qiblahDirection.offset.toStringAsFixed(3)}°",
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ],
+            ),
           ),
         );
       },
