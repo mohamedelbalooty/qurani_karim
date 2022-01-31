@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
-import 'package:qurany_karim/ui_provider/change_font_size.dart';
+import 'package:qurany_karim/ui_provider/change_font_size_provider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import '../../app_components.dart';
 

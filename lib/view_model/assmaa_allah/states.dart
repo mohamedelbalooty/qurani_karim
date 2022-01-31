@@ -1,15 +1,15 @@
-enum AhadithStates{
+enum AssmaaAllahStates{
   Loading,
   Loaded,
   Error
 }
 
-enum AhadithOnRefreshState{
+enum AssmaaAllahOnRefreshState{
   OnRefreshSuccessState,
   OnRefreshErrorState,
 }
 
-enum AhadithOnLoadState{
+enum AssmaaAllahOnLoadState{
   OnLoadSuccessState,
   OnLoadErrorState
 }

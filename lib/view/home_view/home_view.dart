@@ -69,6 +69,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
     //   _controller.stop(canceled: true);
     // });
   }
+
   // ScaleTransition
 
   @override
@@ -77,16 +78,12 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
       appBar: AppBar(
-        title: InkWell(
-          onTap: (){          print(Provider.of<AhadithViewModel>(context, listen: false).ahadithDisplayed);
-          },
-          child: Text(
-            'qurany_karim'.tr(),
-            style: const TextStyle(
-              fontSize: 28.0,
-              fontWeight: FontWeight.w500,
-              fontFamily: 'ReemKufi',
-            ),
+        title: Text(
+          'qurany_karim'.tr(),
+          style: const TextStyle(
+            fontSize: 28.0,
+            fontWeight: FontWeight.w500,
+            fontFamily: 'ReemKufi',
           ),
         ),
         centerTitle: true,
@@ -113,8 +110,10 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                 return Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: isPortrait
-                      ? portraitGridWidgets(context, isPortrait: isPortrait)[index]
-                      : landScapeGridWidgets(context, isPortrait: isPortrait)[index],
+                      ? portraitGridWidgets(context,
+                          isPortrait: isPortrait)[index]
+                      : landScapeGridWidgets(context,
+                          isPortrait: isPortrait)[index],
                 );
               },
             ),
@@ -128,8 +127,10 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                   : landScapeListWidgets(context).length,
               itemBuilder: (_, index) {
                 return isPortrait
-                    ? portraitListWidgets(context, isPortrait: isPortrait)[index]
-                    : landScapeListWidgets(context, isPortrait: isPortrait)[index];
+                    ? portraitListWidgets(context,
+                        isPortrait: isPortrait)[index]
+                    : landScapeListWidgets(context,
+                        isPortrait: isPortrait)[index];
               },
               separatorBuilder: (_, index) => minimumVerticalSpace(),
             )

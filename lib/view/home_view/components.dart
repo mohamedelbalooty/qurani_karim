@@ -4,10 +4,12 @@ import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import 'package:qurany_karim/view/ahadith_view/ahadith_view.dart';
 import 'package:qurany_karim/view/askar_view/azkar_view.dart';
+import 'package:qurany_karim/view/assmaa_allah_view/assmaa_allah_view.dart';
 import 'package:qurany_karim/view/listening_view/listening_view.dart';
 import 'package:qurany_karim/view/reading_view/reading_view.dart';
 import 'package:qurany_karim/view/tasbih_view/tasbih_view.dart';
 import 'package:qurany_karim/view_model/ahadith/ahadith_view_model.dart';
+import 'package:qurany_karim/view_model/assmaa_allah/assmaa_allah_view_model.dart';
 import '../app_components.dart';
 import 'package:provider/provider.dart';
 
@@ -74,7 +76,8 @@ List<BuildGridCategoryItem> landScapeGridWidgets(BuildContext context,
         title: 'asmaa_allah'.tr(),
         icon: 'assets/icons/asmaa_allah.png',
         onClick: () {
-          // namedNavigator(context, TasbihView.id);
+          context.read<AssmaaAllahViewModel>().getAssmaaAllahAlhosna(context);
+          namedNavigator(context, AssmaaAllahView.id);
         }),
     BuildGridCategoryItem(
         title: 'tasbeh'.tr(),
@@ -92,7 +95,8 @@ List<BuildListCategoryItem> portraitListWidgets(BuildContext context,
         title: 'asmaa_allah'.tr(),
         icon: 'assets/icons/asmaa_allah.png',
         onClick: () {
-          // namedNavigator(context, TasbihView.id);
+          context.read<AssmaaAllahViewModel>().getAssmaaAllahAlhosna(context);
+          namedNavigator(context, AssmaaAllahView.id);
         }),
     BuildListCategoryItem(
         title: 'tasbeh'.tr(),

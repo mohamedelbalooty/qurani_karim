@@ -3,11 +3,13 @@ import 'package:flutter/physics.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:qurany_karim/ui_provider/change_font_size.dart';
+import 'package:qurany_karim/ui_provider/change_font_size_provider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import 'package:qurany_karim/view/askar_view/azkar_view.dart';
+import 'package:qurany_karim/view/assmaa_allah_view/assmaa_allah_view.dart';
 import 'package:qurany_karim/view_model/azkar/azkar_view_model.dart';
 import 'ui_provider/tasbih_provider.dart';
+import 'ui_provider/toggle_provider.dart';
 import 'utils/helper/dio_helper.dart';
 import 'view/ahadith_view/ahadith_view.dart';
 import 'view/home_view/home_view.dart';
@@ -17,6 +19,7 @@ import 'view/reading_view/reading_view.dart';
 import 'view/single_views/welcome_view.dart';
 import 'view/tasbih_view/tasbih_view.dart';
 import 'view_model/ahadith/ahadith_view_model.dart';
+import 'view_model/assmaa_allah/assmaa_allah_view_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,10 +50,10 @@ class QuranyKarim extends StatelessWidget {
             create: (_) => AzkarViewModel()),
         ChangeNotifierProvider<AhadithViewModel>(
             create: (_) => AhadithViewModel()),
-        // ChangeNotifierProvider<ChangeFontSizeProvider>(
-        //     create: (_) => ChangeFontSizeProvider()),
-        // ChangeNotifierProvider<ChangeFontSizeProvider>(
-        //     create: (_) => ChangeFontSizeProvider()),
+        ChangeNotifierProvider<AssmaaAllahViewModel>(
+            create: (_) => AssmaaAllahViewModel()),
+        ChangeNotifierProvider<ToggleProvider>(
+            create: (_) => ToggleProvider()),
         // ChangeNotifierProvider<ChangeFontSizeProvider>(
         //     create: (_) => ChangeFontSizeProvider()),
         // ChangeNotifierProvider<ChangeFontSizeProvider>(
@@ -84,7 +87,7 @@ class QuranyKarim extends StatelessWidget {
             ListeningView.id: (_) => ListeningView(),
             AzkarView.id: (_) => AzkarView(),
             AhadithView.id: (_) => AhadithView(),
-            // ReadingView.id: (_) => ReadingView(),
+            AssmaaAllahView.id: (_) => AssmaaAllahView(),
             // ReadingView.id: (_) => ReadingView(),
             // ReadingView.id: (_) => ReadingView(),
             // ReadingView.id: (_) => ReadingView(),

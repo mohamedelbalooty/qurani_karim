@@ -38,6 +38,7 @@ flutter:
     - assets/langs/en.json
     - assets/images/
     - assets/icons/
+    - assets/json_db/
     - assets/json_db/azkar_book/
     - assets/json_db/hadith_book/
 

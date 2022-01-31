@@ -8,8 +8,8 @@ import 'package:qurany_karim/view_model/ahadith/states.dart';
 
 class AhadithViewModel extends ChangeNotifier {
   AhadithStates states;
-  OnRefreshState refreshState;
-  OnLoadState loadState;
+  AhadithOnRefreshState refreshState;
+  AhadithOnLoadState loadState;
 
   List<Hadith> _ahadith;
 
@@ -36,7 +36,7 @@ class AhadithViewModel extends ChangeNotifier {
     notifyListeners();
     await _service.getAhadith(context).then((value) {
       value.fold((left) {
-        _ahadith = left.take(10).toList();
+        _ahadith = left.getRange(0, 11).toList();
         _ahadithDisplayed = _ahadith;
         states = AhadithStates.Loaded;
       }, (right) {
@@ -55,19 +55,20 @@ class AhadithViewModel extends ChangeNotifier {
         value.fold((left) {
           _ahadith.clear();
           page = 1;
-          _ahadith = left.take(10).toList();
+          _ahadith = left.getRange(0, 11).toList();
           _ahadithDisplayed = _ahadith;
           controller.refreshCompleted();
-          refreshState = OnRefreshState.OnRefreshSuccessState;
+          refreshState = AhadithOnRefreshState.OnRefreshSuccessState;
         }, (right) {
           _error = right;
           controller.refreshFailed();
-          refreshState = OnRefreshState.OnRefreshErrorState;
+          refreshState = AhadithOnRefreshState.OnRefreshErrorState;
         });
       });
     } catch (exception) {
       _refreshError = 'error'.tr();
       controller.refreshFailed();
+      refreshState = AhadithOnRefreshState.OnRefreshErrorState;
     }
     notifyListeners();
   }
@@ -78,35 +79,35 @@ class AhadithViewModel extends ChangeNotifier {
       try {
         await _service.getAhadith(context).then((value) {
           value.fold((left) async {
-            _ahadith.clear();
-            _ahadith = left
-                .take(page == 2
-                    ? 20
-                    : page == 3
-                        ? 30
-                        : page == 4
-                            ? 40
-                            : 48)
-                .toList();
+            _ahadith.addAll(page == 2 ? left.getRange(11, 21).toList() : page == 3 ? left.getRange(21, 31).toList() : page == 4 ? left.getRange(31, 41).toList() : left.getRange(41, 48).toList());
+            // _ahadith = left
+            //     .take(page == 2
+            //         ? 20
+            //         : page == 3
+            //             ? 30
+            //             : page == 4
+            //                 ? 40
+            //                 : 48)
+            //     .toList();
             _ahadithDisplayed = _ahadith;
             await Future.delayed(Duration(seconds: 2));
             controller.loadComplete();
-            loadState = OnLoadState.OnLoadSuccessState;
+            loadState = AhadithOnLoadState.OnLoadSuccessState;
           }, (right) {
             controller.loadFailed();
             _refreshError = 'error'.tr();
-            loadState = OnLoadState.OnLoadErrorState;
+            loadState = AhadithOnLoadState.OnLoadErrorState;
           });
         });
       } catch (onLoadException) {
-        controller.loadFailed();
         _refreshError = 'error'.tr();
-        loadState = OnLoadState.OnLoadErrorState;
+        controller.loadFailed();
+        loadState = AhadithOnLoadState.OnLoadErrorState;
       }
     } else {
-      controller.loadFailed();
       _refreshError = 'load_error'.tr();
-      loadState = OnLoadState.OnLoadErrorState;
+      controller.loadFailed();
+      loadState = AhadithOnLoadState.OnLoadErrorState;
     }
     notifyListeners();
   }
