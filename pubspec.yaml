@@ -23,6 +23,8 @@ dependencies:
   toast: ^0.1.5
   localize_and_translate: ^4.1.1
   share_plus: ^3.0.0
+  flutter_qiblah: ^2.0.2
+  geolocator: ^7.0.1
 #  flutter_lints: ^1.0.4
 
 dev_dependencies:

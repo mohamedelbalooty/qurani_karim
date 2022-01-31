@@ -15,6 +15,7 @@ import 'view/ahadith_view/ahadith_view.dart';
 import 'view/home_view/home_view.dart';
 
 import 'view/listening_view/listening_view.dart';
+import 'view/qiplah_view/qiplah_view.dart';
 import 'view/reading_view/reading_view.dart';
 import 'view/single_views/welcome_view.dart';
 import 'view/tasbih_view/tasbih_view.dart';
@@ -88,7 +89,7 @@ class QuranyKarim extends StatelessWidget {
             AzkarView.id: (_) => AzkarView(),
             AhadithView.id: (_) => AhadithView(),
             AssmaaAllahView.id: (_) => AssmaaAllahView(),
-            // ReadingView.id: (_) => ReadingView(),
+            QiplahView.id: (_) => QiplahView(),
             // ReadingView.id: (_) => ReadingView(),
             // ReadingView.id: (_) => ReadingView(),
             // ReadingView.id: (_) => ReadingView(),

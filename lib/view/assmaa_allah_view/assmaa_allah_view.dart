@@ -73,7 +73,7 @@ class _AssmaaAllahViewState extends State<AssmaaAllahView>
                   padding: EdgeInsets.symmetric(vertical: 10.0),
                   itemCount: provider.assmaaAllah.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: isPortrait ? 3 : 4,
+                    crossAxisCount: isPortrait ? 3 : 5,
                     mainAxisSpacing: 5.0,
                     crossAxisSpacing: 5.0,
                   ),
