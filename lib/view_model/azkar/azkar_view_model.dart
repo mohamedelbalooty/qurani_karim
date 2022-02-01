@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qurany_karim/model/azkar_category.dart';
 import 'package:qurany_karim/model/azkar_details.dart';
 import 'package:qurany_karim/model/error_result.dart';
-import 'package:qurany_karim/services/local_services/azkar_service.dart';
+import 'package:qurany_karim/repositories/azkar/local_service.dart';
 import 'states.dart';
 
 class AzkarViewModel extends ChangeNotifier {
@@ -25,11 +25,11 @@ class AzkarViewModel extends ChangeNotifier {
 
   ErrorResult get error => _error;
 
-  AzkarService _service = AzkarService();
+  AzkarLocalService _service = AzkarLocalService();
 
   Future<void> getCategories(BuildContext context) async {
     categoriesStates = AzkarCategoriesStates.Loading;
-    await _service.getCategories(context).then((value) {
+    await _service.getCategories(context: context).then((value) {
       value.fold((left) {
         _categories = left;
         categoriesStates = AzkarCategoriesStates.Loaded;
@@ -47,7 +47,7 @@ class AzkarViewModel extends ChangeNotifier {
     detailsStates = AzkarDetailsStates.Loading;
     notifyListeners();
     await _service
-        .getAzkarDetails(context, categoryId: categoryId)
+        .getAzkarDetails(context: context, categoryId: categoryId)
         .then((value) {
       value.fold((left) {
         for (var item in left) {

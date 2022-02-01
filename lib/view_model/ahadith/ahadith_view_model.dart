@@ -3,7 +3,7 @@ import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:qurany_karim/model/error_result.dart';
 import 'package:qurany_karim/model/hadith.dart';
-import 'package:qurany_karim/services/local_services/hadith_service.dart';
+import 'package:qurany_karim/repositories/ahadith/local_service.dart';
 import 'package:qurany_karim/view_model/ahadith/states.dart';
 
 class AhadithViewModel extends ChangeNotifier {
@@ -29,12 +29,12 @@ class AhadithViewModel extends ChangeNotifier {
 
   int page = 1;
 
-  HadithService _service = HadithService();
+  AhadithService _service = AhadithService();
 
   Future<void> getAhadith(BuildContext context) async {
     states = AhadithStates.Loading;
     notifyListeners();
-    await _service.getAhadith(context).then((value) {
+    await _service.getAhadith(context: context).then((value) {
       value.fold((left) {
         _ahadith = left.getRange(0, 11).toList();
         _ahadithDisplayed = _ahadith;
@@ -51,7 +51,7 @@ class AhadithViewModel extends ChangeNotifier {
       {@required RefreshController controller}) async {
     await Future.delayed(Duration(seconds: 2));
     try {
-      await _service.getAhadith(context).then((value) {
+      await _service.getAhadith(context: context).then((value) {
         value.fold((left) {
           _ahadith.clear();
           page = 1;
@@ -72,23 +72,21 @@ class AhadithViewModel extends ChangeNotifier {
     }
     notifyListeners();
   }
+
   Future<void> onLoad(BuildContext context,
       {@required RefreshController controller}) async {
     if (page >= 1 && page < 5) {
       page += 1;
       try {
-        await _service.getAhadith(context).then((value) {
+        await _service.getAhadith(context: context).then((value) {
           value.fold((left) async {
-            _ahadith.addAll(page == 2 ? left.getRange(11, 21).toList() : page == 3 ? left.getRange(21, 31).toList() : page == 4 ? left.getRange(31, 41).toList() : left.getRange(41, 48).toList());
-            // _ahadith = left
-            //     .take(page == 2
-            //         ? 20
-            //         : page == 3
-            //             ? 30
-            //             : page == 4
-            //                 ? 40
-            //                 : 48)
-            //     .toList();
+            _ahadith.addAll(page == 2
+                ? left.getRange(11, 21).toList()
+                : page == 3
+                    ? left.getRange(21, 31).toList()
+                    : page == 4
+                        ? left.getRange(31, 41).toList()
+                        : left.getRange(41, 48).toList());
             _ahadithDisplayed = _ahadith;
             await Future.delayed(Duration(seconds: 2));
             controller.loadComplete();
@@ -112,7 +110,7 @@ class AhadithViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void searchQuery(String searchKey){
+  void searchQuery(String searchKey) {
     searchKey = searchKey.toLowerCase();
     _ahadithDisplayed = _ahadith.where((element) {
       var searchTerm = element.searchTerm.toLowerCase();
@@ -121,7 +119,7 @@ class AhadithViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void clearSearchTerms(){
+  void clearSearchTerms() {
     _ahadithDisplayed = _ahadith;
     notifyListeners();
   }

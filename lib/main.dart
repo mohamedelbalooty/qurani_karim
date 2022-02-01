@@ -79,7 +79,7 @@ class QuranyKarim extends StatelessWidget {
         enableBallisticLoad: true,
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: WelcomeView.id,
+          initialRoute: HomeView.id,
           routes: {
             WelcomeView.id: (_) => WelcomeView(),
             HomeView.id: (_) => HomeView(),

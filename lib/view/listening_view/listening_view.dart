@@ -14,10 +14,7 @@ class ListeningView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        title: Hero(
-          tag: 'listen_moshaf'.tr(),
-          child: Text('listen_moshaf'.tr()),
-        ),
+        title: Text('listen_moshaf'.tr()),
       ),
       body: FadeInRight(
         child: ListView.separated(

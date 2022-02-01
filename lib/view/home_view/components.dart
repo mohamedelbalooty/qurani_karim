@@ -106,7 +106,11 @@ List<BuildListCategoryItem> portraitListWidgets(BuildContext context,
           namedNavigator(context, TasbihView.id);
         }),
     BuildListCategoryItem(
-        title: 'kebla'.tr(), icon: 'assets/icons/kaaba.png', onClick: () {namedNavigator(context, QiplahView.id);}),
+        title: 'kebla'.tr(),
+        icon: 'assets/icons/kaaba.png',
+        onClick: () {
+          namedNavigator(context, QiplahView.id);
+        }),
     BuildListCategoryItem(
         title: 'times'.tr(),
         icon: 'assets/icons/time-zone.png',
@@ -120,7 +124,11 @@ List<BuildListCategoryItem> landScapeListWidgets(BuildContext context,
     {bool isPortrait}) {
   return [
     BuildListCategoryItem(
-        title: 'kebla'.tr(), icon: 'assets/icons/kaaba.png', onClick: () {}),
+        title: 'kebla'.tr(),
+        icon: 'assets/icons/kaaba.png',
+        onClick: () {
+          namedNavigator(context, QiplahView.id);
+        }),
     BuildListCategoryItem(
         title: 'times'.tr(),
         icon: 'assets/icons/time-zone.png',
@@ -234,12 +242,9 @@ class BuildListCategoryItem extends StatelessWidget {
               fit: BoxFit.fill,
             ),
             minimumHorizontalSpace(),
-            Hero(
-              tag: title,
-              child: Text(
-                title,
-                style: Theme.of(context).textTheme.headline2,
-              ),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.headline2,
             ),
             const Spacer(),
             Text(

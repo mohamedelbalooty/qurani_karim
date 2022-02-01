@@ -19,10 +19,7 @@ class QiplahView extends StatelessWidget {
         backgroundColor: transparent,
         appBar: AppBar(
           automaticallyImplyLeading: true,
-          title: Hero(
-            tag: 'kebla'.tr(),
-            child: Text('kebla'.tr()),
-          ),
+          title: Text('kebla'.tr()),
         ),
         body: FutureBuilder(
           future: _deviceSupport,

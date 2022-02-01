@@ -3,7 +3,7 @@ import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:qurany_karim/model/assmaa_allah.dart';
 import 'package:qurany_karim/model/error_result.dart';
-import 'package:qurany_karim/services/local_services/assmaa_allah_service.dart';
+import 'package:qurany_karim/repositories/assmaa_allah/local_service.dart';
 import 'states.dart';
 
 class AssmaaAllahViewModel extends ChangeNotifier {
@@ -25,12 +25,12 @@ class AssmaaAllahViewModel extends ChangeNotifier {
 
   int page = 1;
 
-  AssmaaAllahService _service = AssmaaAllahService();
+  AssmaaAllahLocalService _service = AssmaaAllahLocalService();
 
   Future<void> getAssmaaAllahAlhosna(BuildContext context) async {
     states = AssmaaAllahStates.Loading;
     notifyListeners();
-    await _service.getAssmaaAllahAlhosna(context).then((value) {
+    await _service.getAssmaaAllahAlhosna(context: context).then((value) {
       value.fold((left) {
         _assmaaAllah = left.getRange(0, 21).toList();
         states = AssmaaAllahStates.Loaded;
@@ -46,7 +46,7 @@ class AssmaaAllahViewModel extends ChangeNotifier {
       {@required RefreshController controller}) async {
     await Future.delayed(Duration(seconds: 2));
     try {
-      await _service.getAssmaaAllahAlhosna(context).then((value) {
+      await _service.getAssmaaAllahAlhosna(context: context).then((value) {
         value.fold((left) {
           _assmaaAllah.clear();
           page = 1;
@@ -72,7 +72,7 @@ class AssmaaAllahViewModel extends ChangeNotifier {
     if (page >= 1 && page < 5) {
       page += 1;
       try {
-        await _service.getAssmaaAllahAlhosna(context).then((value) {
+        await _service.getAssmaaAllahAlhosna(context: context).then((value) {
           value.fold((left) async {
             _assmaaAllah.addAll(page == 2
                 ? left.getRange(21, 41).toList()

@@ -5,16 +5,18 @@ import 'dart:convert';
 import 'package:qurany_karim/model/azkar_category.dart';
 import 'package:qurany_karim/model/azkar_details.dart';
 import 'package:qurany_karim/model/error_result.dart';
+import 'package:qurany_karim/repositories/azkar/repository.dart';
 
-class AzkarService {
+class AzkarLocalService extends AzkarRepository {
+  @override
   Future<Either<List<AzkarCategory>, ErrorResult>> getCategories(
-      BuildContext context) async {
+      {@required BuildContext context}) async {
     try {
       var response = await DefaultAssetBundle.of(context)
           .loadString('assets/json_db/azkar_book/azkar_category.json');
       List<dynamic> jsonData = jsonDecode(response);
       List<AzkarCategory> categories =
-          jsonData.map((e) => AzkarCategory.fromJson(e)).toList();
+      jsonData.map((e) => AzkarCategory.fromJson(e)).toList();
       return Left(categories);
     } catch (exception) {
       ErrorResult error = ErrorResult(
@@ -24,15 +26,15 @@ class AzkarService {
     }
   }
 
+  @override
   Future<Either<List<AzkarDetails>, ErrorResult>> getAzkarDetails(
-      BuildContext context,
-      {@required int categoryId}) async {
+      {@required BuildContext context, @required int categoryId}) async {
     try {
       var response = await DefaultAssetBundle.of(context)
           .loadString('assets/json_db/azkar_book/azkar_category_details.json');
       List<dynamic> jsonData = jsonDecode(response);
       List<AzkarDetails> details =
-          jsonData.map((e) => AzkarDetails.fromJson(e)).toList();
+      jsonData.map((e) => AzkarDetails.fromJson(e)).toList();
       return Left(details);
     } catch (exception) {
       ErrorResult error = ErrorResult(

@@ -15,10 +15,7 @@ class TasbihView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        title: Hero(
-          tag: 'tasbeh'.tr(),
-          child: Text('tasbeh'.tr()),
-        ),
+        title: Text('tasbeh'.tr()),
       ),
       body: Consumer<TasbihProvider>(
         builder: (context, provider, child) {

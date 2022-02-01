@@ -17,10 +17,7 @@ class AzkarView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        title: Hero(
-          tag: 'azkar'.tr(),
-          child: Text('azkar'.tr()),
-        ),
+        title: Text('azkar'.tr()),
       ),
       body: Consumer<AzkarViewModel>(
         builder: (context, provider, child) {

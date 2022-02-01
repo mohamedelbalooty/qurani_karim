@@ -14,10 +14,7 @@ class ReadingView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        title: Hero(
-          tag: 'read_moshaf'.tr(),
-          child: Text('read_moshaf'.tr()),
-        ),
+        title: Text('read_moshaf'.tr()),
       ),
       body: FadeInRight(
         child: ListView.separated(

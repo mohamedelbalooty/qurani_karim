@@ -34,10 +34,7 @@ class _AhadithViewState extends State<AhadithView> with AfterLayoutMixin {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        title: Hero(
-          tag: 'hades'.tr(),
-          child: Text('hades'.tr()),
-        ),
+        title: Text('hades'.tr()),
       ),
       body: Consumer<AhadithViewModel>(
         builder: (context, provider, child) {

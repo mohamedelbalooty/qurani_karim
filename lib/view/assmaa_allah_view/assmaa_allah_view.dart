@@ -38,10 +38,7 @@ class _AssmaaAllahViewState extends State<AssmaaAllahView>
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        title: Hero(
-          tag: 'asmaa_allah'.tr(),
-          child: Text('asmaa_allah'.tr()),
-        ),
+        title: Text('asmaa_allah'.tr()),
       ),
       body: Consumer<AssmaaAllahViewModel>(
         builder: (context, provider, child) {
