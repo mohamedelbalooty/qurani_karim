@@ -8,6 +8,7 @@ import 'package:qurany_karim/utils/constants/colors.dart';
 import 'package:qurany_karim/view/askar_view/azkar_view.dart';
 import 'package:qurany_karim/view/assmaa_allah_view/assmaa_allah_view.dart';
 import 'package:qurany_karim/view_model/azkar/azkar_view_model.dart';
+import 'package:qurany_karim/view_model/quran/quran_view_model.dart';
 import 'ui_provider/tasbih_provider.dart';
 import 'ui_provider/toggle_provider.dart';
 import 'utils/helper/dio_helper.dart';
@@ -55,8 +56,8 @@ class QuranyKarim extends StatelessWidget {
             create: (_) => AssmaaAllahViewModel()),
         ChangeNotifierProvider<ToggleProvider>(
             create: (_) => ToggleProvider()),
-        // ChangeNotifierProvider<ChangeFontSizeProvider>(
-        //     create: (_) => ChangeFontSizeProvider()),
+        ChangeNotifierProvider<QuranViewModel>(
+            create: (_) => QuranViewModel()),
         // ChangeNotifierProvider<ChangeFontSizeProvider>(
         //     create: (_) => ChangeFontSizeProvider()),
         // ChangeNotifierProvider<ChangeFontSizeProvider>(
@@ -79,7 +80,7 @@ class QuranyKarim extends StatelessWidget {
         enableBallisticLoad: true,
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: HomeView.id,
+          initialRoute: WelcomeView.id,
           routes: {
             WelcomeView.id: (_) => WelcomeView(),
             HomeView.id: (_) => HomeView(),

@@ -102,8 +102,8 @@ class BuildDefaultButton extends StatelessWidget {
   final String title;
   final Function onClick;
 
-  const BuildDefaultButton(Key key,
-      {@required this.title,
+  const BuildDefaultButton(
+      {Key key, @required this.title,
       @required this.onClick,
       this.height = 50.0,
       this.width = double.infinity,

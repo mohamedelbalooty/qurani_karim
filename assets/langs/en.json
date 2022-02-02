@@ -32,5 +32,6 @@
   "cancel": "en",
   "retry": "en",
   "enable_location": "en",
-  "location_denied": "en"
+  "location_denied": "en",
+  "fetch_data": "en"
 }

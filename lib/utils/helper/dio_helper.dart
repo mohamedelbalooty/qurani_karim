@@ -6,7 +6,7 @@ class DioHelper {
 
   static init() {
     dio = Dio(
-      // BaseOptions(baseUrl: baseUrl),
+      BaseOptions(baseUrl: 'http://api.alquran.cloud/v1/'),
     );
   }
 

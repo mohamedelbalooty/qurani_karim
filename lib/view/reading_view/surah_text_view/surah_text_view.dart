@@ -2,28 +2,35 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
+import 'package:qurany_karim/model/surah.dart';
 import 'package:qurany_karim/ui_provider/change_font_size_provider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import '../../app_components.dart';
 
 class SurahTextView extends StatelessWidget {
-  final String appBarTitle;
+  final Surah surah;
 
-  const SurahTextView({Key key, @required this.appBarTitle}) : super(key: key);
+  const SurahTextView({Key key, @required this.surah}) : super(key: key);
 
+
+  // https://api.flutter.dev/flutter/widgets/RichText-class.html
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildDefaultAppBar(title: 'البقرة'),
+      appBar: buildDefaultAppBar(title: surah.name),
       body: ElasticInUp(
-        child: ListView(
+        child: ListView.builder(
           padding: const EdgeInsets.all(10.0),
-          children: [
-            Consumer<ChangeFontSizeProvider>(
+          itemCount: surah.ayahs.length + 2,
+          itemBuilder: (_, index) {
+            return index == 0
+                ?  Consumer<ChangeFontSizeProvider>(
               builder: (context, provider, child) {
                 return Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment:
+                  CrossAxisAlignment.center,
+                  mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween,
                   children: [
                     BuildDefaultGradientButton(
                       height: 40.0,
@@ -33,7 +40,9 @@ class SurahTextView extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText2
-                                .copyWith(fontWeight: FontWeight.bold)),
+                                .copyWith(
+                                fontWeight:
+                                FontWeight.bold)),
                       ),
                       onClick: () {
                         provider.increaseFontSize();
@@ -47,7 +56,9 @@ class SurahTextView extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText2
-                                .copyWith(fontWeight: FontWeight.bold)),
+                                .copyWith(
+                                fontWeight:
+                                FontWeight.bold)),
                       ),
                       onClick: () {
                         provider.decreaseFontSize();
@@ -56,30 +67,33 @@ class SurahTextView extends StatelessWidget {
                   ],
                 );
               },
-            ),
-            bigVerticalSpace(),
-            Align(
-              alignment: Alignment.center,
+            )
+                : index == 1
+                    ? Padding(
+              padding:
+              const EdgeInsets.only(top: 30.0, bottom: 15.0),
               child: GradientText(
                 'besm_allah'.tr(),
-                style: Theme.of(context).textTheme.headline2.copyWith(
-                      color: mainColor,
-                    ),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline2
+                    .copyWith(
+                  color: mainColor,
+                ),
                 textAlign: TextAlign.center,
               ),
-            ),
-            minimumVerticalSpace(),
-            GradientText(
-              "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ (1)الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ (2) الرَّحْمَنِ الرَّحِيمِ (3) مَالِكِ يَوْمِ الدِّينِ (4) إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ (5) اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ (6) صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ (7)",
-              style: TextStyle(
-                  fontSize: (context.select<ChangeFontSizeProvider, int>(
-                      (value) => value.fontSize)).toDouble(),
-                  color: mainColor,
-                  fontWeight: FontWeight.bold,
-                  height: 2.0),
-              textAlign: TextAlign.center,
-            ),
-          ],
+            )
+                    : GradientText(
+                        '${surah.ayahs[index - 3].text}(${surah.ayahs[index - 3].numberInSurah})',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: mainColor,
+                          fontWeight: FontWeight.bold,
+                          height: 2.0,
+                        ),
+                        textAlign: TextAlign.center,
+                      );
+          },
         ),
       ),
     );
