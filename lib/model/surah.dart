@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'ayah.dart';
+part 'surah.g.dart';
 
-class Surah {
+@HiveType(typeId: 0)
+class Surah extends HiveObject {
   Surah({
     @required this.number,
     @required this.name,
@@ -9,34 +12,20 @@ class Surah {
     @required this.ayahs,
   });
 
+  @HiveField(0)
   final int number;
+  @HiveField(1)
   final String name;
-  final RevelationType revelationType;
+  @HiveField(2)
+  final String revelationType;
+  @HiveField(3)
   final List<Ayah> ayahs;
 
   factory Surah.fromJson(Map<String, dynamic> json) => Surah(
         number: json["number"],
         name: json["name"],
-        revelationType: revelationTypeValues.map[json["revelationType"]],
+        revelationType: json["revelationType"],
         ayahs: List<Ayah>.from(json["ayahs"].map((x) => Ayah.fromJson(x))),
       );
 }
 
-enum RevelationType { MECCAN, MEDINAN }
-
-final revelationTypeValues = EnumValues(
-    {"Meccan": RevelationType.MECCAN, "Medinan": RevelationType.MEDINAN});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
-    return reverseMap;
-  }
-}

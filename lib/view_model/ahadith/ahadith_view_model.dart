@@ -29,7 +29,7 @@ class AhadithViewModel extends ChangeNotifier {
 
   int page = 1;
 
-  AhadithService _service = AhadithService();
+  AhadithLocalService _service = AhadithLocalService();
 
   Future<void> getAhadith(BuildContext context) async {
     states = AhadithStates.Loading;

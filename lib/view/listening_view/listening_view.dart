@@ -1,13 +1,38 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:provider/provider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/view_model/elders/elders_view_model.dart';
+import 'package:qurany_karim/view_model/elders/states.dart';
+import 'package:qurany_karim/view_model/quran/quran_view_model.dart';
 import '../app_components.dart';
 import 'surah_audio_view/surah_audio_view.dart';
 
-class ListeningView extends StatelessWidget {
+class ListeningView extends StatefulWidget {
   const ListeningView({Key key}) : super(key: key);
   static const String id = 'ListeningView';
+
+  @override
+  _ListeningViewState createState() => _ListeningViewState();
+}
+
+class _ListeningViewState extends State<ListeningView> with AfterLayoutMixin {
+  QuranViewModel _quranViewModel;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<QuranViewModel>().getLocalData();
+    });
+    super.initState();
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    _quranViewModel = Provider.of<QuranViewModel>(context, listen: false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,49 +41,66 @@ class ListeningView extends StatelessWidget {
         automaticallyImplyLeading: true,
         title: Text('listen_moshaf'.tr()),
       ),
-      body: FadeInRight(
-        child: ListView.separated(
-          padding: const EdgeInsets.all(10.0),
-          physics: const BouncingScrollPhysics(),
-          itemCount: 13,
-          itemBuilder: (_, index) {
-            return BuildDefaultGradientButton(
-              key: key,
-              height: 60.0,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.music_note,
-                      size: 26.0,
-                      color: whiteColor,
-                    ),
-                    Expanded(
-                      child: Text(
-                        'محمد صديق المنشاوي',
-                        style: Theme.of(context).textTheme.headline2,
-                        textAlign: TextAlign.center,
+      body: Consumer<EldersViewModel>(
+        builder: (context, provider, child) {
+          if (provider.states == EldersStates.Initial) {
+            provider.getElders(context);
+            return BuildLoadingWidget();
+          } else if (provider.states == EldersStates.Loading) {
+            return BuildLoadingWidget();
+          } else if (provider.states == EldersStates.Loaded) {
+            return FadeInRight(
+              child: ListView.separated(
+                padding: const EdgeInsets.all(10.0),
+                physics: const BouncingScrollPhysics(),
+                itemCount: provider.elders.length,
+                itemBuilder: (_, index) {
+                  return BuildDefaultGradientButton(
+                    height: 60.0,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.music_note,
+                            size: 26.0,
+                            color: whiteColor,
+                          ),
+                          minimumHorizontalSpace(),
+                          Text(
+                            provider.elders[index].name,
+                            style: Theme.of(context).textTheme.headline2,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                    onClick: () {
+                      materialNavigator(
+                        context,
+                        SurahAudioView(
+                          elder: provider.elders[index],
+                        ),
+                      );
+                    },
+                  );
+                },
+                separatorBuilder: (_, index) => minimumVerticalSpace(),
               ),
-              onClick: () {
-                materialNavigator(
-                  context,
-                  SurahAudioView(
-                    key: key,
-                    id: '',
-                    name: '',
-                  ),
-                );
-              },
             );
-          },
-          separatorBuilder: (_, index) => minimumVerticalSpace(),
-        ),
+          } else {
+            return BuildErrorWidget(
+              errorResult: provider.error,
+            );
+          }
+        },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _quranViewModel.disposeData();
+    super.dispose();
   }
 }

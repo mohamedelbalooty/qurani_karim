@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
-import 'package:qurany_karim/repositories/quran/remote_service.dart';
-import 'package:qurany_karim/utils/constants/colors.dart';
 import '../app_components.dart';
 import 'components.dart';
 
 class HomeView extends StatefulWidget {
-  // const HomeView({Key key}) : super(key: key);
+  const HomeView({Key key}) : super(key: key);
 
   static const String id = 'HomeView';
 
@@ -15,9 +13,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  QuranRemoteService service = QuranRemoteService();
 
-  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {

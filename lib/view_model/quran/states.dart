@@ -3,3 +3,9 @@ enum QuranGetRemoteDataStates{
   Loaded,
   Error
 }
+
+enum QuranGetLocalDataStates{
+  Loading,
+  Loaded,
+  Error
+}

@@ -20,13 +20,14 @@ class WelcomeView extends StatelessWidget {
         child: Center(
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   bigVerticalSpace(),
                   Text(
-                    'your_life'.tr(),
+                    'qurany_karim'.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .headline1
@@ -41,78 +42,81 @@ class WelcomeView extends StatelessWidget {
                         .copyWith(color: mainColor),
                   ),
                   bigVerticalSpace(),
-                  SizedBox(
-                    height: 425.0,
-                    width: double.infinity,
-                    child: Stack(
-                      children: [
-                        Container(
-                          height: 400.0,
-                          width: double.infinity,
-                          decoration: const BoxDecoration(
-                            color: mainColor,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(25.0),
+                  Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 25.0, horizontal: 10.0),
+                            decoration: const BoxDecoration(
+                              color: mainColor,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(25.0),
+                              ),
+                            ),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'read_question'.tr(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline2
+                                        .copyWith(fontSize: 24.0, height: 1.3),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  minimumVerticalSpace(),
+                                  Text(
+                                    'read_answer'.tr(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline2
+                                        .copyWith(fontSize: 20.0, height: 1.6),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'read_question'.tr(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline2
-                                      .copyWith(fontSize: 24.0, height: 1.5),
-                                  textAlign: TextAlign.center,
-                                ),
-                                minimumVerticalSpace(),
-                                Text(
-                                  'read_answer'.tr(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline2
-                                      .copyWith(fontSize: 20.0, height: 1.5),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                            child: Consumer<QuranViewModel>(
-                              builder: (context, provider, child) {
-                                return BuildDefaultButton(
-                                  title: 'start_reading'.tr(),
-                                  onClick: () async {
-                                    showLoading(context);
-                                    await provider.getRemoteData();
-                                    popNavigate(context);
-                                    if (provider.remoteDataStates ==
-                                        QuranGetRemoteDataStates.Loaded) {
-                                      replacementNamedNavigator(
-                                          context, HomeView.id);
-                                    }
-                                    if (provider.remoteDataStates ==
-                                        QuranGetRemoteDataStates.Error) {
-                                      showToast(context,
-                                          toastValue:
-                                              provider.error.errorMessage);
-                                    }
-                                  },
-                                );
+                          const SizedBox(height: 25),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                        child: Consumer<QuranViewModel>(
+                          builder: (context, provider, child) {
+                            return BuildDefaultButton(
+                              title: 'start_reading'.tr(),
+                              onClick: () async {
+                                print(provider.remoteDataStates);
+                                showLoading(context);
+                                await provider.getRemoteData();
+                                popNavigate(context);
+                                print(provider.remoteDataStates);
+                                if (provider.remoteDataStates ==
+                                    QuranGetRemoteDataStates.Loaded) {
+                                  print('loaded');
+                                  replacementNamedNavigator(
+                                      context, HomeView.id);
+                                }
+                                if (provider.remoteDataStates ==
+                                    QuranGetRemoteDataStates.Error) {
+                                  showToast(context,
+                                      toastValue: provider.error.errorMessage);
+                                }
                               },
-                            ),
-                          ),
+                            );
+                          },
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               ),

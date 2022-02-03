@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ChangeFontSizeProvider extends ChangeNotifier {
-  int fontSize = 18;
+  int fontSize = 20;
 
   void increaseFontSize() {
     if(fontSize < 30){

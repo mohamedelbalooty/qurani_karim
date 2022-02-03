@@ -1,5 +1,4 @@
 {
-  "your_life": "en",
   "qurany_karim": "en",
   "beauty_our_sound": "en",
   "read_question": "en",
@@ -15,8 +14,7 @@
   "live": "en",
   "go": "en",
   "home_title": "en",
-  "increase_font": "en",
-  "decrease_font": "en",
+  "font_size": "en",
   "besm_allah": "en",
   "tasbih_number": "en",
   "reset": "en",
@@ -33,5 +31,8 @@
   "retry": "en",
   "enable_location": "en",
   "location_denied": "en",
-  "fetch_data": "en"
+  "fetch_data": "en",
+  "ayah": "en",
+  "meccan": "en",
+  "medinan": "en"
 }

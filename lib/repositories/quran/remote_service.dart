@@ -5,6 +5,7 @@ import 'package:qurany_karim/model/error_result.dart';
 import 'package:qurany_karim/model/surah.dart';
 import 'package:qurany_karim/repositories/quran/repository.dart';
 import 'package:qurany_karim/utils/helper/dio_helper.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 class QuranRemoteService extends QuranRepository {
   @override
@@ -14,15 +15,21 @@ class QuranRemoteService extends QuranRepository {
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonData = response.data;
         List<dynamic> data = jsonData['data']['surahs'];
-        print(data.first);
-        print(data.length);
         List<Surah> quranData = data.map((e) => Surah.fromJson(e)).toList();
         return Left(quranData);
       } else {
         return Right(returnResponse(response));
       }
-    } on DioError catch (exception) {
-      return Right(returnResponse(exception.response));
+    } on DioError catch (dioException) {
+      if (dioException.type == DioErrorType.response) {
+        return Right(returnResponse(dioException.response));
+      } else {
+        return Right(
+          ErrorResult(
+              errorMessage: 'error'.tr(),
+              errorImage: 'assets/icons/no-internet.png'),
+        );
+      }
     }
   }
 }

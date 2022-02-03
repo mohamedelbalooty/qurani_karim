@@ -19,6 +19,8 @@ dependencies:
   provider: ^6.0.2
   after_layout: ^1.1.0
   shared_preferences: ^2.0.7
+  hive: ^2.0.5
+  hive_flutter: ^1.1.0
   pull_to_refresh: ^2.0.0
   toast: ^0.1.5
   localize_and_translate: ^4.1.1
@@ -26,11 +28,12 @@ dependencies:
   flutter_qiblah: ^2.0.2
   geolocator: ^7.0.1
   animate_do: ^2.1.0
-#  flutter_lints: ^1.0.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  hive_generator: ^1.1.2
+  build_runner: ^2.1.2
 
 flutter:
 
@@ -42,8 +45,6 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/json_db/
-    - assets/json_db/azkar_book/
-    - assets/json_db/hadith_book/
 
 
   fonts:
@@ -53,4 +54,5 @@ flutter:
     - family: ReemKufi
       fonts:
         - asset: assets/fonts/ReemKufi-Regular.ttf
+
 

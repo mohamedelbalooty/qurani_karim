@@ -11,6 +11,7 @@ import 'package:qurany_karim/view/reading_view/reading_view.dart';
 import 'package:qurany_karim/view/tasbih_view/tasbih_view.dart';
 import 'package:qurany_karim/view_model/ahadith/ahadith_view_model.dart';
 import 'package:qurany_karim/view_model/assmaa_allah/assmaa_allah_view_model.dart';
+import 'package:qurany_karim/view_model/quran/quran_view_model.dart';
 import '../app_components.dart';
 import 'package:provider/provider.dart';
 
@@ -21,11 +22,12 @@ List<BuildGridCategoryItem> portraitGridWidgets(BuildContext context,
         title: 'read_moshaf'.tr(),
         icon: 'assets/icons/quran.png',
         onClick: () {
+          context.read<QuranViewModel>().getLocalData();
           namedNavigator(context, ReadingView.id);
         }),
     BuildGridCategoryItem(
         title: 'listen_moshaf'.tr(),
-        icon: 'assets/icons/listen.png',
+        icon: 'assets/icons/mic.png',
         onClick: () {
           namedNavigator(context, ListeningView.id);
         }),
@@ -56,7 +58,7 @@ List<BuildGridCategoryItem> landScapeGridWidgets(BuildContext context,
         }),
     BuildGridCategoryItem(
         title: 'listen_moshaf'.tr(),
-        icon: 'assets/icons/listen.png',
+        icon: 'assets/icons/mic.png',
         onClick: () {
           namedNavigator(context, ListeningView.id);
         }),
