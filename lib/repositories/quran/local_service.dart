@@ -13,7 +13,6 @@ class QuranLocalService extends QuranRepository {
     try {
       Box<Surah> box = await Hive.openBox<Surah>(quranResponse);
       List<Surah> quranData = box.values.toList();
-      print('get cached data ${quranData.first}');
       return Left(quranData);
     } catch (exception) {
       ErrorResult error = ErrorResult(
@@ -25,7 +24,6 @@ class QuranLocalService extends QuranRepository {
 
   Future<void> cachingQuranData({@required List<Surah> data}) async {
     Box<Surah> box = await Hive.openBox<Surah>(quranResponse);
-    print('caching');
     for (Surah item in data) {
       print(item.number);
       box.add(item);

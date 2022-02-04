@@ -1,4 +1,3 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
@@ -10,29 +9,9 @@ import 'package:qurany_karim/view_model/quran/quran_view_model.dart';
 import '../app_components.dart';
 import 'surah_audio_view/surah_audio_view.dart';
 
-class ListeningView extends StatefulWidget {
+class ListeningView extends StatelessWidget {
   const ListeningView({Key key}) : super(key: key);
   static const String id = 'ListeningView';
-
-  @override
-  _ListeningViewState createState() => _ListeningViewState();
-}
-
-class _ListeningViewState extends State<ListeningView> with AfterLayoutMixin {
-  QuranViewModel _quranViewModel;
-
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<QuranViewModel>().getLocalData();
-    });
-    super.initState();
-  }
-
-  @override
-  void afterFirstLayout(BuildContext context) {
-    _quranViewModel = Provider.of<QuranViewModel>(context, listen: false);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,13 +48,27 @@ class _ListeningViewState extends State<ListeningView> with AfterLayoutMixin {
                           minimumHorizontalSpace(),
                           Text(
                             provider.elders[index].name,
-                            style: Theme.of(context).textTheme.headline2,
+                            style: Theme.of(context).textTheme.bodyText1.copyWith(fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
+                          ),
+                          const Spacer(),
+                          Text(
+                            'go'.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .copyWith(fontWeight: FontWeight.bold, height: 1.6),
+                          ),
+                          const Icon(
+                            Icons.arrow_forward_ios,
+                            color: whiteColor,
+                            size: 18.0,
                           ),
                         ],
                       ),
                     ),
                     onClick: () {
+                      context.read<QuranViewModel>().getLocalData();
                       materialNavigator(
                         context,
                         SurahAudioView(
@@ -96,11 +89,5 @@ class _ListeningViewState extends State<ListeningView> with AfterLayoutMixin {
         },
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _quranViewModel.disposeData();
-    super.dispose();
   }
 }

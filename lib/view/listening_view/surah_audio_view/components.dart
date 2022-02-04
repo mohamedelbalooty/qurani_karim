@@ -31,6 +31,7 @@ class BuildSurahAudioItemWidget extends StatelessWidget {
           ],
         ),
         child: Row(
+          // mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
@@ -40,27 +41,12 @@ class BuildSurahAudioItemWidget extends StatelessWidget {
               fit: BoxFit.fill,
             ),
             minimumHorizontalSpace(),
-            Text(
-              name,
-              style:
-              Theme.of(context).textTheme.headline2.copyWith(height: 1.6),
-            ),
-            const Spacer(),
-            Row(
-              children: [
-                Text(
-                  'go'.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2
-                      .copyWith(fontWeight: FontWeight.bold, height: 1.6),
-                ),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  color: whiteColor,
-                  size: 18.0,
-                ),
-              ],
+            Expanded(
+              child: Text(
+                name,
+                style:
+                Theme.of(context).textTheme.headline2.copyWith(height: 1.6),
+              ),
             ),
           ],
         ),
