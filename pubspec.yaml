@@ -28,7 +28,7 @@ dependencies:
   flutter_qiblah: ^2.0.2
   geolocator: ^7.0.1
   animate_do: ^2.1.0
-  modal_progress_hud_nsn: ^0.1.0-nullsafety-1
+  assets_audio_player: ^3.0.3+6
 
 dev_dependencies:
   flutter_test:

@@ -13,7 +13,7 @@ class Surah extends HiveObject {
   });
 
   @HiveField(0)
-  final int number;
+  int number;
   @HiveField(1)
   final String name;
   @HiveField(2)

@@ -1,9 +1,8 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
-import 'package:animate_do/animate_do.dart';
 import 'package:qurany_karim/model/elder.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import 'package:qurany_karim/view_model/audio/audio_view_model.dart';
@@ -24,126 +23,137 @@ class SurahAudioView extends StatefulWidget {
 
 class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
   QuranViewModel _quranViewModel;
-  AudioViewModel _audioViewModel;
+  // AudioViewModel _audioViewModel;
 
   @override
   void afterFirstLayout(BuildContext context) {
     _quranViewModel = Provider.of<QuranViewModel>(context, listen: false);
-    _audioViewModel = Provider.of<AudioViewModel>(context, listen: false);
+    // _audioViewModel = Provider.of<AudioViewModel>(context, listen: false);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: Text(widget.elder.name),
-      ),
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Consumer<QuranViewModel>(
-            builder: (context, provider, child) {
-              if (provider.localDataStates ==
-                  QuranGetLocalDataStates.Loading) {
-                return BuildLoadingWidget();
-              } else if (provider.localDataStates ==
-                  QuranGetLocalDataStates.Loaded) {
-                return ListView.separated(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: provider.quranData.length,
-                  itemBuilder: (_, index) {
-                    return Padding(
-                      padding: index == provider.quranData.length - 1
-                          ? EdgeInsets.only(bottom: 95.0)
-                          : EdgeInsets.zero,
-                      child: BuildSurahAudioItemWidget(
-                        name: provider.quranData[index].name,
-                        onClick: () {
-                          context
-                              .read<AudioViewModel>()
-                              .isPlayingChanging();
-                          context
-                              .read<AudioViewModel>()
-                              .selectSurahId(provider.quranData[index]);
-                          context.read<AudioViewModel>().getSurahAudio(
-                              surahId: provider.quranData[index].number,
-                              elderFormat: widget.elder.identifier);
-                        },
-                      ),
-                    );
-                  },
-                  separatorBuilder: (_, index) => minimumVerticalSpace(),
-                );
-              } else {
-                return BuildErrorWidget(
-                  errorResult: provider.error,
-                );
-              }
-            },
-          ),
-          Consumer<AudioViewModel>(
-            builder: (context, provider, child) {
-              return provider.isPlaying
-                  ? Container(
-                          height: 90.0,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: provider.isPlaying ? mainColor : transparent,
-                            borderRadius: BorderRadiusDirectional.only(
-                              topEnd: Radius.circular(20.0),
-                              topStart: Radius.circular(20.0),
+    return WillPopScope(
+      onWillPop: ()async{
+        // _audioViewModel.stopAudio();
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+          title: Text(widget.elder.name),
+        ),
+        body: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Consumer<QuranViewModel>(
+              builder: (context, provider, child) {
+                if (provider.localDataStates == QuranGetLocalDataStates.Loading) {
+                  return BuildLoadingWidget();
+                } else if (provider.localDataStates ==
+                    QuranGetLocalDataStates.Loaded) {
+                  return ElasticInUp(
+                    child: ListView.separated(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: provider.quranData.length,
+                      itemBuilder: (_, index) {
+                        return Padding(
+                          padding: index == provider.quranData.length - 1
+                              ? EdgeInsets.only(bottom: 95.0)
+                              : EdgeInsets.zero,
+                          child: BuildSurahAudioItemWidget(
+                            name: provider.quranData[index].name,
+                            onClick: () {
+                              // context.read<AudioViewModel>().isOpenedAudio();
+                              // context
+                              //     .read<AudioViewModel>()
+                              //     .selectSurahId(provider.quranData[index]);
+                              // context.read<AudioViewModel>().getSurahAudio(
+                              //     surahId: provider.quranData[index].number,
+                              //     elderFormat: widget.elder.identifier);
+                              provider.isOpenedAudio();
+                              provider
+                                  .selectSurahId(provider.quranData[index]);
+                              provider.getSurahAudio(
+                                  surahId: provider.quranData[index].number,
+                                  elderFormat: widget.elder.identifier);
+                            },
+                          ),
+                        );
+                      },
+                      separatorBuilder: (_, index) => minimumVerticalSpace(),
+                    ),
+                  );
+                } else {
+                  return BuildErrorWidget(
+                    errorResult: provider.error,
+                  );
+                }
+              },
+            ),
+            Consumer<QuranViewModel>(
+              builder: (context, provider, child) {
+                return provider.openedAudio
+                    ? Container(
+                        height: 90.0,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: provider.openedAudio ? mainColor : transparent,
+                          borderRadius: BorderRadiusDirectional.only(
+                            topEnd: Radius.circular(20.0),
+                            topStart: Radius.circular(20.0),
+                          ),
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              provider.surah.name,
+                              style: const TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: whiteColor,
+                                  height: 2),
                             ),
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                provider.surah.name,
-                                style: const TextStyle(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: whiteColor,
-                                    height: 2),
-                              ),
-                              const Spacer(),
-                              provider.audioDataStates == AudioDataStates.Loading ? Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                child: Column(
-                                  children: [
-                                    LinearProgressIndicator(),
-                                    mediumVerticalSpace(),
-                                  ],
-                                ),
-                              ) :Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  BuildAudioButton(
-                                    icon: Icons.skip_next,
-                                    onClick: () {},
+                            const Spacer(),
+                            provider.audioDataStates == AudioDataStates.Loading
+                                ? BuildAudioLoading()
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      BuildAudioButton(
+                                        icon: Icons.skip_next,
+                                        onClick: () {},
+                                      ),
+                                      mediumHorizontalSpace(),
+                                      BuildAudioButton(
+                                        icon: !provider.isPlaying
+                                            ? Icons.play_arrow
+                                            : Icons.pause,
+                                        buttonSize: 12.0,
+                                        iconSize: 26.0,
+                                        onClick: () {
+                                          provider.playState == PlayState.Ended || provider.playState == PlayState.Initial
+                                              ? provider.playSurahAudio()
+                                              : provider.pauseAudio();
+                                        },
+                                      ),
+                                      mediumHorizontalSpace(),
+                                      BuildAudioButton(
+                                        icon: Icons.skip_previous,
+                                        onClick: () {},
+                                      ),
+                                    ],
                                   ),
-                                  mediumHorizontalSpace(),
-                                  BuildAudioButton(
-                                    icon: Icons.play_arrow,
-                                    buttonSize: 12.0,
-                                    iconSize: 26.0,
-                                    onClick: () {},
-                                  ),
-                                  mediumHorizontalSpace(),
-                                  BuildAudioButton(
-                                    icon: Icons.skip_previous,
-                                    onClick: () {},
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 5),
-                            ],
-                          ),
-                        )
-                  : SizedBox();
-            },
-          ),
-        ],
+                            const SizedBox(height: 5),
+                          ],
+                        ),
+                      )
+                    : SizedBox();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -151,7 +161,7 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
   @override
   void dispose() {
     _quranViewModel.disposeData();
-    _audioViewModel.disposeData();
+    // _audioViewModel.disposeData();
     super.dispose();
   }
 }
@@ -185,6 +195,23 @@ class BuildAudioButton extends StatelessWidget {
           size: iconSize,
           color: whiteColor,
         ),
+      ),
+    );
+  }
+}
+
+class BuildAudioLoading extends StatelessWidget {
+  const BuildAudioLoading({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        children: [
+          LinearProgressIndicator(),
+          mediumVerticalSpace(),
+        ],
       ),
     );
   }

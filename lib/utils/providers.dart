@@ -36,9 +36,9 @@ class Providers {
     ChangeNotifierProvider<EldersViewModel>(
       create: (_) => EldersViewModel(),
     ),
-    ChangeNotifierProvider<AudioViewModel>(
-      create: (_) => AudioViewModel(),
-    ),
+    // ChangeNotifierProvider<AudioViewModel>(
+    //   create: (_) => AudioViewModel(),
+    // ),
     // ChangeNotifierProvider<ChangeFontSizeProvider>(
     //     create: (_) => ChangeFontSizeProvider()),
     // ChangeNotifierProvider<ChangeFontSizeProvider>(

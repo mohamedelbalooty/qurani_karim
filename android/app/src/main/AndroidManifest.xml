@@ -2,6 +2,7 @@
     package="com.example.qurany_karim">
    <application
         android:label="qurany_karim"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

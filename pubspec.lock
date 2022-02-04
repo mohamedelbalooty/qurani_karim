@@ -36,6 +36,20 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
+  assets_audio_player:
+    dependency: "direct main"
+    description:
+      name: assets_audio_player
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.3+7"
+  assets_audio_player_web:
+    dependency: transitive
+    description:
+      name: assets_audio_player_web
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.4"
   async:
     dependency: transitive
     description:
@@ -420,13 +434,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
-  modal_progress_hud_nsn:
-    dependency: "direct main"
-    description:
-      name: modal_progress_hud_nsn
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.0-nullsafety-1"
   nested:
     dependency: transitive
     description:
@@ -546,6 +553,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.27.3"
   share_plus:
     dependency: "direct main"
     description:
@@ -775,6 +789,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
+  uuid:
+    dependency: transitive
+    description:
+      name: uuid
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.5"
   vector_math:
     dependency: transitive
     description:

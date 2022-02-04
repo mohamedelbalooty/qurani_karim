@@ -95,14 +95,11 @@ class WelcomeView extends StatelessWidget {
                             return BuildDefaultButton(
                               title: 'start_reading'.tr(),
                               onClick: () async {
-                                print(provider.remoteDataStates);
                                 showLoading(context);
                                 await provider.getRemoteData();
                                 popNavigate(context);
-                                print(provider.remoteDataStates);
                                 if (provider.remoteDataStates ==
                                     QuranGetRemoteDataStates.Loaded) {
-                                  print('loaded');
                                   replacementNamedNavigator(
                                       context, HomeView.id);
                                 }

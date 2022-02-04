@@ -17,12 +17,9 @@ class SurahAudioRemoteService extends SurahAudioRepository {
           await DioHelper.getData(url: 'surah/$surahId/$elderFormat');
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonData = response.data;
-        // print(jsonData);
         List<dynamic> data = jsonData['data']['ayahs'];
-        // print(data);
         List<AyahAudio> surahAudio =
             data.map((e) => AyahAudio.fromJson(e)).toList();
-        print(surahAudio.first.audio);
         return Left(surahAudio);
       } else {
         return Right(returnResponse(response));
