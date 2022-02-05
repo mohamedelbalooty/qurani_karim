@@ -32,6 +32,17 @@ class CacheHelper {
     return sharedPreferences.getString(key);
   }
 
+  static Future<bool> setIntData(
+      {@required String key, @required int value}) async {
+    return await sharedPreferences.setInt(key, value);
+  }
+
+  ///GET STRING DATA
+  static int getIntData({@required String key}) {
+    return sharedPreferences.getInt(key);
+  }
+
+
   static Future<bool> setListData({@required String key, @required List<String> value}){
     return sharedPreferences.setStringList(key, value);
   }

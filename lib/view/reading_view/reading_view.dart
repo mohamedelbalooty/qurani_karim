@@ -36,7 +36,7 @@ class _ReadingViewState extends State<ReadingView> with AfterLayoutMixin {
       body: Consumer<QuranViewModel>(
         builder: (context, provider, child) {
           if (provider.localDataStates == QuranGetLocalDataStates.Loading) {
-            return BuildLoadingWidget();
+            return SizedBox();
           } else if (provider.localDataStates ==
               QuranGetLocalDataStates.Loaded) {
             return FadeInRight(

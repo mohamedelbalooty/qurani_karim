@@ -26,6 +26,8 @@ dependencies:
   localize_and_translate: ^4.1.1
   share_plus: ^3.0.0
   flutter_qiblah: ^2.0.2
+  adhan: ^1.1.16
+  intl: ^0.17.0
   geolocator: ^7.0.1
   animate_do: ^2.1.0
   assets_audio_player: ^3.0.3+6

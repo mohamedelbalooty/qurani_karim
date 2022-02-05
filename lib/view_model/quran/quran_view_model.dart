@@ -42,7 +42,6 @@ class QuranViewModel extends ChangeNotifier {
   Future<void> getLocalData() async {
     localDataStates = QuranGetLocalDataStates.Loading;
     notifyListeners();
-    await Future.delayed(Duration(seconds: 2));
     await _localService.getQuranData().then((value) {
       value.fold((left) {
         _quranData = left;
