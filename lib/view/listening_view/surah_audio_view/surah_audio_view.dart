@@ -23,137 +23,157 @@ class SurahAudioView extends StatefulWidget {
 
 class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
   QuranViewModel _quranViewModel;
-  // AudioViewModel _audioViewModel;
+  AudioViewModel _audioViewModel;
 
   @override
   void afterFirstLayout(BuildContext context) {
     _quranViewModel = Provider.of<QuranViewModel>(context, listen: false);
-    // _audioViewModel = Provider.of<AudioViewModel>(context, listen: false);
+    _audioViewModel = Provider.of<AudioViewModel>(context, listen: false);
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: ()async{
-        // _audioViewModel.stopAudio();
-        return true;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          title: Text(widget.elder.name),
-        ),
-        body: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Consumer<QuranViewModel>(
-              builder: (context, provider, child) {
-                if (provider.localDataStates == QuranGetLocalDataStates.Loading) {
-                  return BuildLoadingWidget();
-                } else if (provider.localDataStates ==
-                    QuranGetLocalDataStates.Loaded) {
-                  return ElasticInUp(
-                    child: ListView.separated(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: provider.quranData.length,
-                      itemBuilder: (_, index) {
-                        return Padding(
-                          padding: index == provider.quranData.length - 1
-                              ? EdgeInsets.only(bottom: 95.0)
-                              : EdgeInsets.zero,
-                          child: BuildSurahAudioItemWidget(
-                            name: provider.quranData[index].name,
-                            onClick: () {
-                              // context.read<AudioViewModel>().isOpenedAudio();
-                              // context
-                              //     .read<AudioViewModel>()
-                              //     .selectSurahId(provider.quranData[index]);
-                              // context.read<AudioViewModel>().getSurahAudio(
-                              //     surahId: provider.quranData[index].number,
-                              //     elderFormat: widget.elder.identifier);
-                              provider.isOpenedAudio();
-                              provider
-                                  .selectSurahId(provider.quranData[index]);
-                              provider.getSurahAudio(
-                                  surahId: provider.quranData[index].number,
-                                  elderFormat: widget.elder.identifier);
-                            },
-                          ),
-                        );
-                      },
-                      separatorBuilder: (_, index) => minimumVerticalSpace(),
-                    ),
-                  );
-                } else {
-                  return BuildErrorWidget(
-                    errorResult: provider.error,
-                  );
-                }
-              },
-            ),
-            Consumer<QuranViewModel>(
-              builder: (context, provider, child) {
-                return provider.openedAudio
-                    ? Container(
-                        height: 90.0,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: provider.openedAudio ? mainColor : transparent,
-                          borderRadius: BorderRadiusDirectional.only(
-                            topEnd: Radius.circular(20.0),
-                            topStart: Radius.circular(20.0),
-                          ),
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        title: Text(widget.elder.name),
+      ),
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Consumer<QuranViewModel>(
+            builder: (context, provider, child) {
+              if (provider.localDataStates == QuranGetLocalDataStates.Loading) {
+                return BuildLoadingWidget();
+              } else if (provider.localDataStates ==
+                  QuranGetLocalDataStates.Loaded) {
+                context
+                    .read<AudioViewModel>()
+                    .initializeQuranData(provider.quranData);
+                return ElasticInUp(
+                  child: ListView.separated(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: provider.quranData.length,
+                    itemBuilder: (_, index) {
+                      return Padding(
+                        padding: index == provider.quranData.length - 1
+                            ? EdgeInsets.only(bottom: 95.0)
+                            : EdgeInsets.zero,
+                        child: BuildSurahAudioItemWidget(
+                          name: provider.quranData[index].name,
+                          onClick: () {
+                            context.read<AudioViewModel>().isOpenedAudio();
+                            context.read<AudioViewModel>().selectSurah(
+                                id: provider.quranData[index].number,
+                                elderFormat: widget.elder.identifier);
+                            if (context
+                                    .watch<AudioViewModel>()
+                                    .audioDataStates ==
+                                AudioDataStates.Error) {
+                              showToast(context,
+                                  toastValue: context
+                                      .watch<AudioViewModel>()
+                                      .error
+                                      .errorMessage);
+                            }
+                          },
                         ),
-                        child: Column(
-                          children: [
-                            Text(
-                              provider.surah.name,
-                              style: const TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: whiteColor,
-                                  height: 2),
-                            ),
-                            const Spacer(),
-                            provider.audioDataStates == AudioDataStates.Loading
-                                ? BuildAudioLoading()
-                                : Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      BuildAudioButton(
-                                        icon: Icons.skip_next,
-                                        onClick: () {},
-                                      ),
-                                      mediumHorizontalSpace(),
-                                      BuildAudioButton(
-                                        icon: !provider.isPlaying
-                                            ? Icons.play_arrow
-                                            : Icons.pause,
-                                        buttonSize: 12.0,
-                                        iconSize: 26.0,
-                                        onClick: () {
-                                          provider.playState == PlayState.Ended || provider.playState == PlayState.Initial
-                                              ? provider.playSurahAudio()
-                                              : provider.pauseAudio();
-                                        },
-                                      ),
-                                      mediumHorizontalSpace(),
-                                      BuildAudioButton(
-                                        icon: Icons.skip_previous,
-                                        onClick: () {},
-                                      ),
-                                    ],
-                                  ),
-                            const SizedBox(height: 5),
-                          ],
+                      );
+                    },
+                    separatorBuilder: (_, index) => minimumVerticalSpace(),
+                  ),
+                );
+              } else {
+                return BuildErrorWidget(
+                  errorResult: provider.error,
+                );
+              }
+            },
+          ),
+          Consumer<AudioViewModel>(
+            builder: (context, provider, child) {
+              return provider.openedAudio
+                  ? Container(
+                      height: 90.0,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: provider.openedAudio ? mainColor : transparent,
+                        borderRadius: BorderRadiusDirectional.only(
+                          topEnd: Radius.circular(20.0),
+                          topStart: Radius.circular(20.0),
                         ),
-                      )
-                    : SizedBox();
-              },
-            ),
-          ],
-        ),
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            provider.surah.name,
+                            style: const TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                                color: whiteColor,
+                                height: 2),
+                          ),
+                          const Spacer(),
+                          provider.audioDataStates == AudioDataStates.Loading
+                              ? BuildAudioLoading()
+                              : Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    BuildAudioButton(
+                                      icon: Icons.skip_next,
+                                      buttonColor: provider.surah.number == 114
+                                          ? Colors.grey.shade400
+                                          : whiteColor,
+                                      onClick: provider.surah.number == 114
+                                          ? () {}
+                                          : () async {
+                                              await provider.selectSurah(
+                                                  id: provider.surah.number + 1,
+                                                  elderFormat:
+                                                      widget.elder.identifier);
+                                            },
+                                    ),
+                                    mediumHorizontalSpace(),
+                                    BuildAudioButton(
+                                      icon: !provider.isPlaying
+                                          ? Icons.play_arrow
+                                          : Icons.pause,
+                                      buttonSize: 7.0,
+                                      iconSize: 36.0,
+                                      onClick: () {
+                                        provider.playState == PlayState.Ended ||
+                                                provider.playState ==
+                                                    PlayState.Initial
+                                            ? provider.playSurahAudio()
+                                            : provider.pauseAudio();
+                                      },
+                                    ),
+                                    mediumHorizontalSpace(),
+                                    BuildAudioButton(
+                                      icon: Icons.skip_previous,
+                                      buttonColor: provider.surah.number == 1
+                                          ? Colors.grey.shade400
+                                          : whiteColor,
+                                      onClick: provider.surah.number == 1
+                                          ? () {}
+                                          : () async {
+                                              await provider.selectSurah(
+                                                  id: provider.surah.number - 1,
+                                                  elderFormat:
+                                                      widget.elder.identifier);
+                                            },
+                                    ),
+                                  ],
+                                ),
+                          const SizedBox(height: 5),
+                        ],
+                      ),
+                    )
+                  : SizedBox();
+            },
+          ),
+        ],
       ),
     );
   }
@@ -161,58 +181,7 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
   @override
   void dispose() {
     _quranViewModel.disposeData();
-    // _audioViewModel.disposeData();
+    _audioViewModel.disposeData();
     super.dispose();
-  }
-}
-
-class BuildAudioButton extends StatelessWidget {
-  final double buttonSize, iconSize;
-  final IconData icon;
-  final Function onClick;
-
-  const BuildAudioButton(
-      {Key key,
-      @required this.icon,
-      @required this.onClick,
-      this.buttonSize = 8.0,
-      this.iconSize = 24.0})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onClick,
-      child: Container(
-        padding: EdgeInsets.all(buttonSize),
-        decoration: BoxDecoration(
-          color: transparent,
-          shape: BoxShape.circle,
-          border: Border.all(width: 2.0, color: whiteColor),
-        ),
-        child: Icon(
-          icon,
-          size: iconSize,
-          color: whiteColor,
-        ),
-      ),
-    );
-  }
-}
-
-class BuildAudioLoading extends StatelessWidget {
-  const BuildAudioLoading({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Column(
-        children: [
-          LinearProgressIndicator(),
-          mediumVerticalSpace(),
-        ],
-      ),
-    );
   }
 }

@@ -4,7 +4,7 @@ class ChangeFontSizeProvider extends ChangeNotifier {
   int fontSize = 20;
 
   void increaseFontSize() {
-    if(fontSize < 30){
+    if(fontSize < 32){
       fontSize++;
     }
     notifyListeners();
