@@ -310,7 +310,6 @@ class BuildErrorWidget extends StatelessWidget {
               fit: BoxFit.fill,
             ),
             Container(
-              // height: 50.0,
               width: double.infinity,
               padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(

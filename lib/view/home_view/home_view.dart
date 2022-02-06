@@ -1,7 +1,4 @@
-import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:intl/intl.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import '../app_components.dart';
 import 'components.dart';
@@ -16,31 +13,8 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-
-  @override
-  void initState()async{
-    super.initState();
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
-    final myCoordinates = Coordinates(30.957781, 31.24275); // Replace with your own location lat, lng.
-    print('${position.latitude} lat');
-    print('${position.longitude} long');
-    final params = CalculationMethod.egyptian.getParameters();
-    params.madhab = Madhab.hanafi;
-    final prayerTimes = PrayerTimes.today(myCoordinates, params);
-    // print(position.altitude);
-    print("---Today's Prayer Times in Your Local Timezone(${prayerTimes.fajr.timeZoneName})---");
-    print(DateFormat.jm().format(prayerTimes.fajr));
-    print(DateFormat.jm().format(prayerTimes.sunrise));
-    print(DateFormat.jm().format(prayerTimes.dhuhr));
-    print(DateFormat.jm().format(prayerTimes.asr));
-    print(DateFormat.jm().format(prayerTimes.maghrib));
-    print(DateFormat.jm().format(prayerTimes.isha));
-
-  }
-
   @override
   Widget build(BuildContext context) {
-
     final bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(

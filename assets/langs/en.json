@@ -34,5 +34,14 @@
   "fetch_data": "en",
   "ayah": "en",
   "meccan": "en",
-  "medinan": "en"
+  "medinan": "en",
+  "am": "en",
+  "pm": "en",
+  "prayer_time_title": "en",
+  "fajr": "en",
+  "sunrise": "en",
+  "dhuhr": "en",
+  "asr": "en",
+  "maghrib": "en",
+  "isha": "en"
 }

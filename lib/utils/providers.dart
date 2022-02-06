@@ -2,12 +2,14 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:qurany_karim/ui_provider/change_font_size_provider.dart';
 import 'package:qurany_karim/ui_provider/tasbih_provider.dart';
+import 'package:qurany_karim/ui_provider/time_provider.dart';
 import 'package:qurany_karim/ui_provider/toggle_provider.dart';
 import 'package:qurany_karim/view_model/ahadith/ahadith_view_model.dart';
 import 'package:qurany_karim/view_model/assmaa_allah/assmaa_allah_view_model.dart';
 import 'package:qurany_karim/view_model/audio/audio_view_model.dart';
 import 'package:qurany_karim/view_model/azkar/azkar_view_model.dart';
 import 'package:qurany_karim/view_model/elders/elders_view_model.dart';
+import 'package:qurany_karim/view_model/prayer_times/prayer_times_view_model.dart';
 import 'package:qurany_karim/view_model/quran/quran_view_model.dart';
 
 class Providers {
@@ -39,9 +41,11 @@ class Providers {
     ChangeNotifierProvider<AudioViewModel>(
       create: (_) => AudioViewModel(),
     ),
-    // ChangeNotifierProvider<ChangeFontSizeProvider>(
-    //     create: (_) => ChangeFontSizeProvider()),
-    // ChangeNotifierProvider<ChangeFontSizeProvider>(
-    //     create: (_) => ChangeFontSizeProvider()),
+    ChangeNotifierProvider<TimeProvider>(
+      create: (_) => TimeProvider(),
+    ),
+    ChangeNotifierProvider<PrayerTimesViewModel>(
+      create: (_) => PrayerTimesViewModel(),
+    ),
   ];
 }

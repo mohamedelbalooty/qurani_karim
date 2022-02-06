@@ -146,7 +146,7 @@ class LocationErrorWidget extends StatelessWidget {
             ),
             bigVerticalSpace(),
             Text(
-              error,
+              error ?? '',
               style: Theme.of(context).textTheme.headline2,
             ),
             bigVerticalSpace(),

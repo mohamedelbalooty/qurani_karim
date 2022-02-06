@@ -28,12 +28,12 @@ class QiplahView extends StatelessWidget {
               return BuildLoadingWidget();
             if (snapshot.hasError)
               return Center(
-                child: Text("Error: ${snapshot.error.toString()}"),
+                child: Text("Error: ${snapshot.error.toString()}", style: Theme.of(context).textTheme.headline2,),
               );
             if (snapshot.data)
               return Center(child: QiblahCompass(),);
             else
-              return LocationErrorWidget();
+              return LocationErrorWidget(callback: (){},);
           },
         ),
       ),
