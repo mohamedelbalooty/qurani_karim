@@ -11,6 +11,7 @@ import 'package:qurany_karim/view_model/azkar/azkar_view_model.dart';
 import 'package:qurany_karim/view_model/elders/elders_view_model.dart';
 import 'package:qurany_karim/view_model/prayer_times/prayer_times_view_model.dart';
 import 'package:qurany_karim/view_model/quran/quran_view_model.dart';
+import 'package:qurany_karim/view_model/radio/radio_view_model.dart';
 
 class Providers {
   static List<SingleChildWidget> providers = [
@@ -47,5 +48,13 @@ class Providers {
     ChangeNotifierProvider<PrayerTimesViewModel>(
       create: (_) => PrayerTimesViewModel(),
     ),
+    ChangeNotifierProvider<RadioViewModel>(
+      create: (_) => RadioViewModel(),
+    ),
+    // ChangeNotifierProvider<PrayerTimesViewModel>(
+    //   create: (_) => PrayerTimesViewModel(),
+    // ),ChangeNotifierProvider<PrayerTimesViewModel>(
+    //   create: (_) => PrayerTimesViewModel(),
+    // ),
   ];
 }

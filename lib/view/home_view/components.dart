@@ -8,6 +8,7 @@ import 'package:qurany_karim/view/assmaa_allah_view/assmaa_allah_view.dart';
 import 'package:qurany_karim/view/listening_view/listening_view.dart';
 import 'package:qurany_karim/view/prayer_times_view/prayer_times_view.dart';
 import 'package:qurany_karim/view/qiplah_view/qiplah_view.dart';
+import 'package:qurany_karim/view/radio_view/radio_view.dart';
 import 'package:qurany_karim/view/reading_view/reading_view.dart';
 import 'package:qurany_karim/view/tasbih_view/tasbih_view.dart';
 import 'package:qurany_karim/view_model/ahadith/ahadith_view_model.dart';
@@ -121,6 +122,11 @@ List<BuildListCategoryItem> portraitListWidgets(BuildContext context,
           namedNavigator(context, PrayerTimesView.id);
         }),
     BuildListCategoryItem(
+        title: 'radio'.tr(), icon: 'assets/icons/radio.png', onClick: () {
+      namedNavigator(context, RadioView.id);
+
+    }),
+    BuildListCategoryItem(
         title: 'live'.tr(), icon: 'assets/icons/live.png', onClick: () {}),
   ];
 }
@@ -140,6 +146,11 @@ List<BuildListCategoryItem> landScapeListWidgets(BuildContext context,
         onClick: () {
           namedNavigator(context, PrayerTimesView.id);
         }),
+    BuildListCategoryItem(
+        title: 'radio'.tr(), icon: 'assets/icons/radio.png', onClick: () {
+      namedNavigator(context, RadioView.id);
+
+    }),
     BuildListCategoryItem(
         title: 'live'.tr(), icon: 'assets/icons/live.png', onClick: () {}),
   ];

@@ -101,7 +101,7 @@ class AudioViewModel extends ChangeNotifier {
             nextEnabled: false,
             prevEnabled: false),
       );
-    } catch (exception) {
+    } catch (audioException) {
       isPlaying = false;
       playState = PlayState.Initial;
     }
