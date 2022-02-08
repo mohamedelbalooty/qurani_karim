@@ -44,5 +44,10 @@
   "asr": "en",
   "maghrib": "en",
   "isha": "en",
-  "radio": "en"
+  "radio": "en",
+  "version": "en",
+  "about": "en",
+  "privacy": "en",
+  "dark_mode": "en",
+  "contact_us": "en"
 }

@@ -1,26 +1,19 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:qurany_karim/view/drawer_view/drawer_view.dart';
 import '../app_components.dart';
 import 'components.dart';
 
-class HomeView extends StatefulWidget {
+class HomeView extends StatelessWidget {
   const HomeView({Key key}) : super(key: key);
 
   static const String id = 'HomeView';
-
-  @override
-  _HomeViewState createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-
-
   @override
   Widget build(BuildContext context) {
     final bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
+      drawer: DrawerView(),
       appBar: AppBar(
         title: Text(
           'qurany_karim'.tr(),
