@@ -1,1 +1,1 @@
-enum RadioStates { Initial, Success, Error }
+enum RadioStates { Initial, Loading, Success, Error }

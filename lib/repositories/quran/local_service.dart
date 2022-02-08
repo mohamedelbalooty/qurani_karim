@@ -25,7 +25,6 @@ class QuranLocalService extends QuranRepository {
   Future<void> cachingQuranData({@required List<Surah> data}) async {
     Box<Surah> box = await Hive.openBox<Surah>(quranResponse);
     for (Surah item in data) {
-      print(item.number);
       box.add(item);
     }
     box.close();

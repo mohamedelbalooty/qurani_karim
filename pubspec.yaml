@@ -31,6 +31,7 @@ dependencies:
   geolocator: ^7.0.1
   animate_do: ^2.1.0
   assets_audio_player: ^3.0.3+6
+  youtube_player_flutter: ^8.0.0
 
 dev_dependencies:
   flutter_test:

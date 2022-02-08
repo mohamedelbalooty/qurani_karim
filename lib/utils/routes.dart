@@ -4,6 +4,7 @@ import 'package:qurany_karim/view/askar_view/azkar_view.dart';
 import 'package:qurany_karim/view/assmaa_allah_view/assmaa_allah_view.dart';
 import 'package:qurany_karim/view/home_view/home_view.dart';
 import 'package:qurany_karim/view/listening_view/listening_view.dart';
+import 'package:qurany_karim/view/live_view/live_view.dart';
 import 'package:qurany_karim/view/prayer_times_view/prayer_times_view.dart';
 import 'package:qurany_karim/view/qiplah_view/qiplah_view.dart';
 import 'package:qurany_karim/view/radio_view/radio_view.dart';
@@ -24,6 +25,6 @@ class Routes{
     QiplahView.id: (_) => QiplahView(),
     PrayerTimesView.id: (_) => PrayerTimesView(),
     RadioView.id: (_) => RadioView(),
-    // ReadingView.id: (_) => ReadingView(),
+    LiveView.id: (_) => LiveView(),
   };
 }

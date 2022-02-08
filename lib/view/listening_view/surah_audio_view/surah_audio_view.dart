@@ -44,7 +44,7 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
           Consumer<QuranViewModel>(
             builder: (context, provider, child) {
               if (provider.localDataStates == QuranGetLocalDataStates.Loading) {
-                return SizedBox();
+                return BuildLoadingWidget();
               } else if (provider.localDataStates ==
                   QuranGetLocalDataStates.Loaded) {
                 context
@@ -67,16 +67,6 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
                             context.read<AudioViewModel>().selectSurah(
                                 id: provider.quranData[index].number,
                                 elderFormat: widget.elder.identifier);
-                            if (context
-                                    .read<AudioViewModel>()
-                                    .audioDataStates ==
-                                AudioDataStates.Error) {
-                              showToast(context,
-                                  toastValue: context
-                                      .watch<AudioViewModel>()
-                                      .error
-                                      .errorMessage);
-                            }
                           },
                         ),
                       );
@@ -170,7 +160,7 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
                         ],
                       ),
                     )
-                  : SizedBox();
+                  : const SizedBox();
             },
           ),
         ],

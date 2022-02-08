@@ -11,6 +11,7 @@ class RadioViewModel extends ChangeNotifier {
   final String streamUrl = 'http://livstream.xyz:8000/192k.mp3';
 
   Future<void> playRadio(AssetsAudioPlayer assetsAudioPlayer) async {
+    states = RadioStates.Loading;
     try {
       await assetsAudioPlayer.open(
         Audio.liveStream(streamUrl),

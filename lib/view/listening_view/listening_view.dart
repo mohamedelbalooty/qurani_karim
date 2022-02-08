@@ -48,7 +48,10 @@ class ListeningView extends StatelessWidget {
                           minimumHorizontalSpace(),
                           Text(
                             provider.elders[index].name,
-                            style: Theme.of(context).textTheme.bodyText1.copyWith(fontWeight: FontWeight.bold),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                .copyWith(fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
                           ),
                           const Spacer(),
@@ -57,7 +60,8 @@ class ListeningView extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText2
-                                .copyWith(fontWeight: FontWeight.bold, height: 1.6),
+                                .copyWith(
+                                    fontWeight: FontWeight.bold, height: 1.6),
                           ),
                           const Icon(
                             Icons.arrow_forward_ios,

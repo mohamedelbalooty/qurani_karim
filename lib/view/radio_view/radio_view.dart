@@ -44,6 +44,8 @@ class _RadioViewState extends State<RadioView> {
           builder: (context, provider, child) {
             if (provider.states == RadioStates.Initial) {
               return BuildLoadingWidget();
+            } else if (provider.states == RadioStates.Loading) {
+              return BuildLoadingWidget();
             } else if (provider.states == RadioStates.Success) {
               return FadeInRight(
                 child: Center(

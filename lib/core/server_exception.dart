@@ -9,8 +9,8 @@ class BadRequestException extends ServerException {
   @override
   ErrorResult errorResult() {
     return ErrorResult(
-        errorMessage: 'badRequestException'.tr(),
-        errorImage: 'assets/images/bad_request_error.png');
+        errorMessage: 'error'.tr(),
+        errorImage: 'assets/images/no-internet.png');
   }
 }
 
@@ -18,8 +18,8 @@ class UnauthorisedException extends ServerException {
   @override
   ErrorResult errorResult() {
     return ErrorResult(
-        errorMessage: 'unauthorisedException'.tr(),
-        errorImage: 'assets/images/unauthorised_error.png');
+        errorMessage: 'error'.tr(),
+        errorImage: 'assets/images/no-internet.png');
   }
 }
 
@@ -27,7 +27,7 @@ class FetchDataException extends ServerException {
   @override
   ErrorResult errorResult() {
     return ErrorResult(
-        errorMessage: 'fetchDataException'.tr(),
-        errorImage: 'assets/images/fetch_data_error.png');
+        errorMessage: 'error'.tr(),
+        errorImage: 'assets/images/no-internet.png');
   }
 }
