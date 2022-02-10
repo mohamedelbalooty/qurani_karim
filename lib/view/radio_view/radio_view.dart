@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:qurany_karim/model/error_result.dart';
+import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import 'package:qurany_karim/view_model/radio/radio_view_model.dart';
 import 'package:qurany_karim/view_model/radio/states.dart';
@@ -33,13 +34,15 @@ class _RadioViewState extends State<RadioView> {
     final bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Container(
-      decoration: BoxDecoration(gradient: defaultGradient()),
+      decoration: BoxDecoration(
+        gradient:
+            context.select<AppThemeProvider, bool>((value) => value.isDark)
+                ? darkGradient()
+                : lightGradient(),
+      ),
       child: Scaffold(
         backgroundColor: transparent,
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          title: Text('radio'.tr()),
-        ),
+        appBar: buildDefaultAppBar(title: 'radio'.tr()),
         body: Consumer<RadioViewModel>(
           builder: (context, provider, child) {
             if (provider.states == RadioStates.Initial) {

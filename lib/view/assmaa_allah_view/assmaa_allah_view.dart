@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/ui_provider/toggle_provider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import 'package:qurany_karim/view/app_components.dart';
@@ -34,12 +35,10 @@ class _AssmaaAllahViewState extends State<AssmaaAllahView>
 
   @override
   Widget build(BuildContext context) {
-    bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: Text('asmaa_allah'.tr()),
-      ),
+      appBar: buildDefaultAppBar(title: 'asmaa_allah'.tr()),
       body: Consumer<AssmaaAllahViewModel>(
         builder: (context, provider, child) {
           if (provider.states == AssmaaAllahStates.Loading) {
@@ -96,24 +95,64 @@ class _AssmaaAllahViewState extends State<AssmaaAllahView>
                             ? Container(
                                 color: whiteColor,
                                 child: Center(
-                                  child: GradientText(
-                                    provider.assmaaAllah[index].name,
-                                    style: Theme.of(context).textTheme.headline2,
-                                    textAlign: TextAlign.center,
+                                  child: Selector<AppThemeProvider, bool>(
+                                    selector: (context, provider) =>
+                                        provider.isDark,
+                                    builder: (context, value, child) {
+                                      return ShaderMask(
+                                        blendMode: BlendMode.srcIn,
+                                        shaderCallback: (bounds) => value
+                                            ? const LinearGradient(colors: [
+                                                mainDarkColor,
+                                                mainDarkColor
+                                              ]).createShader(
+                                                Rect.fromLTWH(
+                                                    0,
+                                                    0,
+                                                    bounds.width,
+                                                    bounds.height),
+                                              )
+                                            : lightGradient().createShader(
+                                                Rect.fromLTWH(
+                                                    0,
+                                                    0,
+                                                    bounds.width,
+                                                    bounds.height),
+                                              ),
+                                        child: Text(
+                                          provider.assmaaAllah[index].name,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ),
                               )
-                            : Container(
-                                decoration: BoxDecoration(
-                                  gradient: defaultGradient(),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    provider.assmaaAllah[index].name,
-                                    style: Theme.of(context).textTheme.headline2,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
+                            : Selector<AppThemeProvider, bool>(
+                                selector: (context, provider) =>
+                                    provider.isDark,
+                                builder: (context, value, child) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      gradient: value
+                                          ? darkGradient()
+                                          : lightGradient(),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        provider.assmaaAllah[index].name,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2
+                                            .copyWith(color: whiteColor),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                       );
                     }),

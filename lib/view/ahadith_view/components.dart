@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:qurany_karim/model/hadith.dart';
+import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import '../app_components.dart';
+import 'package:provider/provider.dart';
 
 class BuildSearchWidget extends StatelessWidget {
   final Widget suffixIcon;
@@ -22,7 +24,7 @@ class BuildSearchWidget extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: defaultBorderRadius(),
-        gradient: defaultGradient(),
+        gradient: context.select<AppThemeProvider, bool>((value) => value.isDark) ? darkGradient() :lightGradient(),
         border: Border.all(color: whiteColor, width: 1.5),
         boxShadow: [
           const BoxShadow(
@@ -64,7 +66,7 @@ class BuildHadithItemWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: defaultBorderRadius(),
-        gradient: defaultGradient(),
+        gradient: context.select<AppThemeProvider, bool>((value) => value.isDark) ? darkGradient() :lightGradient(),
         border: Border.all(color: whiteColor, width: 1.5),
         boxShadow: [
           const BoxShadow(

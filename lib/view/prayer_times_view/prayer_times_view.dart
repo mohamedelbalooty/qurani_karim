@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
+import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import 'package:qurany_karim/view/qiplah_view/components.dart';
 import 'package:qurany_karim/view_model/prayer_times/prayer_times_view_model.dart';
@@ -15,14 +16,15 @@ class PrayerTimesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(gradient: defaultGradient()),
+      decoration: BoxDecoration(
+        gradient:
+            context.select<AppThemeProvider, bool>((value) => value.isDark)
+                ? darkGradient()
+                : lightGradient(),
+      ),
       child: Scaffold(
         backgroundColor: transparent,
-        appBar: AppBar(
-          title: Text(
-            'times'.tr(),
-          ),
-        ),
+        appBar: buildDefaultAppBar(title: 'times'.tr()),
         body: Consumer<PrayerTimesViewModel>(
           builder: (context, provider, child) {
             if (provider.states == PrayerTimesStates.Initial) {

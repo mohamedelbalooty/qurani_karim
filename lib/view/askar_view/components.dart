@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:qurany_karim/model/azkar_details.dart';
+import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import '../app_components.dart';
+import 'package:provider/provider.dart';
 
 class BuildAzkarCategoryWidgetItem extends StatelessWidget {
   final String name;
@@ -21,7 +23,10 @@ class BuildAzkarCategoryWidgetItem extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         decoration: BoxDecoration(
-          gradient: defaultGradient(),
+          gradient:
+              context.select<AppThemeProvider, bool>((value) => value.isDark)
+                  ? darkGradient()
+                  : lightGradient(),
           boxShadow: [
             const BoxShadow(
               color: Colors.black12,
@@ -81,7 +86,10 @@ class BuildAzkarDetailsItemWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: defaultBorderRadius(),
-        gradient: defaultGradient(),
+        gradient:
+            context.select<AppThemeProvider, bool>((value) => value.isDark)
+                ? darkGradient()
+                : lightGradient(),
         border: Border.all(color: whiteColor, width: 1.5),
         boxShadow: [
           const BoxShadow(
@@ -113,7 +121,7 @@ class BuildAzkarDetailsItemWidget extends StatelessWidget {
                   child: Text(
                     '${details.count} ${int.parse(details.count) > 1 ? 'many'.tr() : 'once'.tr()}',
                     style: Theme.of(context).textTheme.bodyText2.copyWith(
-                        fontWeight: FontWeight.bold, color: mainColor),
+                        fontWeight: FontWeight.bold, color: context.select<AppThemeProvider, bool>((value) => value.isDark) ? mainDarkColor:mainColor),
                   ),
                 ),
               ),
@@ -155,13 +163,29 @@ class BuildAzkarDetailsItemWidget extends StatelessWidget {
                   bottomEnd: Radius.circular(10),
                   bottomStart: Radius.circular(10)),
             ),
-            child: GradientText(
-              '${details.description}',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2
-                  .copyWith(fontWeight: FontWeight.bold, height: 1.8),
-              textAlign: TextAlign.center,
+            child: Selector<AppThemeProvider, bool>(
+              selector: (context, provider) => provider.isDark,
+              builder: (context, value, child) {
+                return ShaderMask(
+                  blendMode: BlendMode.srcIn,
+                  shaderCallback: (bounds) => value
+                      ? const LinearGradient(
+                          colors: [secondDarkColor, secondDarkColor]).createShader(
+                          Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+                        )
+                      : lightGradient().createShader(
+                          Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+                        ),
+                  child: Text(
+                    '${details.description}',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2
+                        .copyWith(fontWeight: FontWeight.bold, height: 1.8),
+                    textAlign: TextAlign.center,
+                  ),
+                );
+              },
             ),
           ),
         ],

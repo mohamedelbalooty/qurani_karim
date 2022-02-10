@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qurany_karim/model/elder.dart';
+import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import 'package:qurany_karim/view_model/audio/audio_view_model.dart';
 import 'package:qurany_karim/view_model/audio/states.dart';
@@ -34,10 +35,7 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: Text(widget.elder.name),
-      ),
+      appBar: buildDefaultAppBar(title: widget.elder.name),
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
@@ -88,7 +86,9 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
                       height: 90.0,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: provider.openedAudio ? mainColor : transparent,
+                        color: context.select<AppThemeProvider, bool>((value) => value.isDark)
+                          ? mainDarkColor
+                          : mainColor,
                         borderRadius: BorderRadiusDirectional.only(
                           topEnd: Radius.circular(20.0),
                           topStart: Radius.circular(20.0),

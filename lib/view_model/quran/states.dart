@@ -9,3 +9,8 @@ enum QuranGetLocalDataStates{
   Loaded,
   Error
 }
+
+enum QuranGetCachedSurahDataStates{
+  Loaded,
+  Error
+}

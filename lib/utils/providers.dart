@@ -1,5 +1,6 @@
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/ui_provider/change_font_size_provider.dart';
 import 'package:qurany_karim/ui_provider/tasbih_provider.dart';
 import 'package:qurany_karim/ui_provider/time_provider.dart';
@@ -51,9 +52,10 @@ class Providers {
     ChangeNotifierProvider<RadioViewModel>(
       create: (_) => RadioViewModel(),
     ),
-    // ChangeNotifierProvider<PrayerTimesViewModel>(
-    //   create: (_) => PrayerTimesViewModel(),
-    // ),ChangeNotifierProvider<PrayerTimesViewModel>(
+    ChangeNotifierProvider<AppThemeProvider>(
+      create: (_) => AppThemeProvider(),
+    ),
+  // ChangeNotifierProvider<PrayerTimesViewModel>(
     //   create: (_) => PrayerTimesViewModel(),
     // ),
   ];

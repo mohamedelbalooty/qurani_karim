@@ -32,10 +32,7 @@ class _AhadithViewState extends State<AhadithView> with AfterLayoutMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: Text('hades'.tr()),
-      ),
+      appBar: buildDefaultAppBar(title: 'hades'.tr()),
       body: Consumer<AhadithViewModel>(
         builder: (context, provider, child) {
           if (provider.states == AhadithStates.Loading) {

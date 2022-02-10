@@ -16,10 +16,7 @@ class ListeningView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: Text('listen_moshaf'.tr()),
-      ),
+      appBar: buildDefaultAppBar(title: 'listen_moshaf'.tr()),
       body: Consumer<EldersViewModel>(
         builder: (context, provider, child) {
           if (provider.states == EldersStates.Initial) {

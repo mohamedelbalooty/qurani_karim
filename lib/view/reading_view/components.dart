@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:qurany_karim/model/surah.dart';
+import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import '../app_components.dart';
+import 'package:provider/provider.dart';
 
 class BuildSurahItemWidget extends StatelessWidget {
   final Surah surah;
@@ -25,7 +27,10 @@ class BuildSurahItemWidget extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         decoration: BoxDecoration(
-          gradient: defaultGradient(),
+          gradient:
+              context.select<AppThemeProvider, bool>((value) => value.isDark)
+                  ? darkGradient()
+                  : lightGradient(),
           boxShadow: [
             const BoxShadow(
               color: Colors.black12,

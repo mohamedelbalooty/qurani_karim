@@ -29,4 +29,18 @@ class QuranLocalService extends QuranRepository {
     }
     box.close();
   }
+
+  Future<Either<Surah, ErrorResult>> getSurahData(int index) async {
+    try {
+      Box<Surah> box = await Hive.openBox<Surah>(quranResponse);
+      Surah cachedSurah = box.getAt(index-1);
+      return Left(cachedSurah);
+    } catch (exception) {
+      ErrorResult error = ErrorResult(
+          errorMessage: 'local_exception'.tr(),
+          errorImage: 'assets/icons/storage_error.png');
+      return Right(error);
+    }
+  }
+
 }

@@ -46,6 +46,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>https</string>
+      <string>http</string>
+    </array>
 </dict>
 <key>NSLocationWhenInUseUsageDescription</key>
 <string>This app needs access to location when open.</string>

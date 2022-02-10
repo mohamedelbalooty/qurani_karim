@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import '../../app_components.dart';
+import 'package:provider/provider.dart';
 
 class BuildSurahAudioItemWidget extends StatelessWidget {
   final String name;
@@ -19,7 +21,10 @@ class BuildSurahAudioItemWidget extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         decoration: BoxDecoration(
-          gradient: defaultGradient(),
+          gradient:
+              context.select<AppThemeProvider, bool>((value) => value.isDark)
+                  ? darkGradient()
+                  : lightGradient(),
           boxShadow: [
             const BoxShadow(
               color: Colors.black12,
@@ -98,7 +103,10 @@ class BuildAudioLoading extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         children: [
-          const LinearProgressIndicator(),
+          LinearProgressIndicator(
+            valueColor:
+                AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+          ),
           mediumVerticalSpace(),
         ],
       ),

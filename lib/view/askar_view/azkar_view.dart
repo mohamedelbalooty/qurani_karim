@@ -15,10 +15,7 @@ class AzkarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: Text('azkar'.tr()),
-      ),
+      appBar: buildDefaultAppBar(title: 'azkar'.tr()),
       body: Consumer<AzkarViewModel>(
         builder: (context, provider, child) {
           if (provider.categoriesStates == AzkarCategoriesStates.Initial) {

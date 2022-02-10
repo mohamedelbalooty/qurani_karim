@@ -2,9 +2,11 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/ui_provider/tasbih_provider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import '../app_components.dart';
+import 'components.dart';
 
 class TasbihView extends StatelessWidget {
   const TasbihView({Key key}) : super(key: key);
@@ -13,10 +15,7 @@ class TasbihView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: Text('tasbeh'.tr()),
-      ),
+      appBar: buildDefaultAppBar(title: 'tasbeh'.tr()),
       body: Consumer<TasbihProvider>(
         builder: (context, provider, child) {
           return FadeInRight(
@@ -54,28 +53,28 @@ class TasbihView extends StatelessWidget {
                         showMenu(
                             context: context,
                             position: RelativeRect.fromLTRB(dx, dy, dx2, dy2),
-                            color: mainColor,
+                            color: Theme.of(context).primaryColor,
                             shape: OutlineInputBorder(
                               borderRadius: defaultBorderRadius(),
-                              borderSide: BorderSide(color: whiteColor, width: 1.5),
+                              borderSide:
+                                  BorderSide(color: whiteColor, width: 1.5),
                             ),
                             items: provider.tasbihData
                                 .map(
-                                  (e) => PopupMenuItem(
+                                  (e) => MyPopUpMenuItem(
                                     value: e,
-                                    child: InkWell(
-                                      child: Text(e),
-                                      onTap: () {
-                                        provider.selectCurrentValue(value: e);
-                                        provider.reset();
-                                        popNavigate(context);
-                                      },
-                                    ),
-                                    textStyle: Theme.of(context)
-                                        .textTheme
-                                        .bodyText2
-                                        .copyWith(
-                                            fontWeight: FontWeight.bold, height: 2),
+                                    child: Text(e,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                height: 2)),
+                                    onClick: () {
+                                      provider.selectCurrentValue(value: e);
+                                      provider.reset();
+                                      popNavigate(context);
+                                    },
                                   ),
                                 )
                                 .toList());
@@ -110,6 +109,10 @@ class TasbihView extends StatelessWidget {
                     BuildDefaultTextButton(
                       text: 'reset'.tr(),
                       fontSize: 22.0,
+                      buttonColor: context.select<AppThemeProvider, bool>(
+                              (value) => value.isDark)
+                          ? whiteColor
+                          : mainColor,
                       onClick: () {
                         provider.reset();
                       },
@@ -119,14 +122,20 @@ class TasbihView extends StatelessWidget {
                     ),
                     InkWell(
                       borderRadius: defaultBorderRadius(),
-                      splashColor: mainColor.withOpacity(0.3),
-                      highlightColor: mainColor.withOpacity(0.3),
-                      hoverColor: mainColor.withOpacity(0.2),
+                      splashColor:
+                          Theme.of(context).primaryColor.withOpacity(0.3),
+                      highlightColor:
+                          Theme.of(context).primaryColor.withOpacity(0.3),
+                      hoverColor:
+                          Theme.of(context).primaryColor.withOpacity(0.2),
                       onTap: () {
                         provider.tasbih();
                       },
                       child: Image.asset(
-                        'assets/icons/figerprint.png',
+                        context.select<AppThemeProvider, bool>(
+                                (value) => value.isDark)
+                            ? 'assets/icons/dark_fingerprint.png'
+                            : 'assets/icons/light_figerprint.png',
                         height: 140.0,
                         width: 140.0,
                         fit: BoxFit.fill,

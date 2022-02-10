@@ -1,95 +1,14 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qurany_karim/model/error_result.dart';
+import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:toast/toast.dart';
-
-class BuildSurahWidgetItem extends StatelessWidget {
-  final String surahName, surahNumber;
-  final bool isListen;
-  final Function onClick;
-
-  const BuildSurahWidgetItem(
-      {Key key,
-      @required this.surahName,
-      @required this.surahNumber,
-      @required this.isListen,
-      @required this.onClick})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onClick,
-      child: Container(
-        height: 80.0,
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        decoration: BoxDecoration(
-          gradient: defaultGradient(),
-          boxShadow: [
-            const BoxShadow(
-              color: Colors.black12,
-              offset: Offset(0.5, 0.5),
-              spreadRadius: 1.5,
-              blurRadius: 4,
-            ),
-          ],
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                const Icon(
-                  Icons.brightness_5,
-                  size: 60,
-                  color: whiteColor,
-                ),
-                Text(
-                  surahNumber,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2
-                      .copyWith(fontWeight: FontWeight.bold, height: 1.6),
-                ),
-              ],
-            ),
-            minimumHorizontalSpace(),
-            Text(
-              surahName,
-              style:
-                  Theme.of(context).textTheme.headline2.copyWith(height: 1.6),
-            ),
-            const Spacer(),
-            Row(
-              children: [
-                Text(
-                  isListen ? 'listen'.tr() : 'go'.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2
-                      .copyWith(fontWeight: FontWeight.bold, height: 1.6),
-                ),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  color: whiteColor,
-                  size: 18.0,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+import 'package:provider/provider.dart';
 
 AppBar buildDefaultAppBar({@required String title}) => AppBar(
       automaticallyImplyLeading: true,
@@ -103,7 +22,8 @@ class BuildDefaultButton extends StatelessWidget {
   final Function onClick;
 
   const BuildDefaultButton(
-      {Key key, @required this.title,
+      {Key key,
+      @required this.title,
       @required this.onClick,
       this.height = 50.0,
       this.width = double.infinity,
@@ -164,7 +84,10 @@ class BuildDefaultGradientButton extends StatelessWidget {
         height: height,
         width: width,
         decoration: BoxDecoration(
-          gradient: defaultGradient(),
+          gradient:
+              context.select<AppThemeProvider, bool>((value) => value.isDark)
+                  ? darkGradient()
+                  : lightGradient(),
           borderRadius: defaultBorderRadius(),
           border: Border.all(color: whiteColor, width: 1.5),
           boxShadow: [
@@ -225,8 +148,11 @@ class BuildDefaultTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(mainColor.withOpacity(0.3))),
-      child: GradientText(
+        overlayColor: MaterialStateProperty.all(
+          Theme.of(context).primaryColor.withOpacity(0.3),
+        ),
+      ),
+      child: Text(
         text,
         style: TextStyle(
           fontSize: fontSize,
@@ -239,15 +165,18 @@ class BuildDefaultTextButton extends StatelessWidget {
   }
 }
 
-BuildDefaultIconButton copyButton(BuildContext context, {@required String textValue}) => BuildDefaultIconButton(
-  icon: Icons.copy,
-  onClick: () => copyText(context, textValue: textValue),
-);
+BuildDefaultIconButton copyButton(BuildContext context,
+        {@required String textValue}) =>
+    BuildDefaultIconButton(
+      icon: Icons.copy,
+      onClick: () => copyText(context, textValue: textValue),
+    );
 
-BuildDefaultIconButton shareButton({@required String textValue}) => BuildDefaultIconButton(
-  icon: Icons.share,
-  onClick: () => shareText(textValue: textValue),
-);
+BuildDefaultIconButton shareButton({@required String textValue}) =>
+    BuildDefaultIconButton(
+      icon: Icons.share,
+      onClick: () => shareText(textValue: textValue),
+    );
 
 class GradientText extends StatelessWidget {
   const GradientText(this.text, {this.style, this.textAlign});
@@ -258,16 +187,64 @@ class GradientText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ShaderMask(
-      blendMode: BlendMode.srcIn,
-      shaderCallback: (bounds) => defaultGradient().createShader(
-        Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-      ),
-      child: Text(
-        text,
-        style: style,
-        textAlign: textAlign,
-      ),
+    return Selector<AppThemeProvider, bool>(
+      selector: (context, provider) => provider.isDark,
+      builder: (context, value, child) {
+        return ShaderMask(
+          blendMode: BlendMode.srcIn,
+          shaderCallback: (bounds) => value
+              ? const LinearGradient(colors: [whiteColor, whiteColor])
+                  .createShader(
+                  Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+                )
+              : lightGradient().createShader(
+                  Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+                ),
+          child: Text(
+            text,
+            style: style,
+            textAlign: textAlign,
+          ),
+        );
+      },
+    );
+  }
+}
+
+class GradientIcon extends StatelessWidget {
+  const GradientIcon({
+    Key key,
+    @required this.icon,
+    @required this.size,
+  }) : super(key: key);
+
+  final IconData icon;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Selector<AppThemeProvider, bool>(
+      selector: (context, provider) => provider.isDark,
+      builder: (context, value, child) {
+        return ShaderMask(
+          child: SizedBox(
+            width: size * 1.2,
+            height: size * 1.2,
+            child: Icon(
+              icon,
+              size: size,
+              color: Colors.white,
+            ),
+          ),
+          shaderCallback: (Rect bounds) {
+            final Rect rect = Rect.fromLTRB(0, 0, size, size);
+            return value
+                ? const LinearGradient(colors: [whiteColor, whiteColor])
+                    .createShader(rect)
+                : lightGradient().createShader(rect);
+          },
+        );
+      },
     );
   }
 }
@@ -279,7 +256,10 @@ class BuildLoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: (Platform.isAndroid)
-          ? CircularProgressIndicator()
+          ? CircularProgressIndicator(
+              valueColor:
+                  AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+            )
           : CupertinoActivityIndicator(),
     );
   }
@@ -337,10 +317,13 @@ BorderRadius defaultBorderRadius() => const BorderRadius.all(
       Radius.circular(10.0),
     );
 
-LinearGradient defaultGradient() => LinearGradient(
-    colors: [Colors.purple.shade400, Colors.indigoAccent.shade400],
+LinearGradient lightGradient() => const LinearGradient(
+    colors: [Colors.purple, Colors.indigo],
     begin: Alignment.topRight,
     end: Alignment.bottomLeft);
+
+LinearGradient darkGradient() =>
+    const LinearGradient(colors: [mainDarkColor, mainDarkColor]);
 
 SizedBox bigVerticalSpace() => const SizedBox(height: 30);
 

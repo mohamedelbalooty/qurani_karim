@@ -43,13 +43,15 @@ class BuildAnalogClock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     return Stack(
       children: [
         Padding(
           padding: EdgeInsets.symmetric(
               horizontal: getProportionateScreenWidth(30, context)),
           child: AspectRatio(
-            aspectRatio: 1.2,
+            aspectRatio: isPortrait ? 1.2 : 1.5,
             child: Container(
               padding: const EdgeInsets.all(15.0),
               decoration: BoxDecoration(
@@ -98,7 +100,7 @@ class BuildAnalogClock extends StatelessWidget {
           right: 0,
           child: Icon(
             Icons.brightness_4_outlined,
-            color: mainColor.withOpacity(0.7),
+            color: Theme.of(context).primaryColor.withOpacity(0.7),
             size: 30.0,
           ),
         ),
@@ -130,7 +132,7 @@ class ClockPainter extends CustomPainter {
       center,
       Offset(minX, minY),
       Paint()
-        ..color = Theme.of(context).accentColor
+        ..color = Theme.of(context).primaryColor
         ..style = PaintingStyle.stroke
         ..strokeWidth = 5,
     );
@@ -152,7 +154,7 @@ class ClockPainter extends CustomPainter {
       center,
       Offset(hourX, hourY),
       Paint()
-        ..color = Theme.of(context).colorScheme.secondary
+        ..color = Theme.of(context).primaryColor
         ..style = PaintingStyle.stroke
         ..strokeWidth = 5,
     );
@@ -175,7 +177,7 @@ class ClockPainter extends CustomPainter {
 
 // center Dots
     Paint dotPainter = Paint()
-      ..color = Theme.of(context).primaryIconTheme.color;
+      ..color = Theme.of(context).primaryColor;
     canvas.drawCircle(center, 20, dotPainter);
     canvas.drawCircle(
         center, 18, Paint()..color = Theme.of(context).backgroundColor);

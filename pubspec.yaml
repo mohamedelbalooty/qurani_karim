@@ -22,17 +22,18 @@ dependencies:
   hive: ^2.0.5
   hive_flutter: ^1.1.0
   pull_to_refresh: ^2.0.0
-  toast: ^0.1.5
   localize_and_translate: ^4.1.1
+  toast: ^0.1.5
   share_plus: ^3.0.0
+  geolocator: ^7.0.1
   flutter_qiblah: ^2.0.2
   adhan: ^1.1.16
   intl: ^0.17.0
-  geolocator: ^7.0.1
   animate_do: ^2.1.0
   assets_audio_player: ^3.0.3+6
   youtube_player_flutter: ^8.0.0
   package_info: ^2.0.0
+  url_launcher: ^6.0.10
 
 
 dev_dependencies:

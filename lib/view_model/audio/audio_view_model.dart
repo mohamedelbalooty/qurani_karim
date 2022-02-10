@@ -51,7 +51,7 @@ class AudioViewModel extends ChangeNotifier {
         .then((value) {
       value.fold((left) {
         _surahAudio = left;
-        CacheHelper.setIntData(key: isCachingSurah, value: surahId);
+        CacheHelper.setIntData(key: isCachingSurahAudio, value: surahId);
         audioDataStates = AudioDataStates.Loaded;
       }, (right) {
         _error = right;
@@ -72,7 +72,7 @@ class AudioViewModel extends ChangeNotifier {
     await getSurahAudio(elderFormat: elderFormat, surahId: id).then((value) {
       if (audioDataStates == AudioDataStates.Error) {
         for (var item in displayQuranData) {
-          if (item.number == CacheHelper.getIntData(key: isCachingSurah)) {
+          if (item.number == CacheHelper.getIntData(key: isCachingSurahAudio)) {
             _surah = item;
           }
         }

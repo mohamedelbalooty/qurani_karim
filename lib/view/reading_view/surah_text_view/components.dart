@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 
 class BuildCircleButton extends StatelessWidget {
@@ -14,7 +16,9 @@ class BuildCircleButton extends StatelessWidget {
     return ElevatedButton(
       child: Text(
         symbol,
-        style: const TextStyle(fontSize: 30.0, color: mainColor),
+        style: TextStyle(fontSize: 30.0, color: context.select<AppThemeProvider, bool>((value) => value.isDark)
+            ? mainDarkColor
+            : mainColor,),
       ),
       style: OutlinedButton.styleFrom(
         backgroundColor: whiteColor,

@@ -4,20 +4,36 @@ import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:qurany_karim/model/surah.dart';
+import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/ui_provider/change_font_size_provider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/view_model/quran/quran_view_model.dart';
 import '../../app_components.dart';
 import 'components.dart';
 
-class SurahTextView extends StatelessWidget {
+class SurahTextView extends StatefulWidget {
   final Surah surah;
 
   const SurahTextView({Key key, @required this.surah}) : super(key: key);
 
   @override
+  _SurahTextViewState createState() => _SurahTextViewState();
+}
+
+class _SurahTextViewState extends State<SurahTextView> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<QuranViewModel>().cachingSurah(surahId: widget.surah.number);
+    });
+    print( widget.surah.number);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildDefaultAppBar(title: surah.name),
+      appBar: buildDefaultAppBar(title: widget.surah.name),
       body: ElasticInUp(
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -35,7 +51,7 @@ class SurahTextView extends StatelessWidget {
               builder: (context, value, child) {
                 return SelectableText.rich(
                   TextSpan(
-                    children: surah.ayahs
+                    children: widget.surah.ayahs
                         .map(
                           (e) => TextSpan(
                             text: '${e.text} (${e.numberInSurah}) ',
@@ -44,13 +60,16 @@ class SurahTextView extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Tajawal',
                               foreground: Paint()
-                                ..shader = const LinearGradient(
-                                        colors: [Colors.purple, Colors.indigo],
-                                        begin: Alignment.topRight,
-                                        end: Alignment.bottomLeft)
-                                    .createShader(
-                                  Rect.fromLTWH(0.0, 220.0, 220.0, 0.0),
-                                ),
+                                ..shader = context.select<AppThemeProvider,
+                                        bool>((value) => value.isDark)
+                                    ? LinearGradient(
+                                            colors: [whiteColor, whiteColor])
+                                        .createShader(
+                                        Rect.fromLTWH(0.0, 220.0, 220.0, 0.0),
+                                      )
+                                    : lightGradient().createShader(
+                                        Rect.fromLTWH(0.0, 220.0, 220.0, 0.0),
+                                      ),
                             ),
                           ),
                         )
@@ -69,8 +88,11 @@ class SurahTextView extends StatelessWidget {
         child: Container(
           height: 60.0,
           width: double.infinity,
-          decoration: const BoxDecoration(
-            color: mainColor,
+          decoration: BoxDecoration(
+            color:
+                context.select<AppThemeProvider, bool>((value) => value.isDark)
+                    ? mainDarkColor
+                    : mainColor,
             borderRadius: BorderRadiusDirectional.only(
               topEnd: Radius.circular(20.0),
               topStart: Radius.circular(20.0),

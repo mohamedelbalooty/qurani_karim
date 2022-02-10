@@ -30,10 +30,7 @@ class _AzkarDetailsViewState extends State<AzkarDetailsView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: Text(widget.title),
-      ),
+      appBar: buildDefaultAppBar(title: widget.title),
       body: Consumer<AzkarViewModel>(
         builder: (context, provider, child) {
           if (provider.detailsStates == AzkarDetailsStates.Loading) {

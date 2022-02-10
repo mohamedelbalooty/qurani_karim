@@ -29,10 +29,7 @@ class _ReadingViewState extends State<ReadingView> with AfterLayoutMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: Text('read_moshaf'.tr()),
-      ),
+      appBar: buildDefaultAppBar(title: 'read_moshaf'.tr()),
       body: Consumer<QuranViewModel>(
         builder: (context, provider, child) {
           if (provider.localDataStates == QuranGetLocalDataStates.Loading) {

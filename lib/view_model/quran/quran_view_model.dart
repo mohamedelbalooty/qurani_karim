@@ -11,10 +11,14 @@ import 'states.dart';
 class QuranViewModel extends ChangeNotifier {
   QuranGetRemoteDataStates remoteDataStates;
   QuranGetLocalDataStates localDataStates;
-
+  QuranGetCachedSurahDataStates cachedSurahDataStates;
   List<Surah> _quranData;
 
   List<Surah> get quranData => _quranData;
+
+  Surah _cachedSurah;
+
+  Surah get cachedSurah => _cachedSurah;
 
   ErrorResult _error;
 
@@ -49,6 +53,25 @@ class QuranViewModel extends ChangeNotifier {
       }, (right) {
         _error = right;
         localDataStates = QuranGetLocalDataStates.Error;
+      });
+    });
+    notifyListeners();
+  }
+
+  void cachingSurah({@required int surahId}) {
+    CacheHelper.setIntData(key: isCachingSurahText, value: surahId);
+  }
+
+  Future<void> getSurahData() async {
+    await _localService
+        .getSurahData(CacheHelper.getIntData(key: isCachingSurahText))
+        .then((value) {
+      value.fold((left) {
+        _cachedSurah = left;
+        cachedSurahDataStates = QuranGetCachedSurahDataStates.Loaded;
+      }, (right) {
+        _error = right;
+        cachedSurahDataStates = QuranGetCachedSurahDataStates.Error;
       });
     });
     notifyListeners();
