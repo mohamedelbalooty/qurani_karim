@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:package_info/package_info.dart';
@@ -18,9 +19,9 @@ class BuildCustomDivider extends StatelessWidget {
       margin: margin,
       decoration: BoxDecoration(
         gradient:
-            context.select<AppThemeProvider, bool>((value) => value.isDark)
-                ? darkGradient()
-                : lightGradient(),
+        context.select<AppThemeProvider, bool>((value) => value.isDark)
+            ? darkGradient()
+            : lightGradient(),
       ),
     );
   }
@@ -89,12 +90,11 @@ class BuildVersionWidget extends StatelessWidget {
 }
 
 class BuildDrawerItemWidget extends StatelessWidget {
-  const BuildDrawerItemWidget(
-      {Key key,
-      @required this.title,
-      @required this.icon,
-      @required this.onClick,
-      this.isThemeToggle = false})
+  const BuildDrawerItemWidget({Key key,
+    @required this.title,
+    @required this.icon,
+    @required this.onClick,
+    this.isThemeToggle = false})
       : super(key: key);
   final String title;
   final IconData icon;
@@ -125,16 +125,16 @@ class BuildDrawerItemWidget extends StatelessWidget {
             const Spacer(),
             !isThemeToggle
                 ? GradientIcon(
-                    icon: Icons.arrow_forward_ios,
-                    size: 20.0,
-                  )
+              icon: Icons.arrow_forward_ios,
+              size: 20.0,
+            )
                 : GradientIcon(
-                    icon: context.select<AppThemeProvider, bool>(
-                            (value) => value.isDark)
-                        ? Icons.brightness_4_outlined
-                        : Icons.brightness_4,
-                    size: 24.0,
-                  ),
+              icon: context.select<AppThemeProvider, bool>(
+                      (value) => value.isDark)
+                  ? Icons.brightness_4_outlined
+                  : Icons.brightness_4,
+              size: 24.0,
+            ),
           ],
         ),
       ),
@@ -147,19 +147,76 @@ List<Widget> drawerItems(BuildContext context) {
     BuildDrawerItemWidget(
       title: 'about'.tr(),
       icon: Icons.help_outline,
-      onClick: () {},
+      onClick: () {
+        showModalBottomSheet(
+            context: context,
+            backgroundColor:
+            transparent,
+            shape: const OutlineInputBorder(
+              borderSide: BorderSide(color: transparent),
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20.0),
+                  topLeft: Radius.circular(20.0),
+                )),
+            builder: (_) {
+              return Selector<AppThemeProvider, bool>(
+                selector: (context, provider) => provider.isDark,
+                builder: (context, value, child) {
+                  return Container(
+                    height: 250.0,
+                    width: double.infinity,
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 30.0, vertical: 5.0),
+                    decoration: BoxDecoration(
+                      color: value
+                          ? mainDarkColor
+                          : whiteColor,
+                      borderRadius: const BorderRadiusDirectional.only(
+                        topEnd: Radius.circular(20.0),
+                        topStart: Radius.circular(20.0),
+                      ),
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // BuildCustomDivider(
+                          //   margin: const EdgeInsets.symmetric(
+                          //       horizontal: 60.0, vertical: 15.0),
+                          // ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 60.0, vertical: 5.0),
+                            child: Divider(thickness: 3, color: mainColor,),
+                          ),
+                          GradientText(
+                            'about_app'.tr(),
+                            style: const TextStyle(
+                                fontSize: 16.0, fontWeight: FontWeight.w500, height: 2),
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            });
+      },
     ),
     BuildDrawerItemWidget(
       title: 'privacy'.tr(),
       icon: Icons.lock_outline,
-      onClick: () {},
+      onClick: () {
+        launchURL(
+            'https://github.com/mohamedelbalooty/Qurani_Privacy_Policy/blob/main/README.md');
+      },
     ),
     BuildDrawerItemWidget(
       title: 'contact_us'.tr(),
       icon: Icons.email_outlined,
       onClick: () {
-        launchURL(
-            'mailto:mohamedelbalooty123@gmail.com?%20subject&%20body');
+        launchURL('mailto:mohamedelbalooty123@gmail.com?%20subject&%20body');
       },
     ),
     BuildDrawerItemWidget(
@@ -177,7 +234,8 @@ void launchURL(String url) async {
   if (!await launch(url)) throw 'Could not launch';
 }
 
-ThemeData lightTheme() => ThemeData(
+ThemeData lightTheme() =>
+    ThemeData(
       primaryColor: mainColor,
       primarySwatch: Colors.purple,
       fontFamily: 'Tajawal',
@@ -214,7 +272,8 @@ ThemeData lightTheme() => ThemeData(
       ),
     );
 
-ThemeData darkTheme() => ThemeData(
+ThemeData darkTheme() =>
+    ThemeData(
       primaryColor: mainDarkColor,
       primarySwatch: Colors.purple,
       fontFamily: 'Tajawal',

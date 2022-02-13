@@ -55,8 +55,5 @@ class Providers {
     ChangeNotifierProvider<AppThemeProvider>(
       create: (_) => AppThemeProvider(),
     ),
-  // ChangeNotifierProvider<PrayerTimesViewModel>(
-    //   create: (_) => PrayerTimesViewModel(),
-    // ),
   ];
 }

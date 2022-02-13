@@ -92,7 +92,7 @@ class WelcomeView extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 60.0),
                         child: Consumer<QuranViewModel>(
                           builder: (context, provider, child) {
-                            return BuildDefaultButton(
+                            return BuildWelcomeButton(
                               title: 'start_reading'.tr(),
                               onClick: () async {
                                 showLoading(context);

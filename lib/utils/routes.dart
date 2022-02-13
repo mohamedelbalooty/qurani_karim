@@ -12,7 +12,7 @@ import 'package:qurany_karim/view/reading_view/reading_view.dart';
 import 'package:qurany_karim/view/single_views/welcome_view.dart';
 import 'package:qurany_karim/view/tasbih_view/tasbih_view.dart';
 
-class Routes{
+class Routes {
   static Map<String, WidgetBuilder> routes = {
     WelcomeView.id: (_) => WelcomeView(),
     HomeView.id: (_) => HomeView(),

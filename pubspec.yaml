@@ -41,6 +41,12 @@ dev_dependencies:
     sdk: flutter
   hive_generator: ^1.1.2
   build_runner: ^2.1.2
+  flutter_native_splash: ^1.2.3
+flutter_native_splash:
+  color: "#6C3483"
+  image: "assets/icons/drawer_logo.png"
+  android: true
+  ios: true
 
 flutter:
 
@@ -49,7 +55,6 @@ flutter:
   assets:
     - assets/langs/ar.json
     - assets/langs/en.json
-    - assets/images/
     - assets/icons/
     - assets/json_db/
 

@@ -52,6 +52,7 @@ class QuranViewModel extends ChangeNotifier {
         localDataStates = QuranGetLocalDataStates.Loaded;
       }, (right) {
         _error = right;
+        print(right);
         localDataStates = QuranGetLocalDataStates.Error;
       });
     });

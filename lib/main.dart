@@ -19,6 +19,7 @@ import 'view/single_views/welcome_view.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await translator.init(
+    language: 'ar',
     localeType: LocalizationDefaultType.device,
     languagesList: <String>['ar', 'en'],
     assetsDirectory: 'assets/langs/',
@@ -55,6 +56,7 @@ class QuranyKarim extends StatelessWidget {
         enableBallisticLoad: true,
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
+          title: 'Qurani Karim - قراّني كريم',
           initialRoute: CacheHelper.getBooleanData(key: isCachingQuran) == null
               ? WelcomeView.id
               : HomeView.id,

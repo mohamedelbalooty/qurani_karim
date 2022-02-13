@@ -10,7 +10,7 @@ class BadRequestException extends ServerException {
   ErrorResult errorResult() {
     return ErrorResult(
         errorMessage: 'error'.tr(),
-        errorImage: 'assets/images/no-internet.png');
+        errorImage: 'assets/icons/server.png');
   }
 }
 
@@ -19,7 +19,7 @@ class UnauthorisedException extends ServerException {
   ErrorResult errorResult() {
     return ErrorResult(
         errorMessage: 'error'.tr(),
-        errorImage: 'assets/images/no-internet.png');
+        errorImage: 'assets/icons/server.png');
   }
 }
 
@@ -28,6 +28,6 @@ class FetchDataException extends ServerException {
   ErrorResult errorResult() {
     return ErrorResult(
         errorMessage: 'error'.tr(),
-        errorImage: 'assets/images/no-internet.png');
+        errorImage: 'assets/icons/server.png');
   }
 }

@@ -26,7 +26,6 @@ class _SurahTextViewState extends State<SurahTextView> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<QuranViewModel>().cachingSurah(surahId: widget.surah.number);
     });
-    print( widget.surah.number);
     super.initState();
   }
 

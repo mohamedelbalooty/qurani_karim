@@ -42,8 +42,8 @@ class CacheHelper {
     return sharedPreferences.getInt(key);
   }
 
-
-  static Future<bool> setListData({@required String key, @required List<String> value}){
+  static Future<bool> setListData(
+      {@required String key, @required List<String> value}) {
     return sharedPreferences.setStringList(key, value);
   }
 

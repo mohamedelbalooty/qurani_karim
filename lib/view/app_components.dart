@@ -15,51 +15,6 @@ AppBar buildDefaultAppBar({@required String title}) => AppBar(
       title: Text(title),
     );
 
-class BuildDefaultButton extends StatelessWidget {
-  final double height, width, radius;
-  final Color color;
-  final String title;
-  final Function onClick;
-
-  const BuildDefaultButton(
-      {Key key,
-      @required this.title,
-      @required this.onClick,
-      this.height = 50.0,
-      this.width = double.infinity,
-      this.color = thirdColor,
-      this.radius = 25.0})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onClick,
-      borderRadius: BorderRadius.circular(radius),
-      child: Container(
-        height: height,
-        width: width,
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(radius),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.black26,
-                offset: Offset(1.5, 1.5),
-                blurRadius: 2,
-                spreadRadius: 2),
-          ],
-        ),
-        child: Center(
-          child: Text(
-            title,
-            style: Theme.of(context).textTheme.headline2,
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class BuildDefaultGradientButton extends StatelessWidget {
   final double height, width;
