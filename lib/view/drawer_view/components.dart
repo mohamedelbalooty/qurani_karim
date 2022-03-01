@@ -19,9 +19,9 @@ class BuildCustomDivider extends StatelessWidget {
       margin: margin,
       decoration: BoxDecoration(
         gradient:
-        context.select<AppThemeProvider, bool>((value) => value.isDark)
-            ? darkGradient()
-            : lightGradient(),
+            context.select<AppThemeProvider, bool>((value) => value.isDark)
+                ? darkGradient()
+                : lightGradient(),
       ),
     );
   }
@@ -90,11 +90,12 @@ class BuildVersionWidget extends StatelessWidget {
 }
 
 class BuildDrawerItemWidget extends StatelessWidget {
-  const BuildDrawerItemWidget({Key key,
-    @required this.title,
-    @required this.icon,
-    @required this.onClick,
-    this.isThemeToggle = false})
+  const BuildDrawerItemWidget(
+      {Key key,
+      @required this.title,
+      @required this.icon,
+      @required this.onClick,
+      this.isThemeToggle = false})
       : super(key: key);
   final String title;
   final IconData icon;
@@ -125,16 +126,16 @@ class BuildDrawerItemWidget extends StatelessWidget {
             const Spacer(),
             !isThemeToggle
                 ? GradientIcon(
-              icon: Icons.arrow_forward_ios,
-              size: 20.0,
-            )
+                    icon: Icons.arrow_forward_ios,
+                    size: 20.0,
+                  )
                 : GradientIcon(
-              icon: context.select<AppThemeProvider, bool>(
-                      (value) => value.isDark)
-                  ? Icons.brightness_4_outlined
-                  : Icons.brightness_4,
-              size: 24.0,
-            ),
+                    icon: context.select<AppThemeProvider, bool>(
+                            (value) => value.isDark)
+                        ? Icons.brightness_4_outlined
+                        : Icons.brightness_4,
+                    size: 24.0,
+                  ),
           ],
         ),
       ),
@@ -150,10 +151,9 @@ List<Widget> drawerItems(BuildContext context) {
       onClick: () {
         showModalBottomSheet(
             context: context,
-            backgroundColor:
-            transparent,
+            backgroundColor: transparent,
             shape: const OutlineInputBorder(
-              borderSide: BorderSide(color: transparent),
+                borderSide: BorderSide(color: transparent),
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(20.0),
                   topLeft: Radius.circular(20.0),
@@ -165,12 +165,10 @@ List<Widget> drawerItems(BuildContext context) {
                   return Container(
                     height: 250.0,
                     width: double.infinity,
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 30.0, vertical: 5.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30.0, vertical: 5.0),
                     decoration: BoxDecoration(
-                      color: value
-                          ? mainDarkColor
-                          : whiteColor,
+                      color: value ? mainDarkColor : whiteColor,
                       borderRadius: const BorderRadiusDirectional.only(
                         topEnd: Radius.circular(20.0),
                         topStart: Radius.circular(20.0),
@@ -187,12 +185,17 @@ List<Widget> drawerItems(BuildContext context) {
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 60.0, vertical: 5.0),
-                            child: Divider(thickness: 3, color: mainColor,),
+                            child: Divider(
+                              thickness: 3,
+                              color: mainColor,
+                            ),
                           ),
                           GradientText(
                             'about_app'.tr(),
                             style: const TextStyle(
-                                fontSize: 16.0, fontWeight: FontWeight.w500, height: 2),
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                                height: 2),
                             textAlign: TextAlign.center,
                           )
                         ],
@@ -234,18 +237,18 @@ void launchURL(String url) async {
   if (!await launch(url)) throw 'Could not launch';
 }
 
-ThemeData lightTheme() =>
-    ThemeData(
+ThemeData lightTheme() => ThemeData(
       primaryColor: mainColor,
       primarySwatch: Colors.purple,
       fontFamily: 'Tajawal',
       scaffoldBackgroundColor: Colors.grey.shade50,
       appBarTheme: AppBarTheme(
+        backgroundColor: mainColor,
         titleTextStyle: const TextStyle(
-          color: whiteColor,
-          fontSize: 22.0,
-          fontWeight: FontWeight.bold,
-        ),
+            color: whiteColor,
+            fontSize: 22.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Tajawal'),
         centerTitle: true,
       ),
       textTheme: TextTheme(
@@ -272,18 +275,18 @@ ThemeData lightTheme() =>
       ),
     );
 
-ThemeData darkTheme() =>
-    ThemeData(
+ThemeData darkTheme() => ThemeData(
       primaryColor: mainDarkColor,
       primarySwatch: Colors.purple,
       fontFamily: 'Tajawal',
       scaffoldBackgroundColor: secondDarkColor,
       appBarTheme: AppBarTheme(
+        backgroundColor: mainDarkColor,
         titleTextStyle: const TextStyle(
-          color: mainDarkColor,
-          fontSize: 22.0,
-          fontWeight: FontWeight.bold,
-        ),
+            color: mainDarkColor,
+            fontSize: 22.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Tajawal'),
         centerTitle: true,
       ),
       textTheme: TextTheme(

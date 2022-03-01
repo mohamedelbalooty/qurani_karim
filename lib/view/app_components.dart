@@ -12,9 +12,8 @@ import 'package:provider/provider.dart';
 
 AppBar buildDefaultAppBar({@required String title}) => AppBar(
       automaticallyImplyLeading: true,
-      title: Text(title),
+      title: Text(title, style: const TextStyle(color: whiteColor),),
     );
-
 
 class BuildDefaultGradientButton extends StatelessWidget {
   final double height, width;

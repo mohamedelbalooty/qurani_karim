@@ -23,45 +23,45 @@ import '../app_components.dart';
 import 'package:provider/provider.dart';
 
 AppBar buildAppBar() => AppBar(
-  actions: [
-    Padding(
-      padding: const EdgeInsetsDirectional.only(end: 5.0),
-      child: Consumer<QuranViewModel>(
-        builder: (context, provider, child) {
-          return CacheHelper.getIntData(key: isCachingSurahText) != null
-              ? InkWell(
-            onTap: () {
-              provider.getSurahData().then((value) {
-                if (provider.cachedSurahDataStates ==
-                    QuranGetCachedSurahDataStates.Loaded) {
-                  materialNavigator(context,
-                      SurahTextView(surah: provider.cachedSurah));
-                } else {
-                  showToast(context,
-                      toastValue: provider.error.errorMessage);
-                }
-              });
+      // backgroundColor: context,
+      actions: [
+        Padding(
+          padding: const EdgeInsetsDirectional.only(end: 5.0),
+          child: Consumer<QuranViewModel>(
+            builder: (context, provider, child) {
+              return CacheHelper.getIntData(key: isCachingSurahText) != null
+                  ? InkWell(
+                      onTap: () {
+                        provider.getSurahData().then((value) {
+                          if (provider.cachedSurahDataStates ==
+                              QuranGetCachedSurahDataStates.Loaded) {
+                            materialNavigator(context,
+                                SurahTextView(surah: provider.cachedSurah));
+                          } else {
+                            showToast(context,
+                                toastValue: provider.error.errorMessage);
+                          }
+                        });
+                      },
+                      child: Image.asset(
+                        'assets/icons/drawer_logo.png',
+                      ),
+                    )
+                  : const SizedBox();
             },
-            child: Image.asset(
-              'assets/icons/drawer_logo.png',
-            ),
-          )
-              : const SizedBox();
-        },
+          ),
+        )
+      ],
+      title: Text(
+        'qurany_karim'.tr(),
+        style: const TextStyle(
+            fontSize: 28.0,
+            fontWeight: FontWeight.w500,
+            fontFamily: 'ReemKufi',
+            color: whiteColor),
       ),
-    )
-  ],
-  title: Text(
-    'qurany_karim'.tr(),
-    style: const TextStyle(
-      fontSize: 28.0,
-      fontWeight: FontWeight.w500,
-      fontFamily: 'ReemKufi',
-    ),
-  ),
-  centerTitle: true,
-);
-
+      centerTitle: true,
+    );
 
 List<BuildGridCategoryItem> portraitGridWidgets(BuildContext context,
     {bool isPortrait}) {
