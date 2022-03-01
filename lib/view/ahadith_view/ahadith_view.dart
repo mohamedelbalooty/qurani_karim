@@ -56,7 +56,8 @@ class _AhadithViewState extends State<AhadithView> with AfterLayoutMixin {
                 },
                 onLoading: () {
                   provider.onLoad(context, controller: _refreshController);
-                  if (provider.loadState == AhadithOnLoadState.OnLoadErrorState) {
+                  if (provider.loadState ==
+                      AhadithOnLoadState.OnLoadErrorState) {
                     showToast(context, toastValue: provider.refreshError);
                   }
                 },

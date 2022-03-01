@@ -4,10 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import 'package:qurany_karim/view/home_view/home_view.dart';
-import 'package:qurany_karim/view/single_views/components.dart';
 import 'package:qurany_karim/view_model/quran/quran_view_model.dart';
 import 'package:qurany_karim/view_model/quran/states.dart';
 import '../app_components.dart';
+import 'components.dart';
 
 class WelcomeView extends StatelessWidget {
   const WelcomeView({Key key}) : super(key: key);

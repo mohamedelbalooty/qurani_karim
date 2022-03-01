@@ -2,17 +2,20 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:provider/provider.dart';
 import 'package:qurany_karim/model/error_result.dart';
 import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
-import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:toast/toast.dart';
-import 'package:provider/provider.dart';
 
 AppBar buildDefaultAppBar({@required String title}) => AppBar(
       automaticallyImplyLeading: true,
-      title: Text(title, style: const TextStyle(color: whiteColor),),
+      title: Text(
+        title,
+        style: const TextStyle(color: whiteColor),
+      ),
     );
 
 class BuildDefaultGradientButton extends StatelessWidget {

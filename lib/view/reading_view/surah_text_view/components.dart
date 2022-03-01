@@ -16,9 +16,12 @@ class BuildCircleButton extends StatelessWidget {
     return ElevatedButton(
       child: Text(
         symbol,
-        style: TextStyle(fontSize: 30.0, color: context.select<AppThemeProvider, bool>((value) => value.isDark)
-            ? mainDarkColor
-            : mainColor,),
+        style: TextStyle(
+          fontSize: 30.0,
+          color: context.select<AppThemeProvider, bool>((value) => value.isDark)
+              ? mainDarkColor
+              : mainColor,
+        ),
       ),
       style: OutlinedButton.styleFrom(
         backgroundColor: whiteColor,

@@ -1,6 +1,5 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qurany_karim/model/elder.dart';
@@ -86,9 +85,10 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
                       height: 90.0,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: context.select<AppThemeProvider, bool>((value) => value.isDark)
-                          ? mainDarkColor
-                          : mainColor,
+                        color: context.select<AppThemeProvider, bool>(
+                                (value) => value.isDark)
+                            ? mainDarkColor
+                            : mainColor,
                         borderRadius: BorderRadiusDirectional.only(
                           topEnd: Radius.circular(20.0),
                           topStart: Radius.circular(20.0),

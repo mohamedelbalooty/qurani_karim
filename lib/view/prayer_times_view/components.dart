@@ -1,11 +1,12 @@
 import 'dart:math';
+
 import 'package:adhan/adhan.dart';
+import 'package:after_layout/after_layout.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
-import 'package:after_layout/after_layout.dart';
 import 'package:qurany_karim/model/prayer_times.dart';
 import 'package:qurany_karim/ui_provider/time_provider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
@@ -176,8 +177,7 @@ class ClockPainter extends CustomPainter {
           ..strokeWidth = 1.5);
 
 // center Dots
-    Paint dotPainter = Paint()
-      ..color = Theme.of(context).primaryColor;
+    Paint dotPainter = Paint()..color = Theme.of(context).primaryColor;
     canvas.drawCircle(center, 20, dotPainter);
     canvas.drawCircle(
         center, 18, Paint()..color = Theme.of(context).backgroundColor);

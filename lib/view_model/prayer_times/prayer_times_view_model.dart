@@ -1,7 +1,6 @@
 import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-
 import 'states.dart';
 
 class PrayerTimesViewModel extends ChangeNotifier {

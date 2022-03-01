@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import '../app_components.dart';
 import 'components.dart';
-import 'package:provider/provider.dart';
 
 class DrawerView extends StatelessWidget {
   const DrawerView({Key key}) : super(key: key);

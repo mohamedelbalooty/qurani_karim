@@ -1,12 +1,12 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:provider/provider.dart';
 import 'package:qurany_karim/model/youtube_channel.dart';
 import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import 'package:qurany_karim/view/app_components.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import 'package:provider/provider.dart';
 
 class LiveView extends StatelessWidget {
   const LiveView({Key key}) : super(key: key);
@@ -14,12 +14,15 @@ class LiveView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<YoutubeChannel> channels = [
+    final List<YoutubeChannel> channels = const [
       YoutubeChannel(
-          name: 'قناة القران الكريم السعودية مباشر',
-          url: 'https://youtu.be/e-q8FKdEKaU'),
+        name: ' مكة المكرمة بث مباشر | قناة القرآن الكريم',
+        url: 'https://youtu.be/NxSU6fcQmPs',
+      ),
       YoutubeChannel(
-          name: 'قناة السنة النبوية', url: 'https://youtu.be/KPSKRKyyoOw'),
+        name: 'قناة السنة النبوية',
+        url: 'https://youtu.be/4GCH7_Gj0ro',
+      ),
     ];
 
     return Scaffold(
@@ -56,20 +59,27 @@ class LiveView extends StatelessWidget {
                           child: YoutubePlayer(
                             controller: YoutubePlayerController(
                               initialVideoId:
-                                  convertVideoUrl(channels[index].url),
+                                  _convertVideoUrl(channels[index].url),
                               flags: const YoutubePlayerFlags(
-                                  autoPlay: false,
-                                  isLive: true,
-                                  enableCaption: true),
+                                autoPlay: false,
+                                isLive: true,
+                                enableCaption: true,
+                              ),
                             ),
                             showVideoProgressIndicator: true,
                           ),
                         ),
                       ),
                       minimumVerticalSpace(),
-                      Text(
-                        '  ${channels[index].name}',
-                        style: Theme.of(context).textTheme.bodyText1,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            '${channels[index].name}',
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                        ],
                       ),
                       minimumVerticalSpace(),
                     ],
@@ -84,7 +94,5 @@ class LiveView extends StatelessWidget {
     );
   }
 
-  String convertVideoUrl(String url) {
-    return YoutubePlayer.convertUrlToId(url);
-  }
+  String _convertVideoUrl(String url) => YoutubePlayer.convertUrlToId(url);
 }

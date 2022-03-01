@@ -1,7 +1,7 @@
+import 'dart:convert';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
-import 'package:dartz/dartz.dart';
-import 'dart:convert';
 import 'package:qurany_karim/model/azkar_category.dart';
 import 'package:qurany_karim/model/azkar_details.dart';
 import 'package:qurany_karim/model/error_result.dart';
@@ -16,7 +16,7 @@ class AzkarLocalService extends AzkarRepository {
           .loadString('assets/json_db/azkar_category.json');
       List<dynamic> jsonData = jsonDecode(response);
       List<AzkarCategory> categories =
-      jsonData.map((e) => AzkarCategory.fromJson(e)).toList();
+          jsonData.map((e) => AzkarCategory.fromJson(e)).toList();
       return Left(categories);
     } catch (exception) {
       ErrorResult error = ErrorResult(
@@ -34,7 +34,7 @@ class AzkarLocalService extends AzkarRepository {
           .loadString('assets/json_db/azkar_category_details.json');
       List<dynamic> jsonData = jsonDecode(response);
       List<AzkarDetails> details =
-      jsonData.map((e) => AzkarDetails.fromJson(e)).toList();
+          jsonData.map((e) => AzkarDetails.fromJson(e)).toList();
       return Left(details);
     } catch (exception) {
       ErrorResult error = ErrorResult(

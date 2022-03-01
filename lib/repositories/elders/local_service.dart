@@ -1,9 +1,9 @@
+import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:qurany_karim/model/elder.dart';
 import 'package:qurany_karim/model/error_result.dart';
-import 'dart:convert';
 import 'package:qurany_karim/repositories/elders/repository.dart';
 
 class EldersLocalService extends EldersRepository {

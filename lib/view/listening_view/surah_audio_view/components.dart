@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import '../../app_components.dart';
-import 'package:provider/provider.dart';
 
 class BuildSurahAudioItemWidget extends StatelessWidget {
   final String name;

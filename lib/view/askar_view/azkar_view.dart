@@ -39,7 +39,8 @@ class AzkarView extends StatelessWidget {
                           categoryId: provider.categories[index].id);
                       materialNavigator(
                         context,
-                        AzkarDetailsView(title: provider.categories[index].name),
+                        AzkarDetailsView(
+                            title: provider.categories[index].name),
                       );
                     },
                   );

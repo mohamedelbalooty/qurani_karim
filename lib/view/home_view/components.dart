@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:provider/provider.dart';
 import 'package:qurany_karim/utils/constants/cache_keys.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import 'package:qurany_karim/utils/helper/cache_helper.dart';
@@ -19,11 +20,10 @@ import 'package:qurany_karim/view_model/ahadith/ahadith_view_model.dart';
 import 'package:qurany_karim/view_model/assmaa_allah/assmaa_allah_view_model.dart';
 import 'package:qurany_karim/view_model/quran/quran_view_model.dart';
 import 'package:qurany_karim/view_model/quran/states.dart';
+
 import '../app_components.dart';
-import 'package:provider/provider.dart';
 
 AppBar buildAppBar() => AppBar(
-      // backgroundColor: context,
       actions: [
         Padding(
           padding: const EdgeInsetsDirectional.only(end: 5.0),

@@ -46,12 +46,12 @@ class BuildWelcomeButton extends StatelessWidget {
 
   const BuildWelcomeButton(
       {Key key,
-        @required this.title,
-        @required this.onClick,
-        this.height = 50.0,
-        this.width = double.infinity,
-        this.color = whiteColor,
-        this.radius = 25.0})
+      @required this.title,
+      @required this.onClick,
+      this.height = 50.0,
+      this.width = double.infinity,
+      this.color = whiteColor,
+      this.radius = 25.0})
       : super(key: key);
 
   @override
@@ -76,7 +76,10 @@ class BuildWelcomeButton extends StatelessWidget {
         child: Center(
           child: Text(
             title,
-            style: Theme.of(context).textTheme.headline2.copyWith(color: mainColor),
+            style: Theme.of(context)
+                .textTheme
+                .headline2
+                .copyWith(color: mainColor),
           ),
         ),
       ),

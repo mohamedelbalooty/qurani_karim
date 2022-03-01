@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:qurany_karim/model/error_result.dart';
 import 'package:qurany_karim/model/surah.dart';
 import 'package:qurany_karim/repositories/quran/repository.dart';
@@ -33,7 +33,7 @@ class QuranLocalService extends QuranRepository {
   Future<Either<Surah, ErrorResult>> getSurahData(int index) async {
     try {
       Box<Surah> box = await Hive.openBox<Surah>(quranResponse);
-      Surah cachedSurah = box.getAt(index-1);
+      Surah cachedSurah = box.getAt(index - 1);
       return Left(cachedSurah);
     } catch (exception) {
       ErrorResult error = ErrorResult(
@@ -42,5 +42,4 @@ class QuranLocalService extends QuranRepository {
       return Right(error);
     }
   }
-
 }

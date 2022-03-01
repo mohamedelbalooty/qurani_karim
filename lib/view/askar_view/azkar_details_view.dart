@@ -1,8 +1,6 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:qurany_karim/view_model/azkar/azkar_view_model.dart';
 import 'package:qurany_karim/view_model/azkar/states.dart';

@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:qurany_karim/core/status_code_errors.dart';
 import 'package:qurany_karim/model/error_result.dart';
 import 'package:qurany_karim/model/surah.dart';
 import 'package:qurany_karim/repositories/quran/repository.dart';
 import 'package:qurany_karim/utils/helper/dio_helper.dart';
-import 'package:localize_and_translate/localize_and_translate.dart';
 
 class QuranRemoteService extends QuranRepository {
   @override

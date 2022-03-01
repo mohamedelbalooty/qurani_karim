@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:provider/provider.dart';
 import 'package:qurany_karim/model/azkar_details.dart';
 import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/utils/constants/colors.dart';
 import '../app_components.dart';
-import 'package:provider/provider.dart';
 
 class BuildAzkarCategoryWidgetItem extends StatelessWidget {
   final String name;
@@ -121,7 +121,11 @@ class BuildAzkarDetailsItemWidget extends StatelessWidget {
                   child: Text(
                     '${details.count} ${int.parse(details.count) > 1 ? 'many'.tr() : 'once'.tr()}',
                     style: Theme.of(context).textTheme.bodyText2.copyWith(
-                        fontWeight: FontWeight.bold, color: context.select<AppThemeProvider, bool>((value) => value.isDark) ? mainDarkColor:mainColor),
+                        fontWeight: FontWeight.bold,
+                        color: context.select<AppThemeProvider, bool>(
+                                (value) => value.isDark)
+                            ? mainDarkColor
+                            : mainColor),
                   ),
                 ),
               ),
@@ -170,7 +174,8 @@ class BuildAzkarDetailsItemWidget extends StatelessWidget {
                   blendMode: BlendMode.srcIn,
                   shaderCallback: (bounds) => value
                       ? const LinearGradient(
-                          colors: [secondDarkColor, secondDarkColor]).createShader(
+                              colors: [secondDarkColor, secondDarkColor])
+                          .createShader(
                           Rect.fromLTWH(0, 0, bounds.width, bounds.height),
                         )
                       : lightGradient().createShader(

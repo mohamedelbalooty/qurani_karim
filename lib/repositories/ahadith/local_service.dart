@@ -1,13 +1,12 @@
+import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:qurany_karim/repositories/ahadith/repository.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:qurany_karim/model/error_result.dart';
 import 'package:qurany_karim/model/hadith.dart';
-import 'dart:convert';
+import 'package:qurany_karim/repositories/ahadith/repository.dart';
 
-
-class AhadithLocalService extends AhadithRepository{
+class AhadithLocalService extends AhadithRepository {
   @required
   Future<Either<List<Hadith>, ErrorResult>> getAhadith(
       {@required BuildContext context}) async {
@@ -16,7 +15,7 @@ class AhadithLocalService extends AhadithRepository{
           .loadString('assets/json_db/hadith.json');
       List<dynamic> jsonData = jsonDecode(response);
       List<Hadith> ahadithList =
-      jsonData.map((e) => Hadith.fromJson(e)).toList();
+          jsonData.map((e) => Hadith.fromJson(e)).toList();
       return Left(ahadithList);
     } catch (exception) {
       ErrorResult error = ErrorResult(

@@ -167,6 +167,7 @@ List<Widget> drawerItems(BuildContext context) {
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 30.0, vertical: 5.0),
+                    margin: const EdgeInsets.symmetric(horizontal: 30.0),
                     decoration: BoxDecoration(
                       color: value ? mainDarkColor : whiteColor,
                       borderRadius: const BorderRadiusDirectional.only(
@@ -178,10 +179,6 @@ List<Widget> drawerItems(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          // BuildCustomDivider(
-                          //   margin: const EdgeInsets.symmetric(
-                          //       horizontal: 60.0, vertical: 15.0),
-                          // ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 60.0, vertical: 5.0),

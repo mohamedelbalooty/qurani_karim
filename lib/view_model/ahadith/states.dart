@@ -1,15 +1,8 @@
-enum AhadithStates{
-  Loading,
-  Loaded,
-  Error
-}
+enum AhadithStates { Loading, Loaded, Error }
 
-enum AhadithOnRefreshState{
+enum AhadithOnRefreshState {
   OnRefreshSuccessState,
   OnRefreshErrorState,
 }
 
-enum AhadithOnLoadState{
-  OnLoadSuccessState,
-  OnLoadErrorState
-}
+enum AhadithOnLoadState { OnLoadSuccessState, OnLoadErrorState }

@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:qurany_karim/repositories/assmaa_allah/repository.dart';
-import 'package:localize_and_translate/localize_and_translate.dart';
+import 'dart:convert';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:qurany_karim/model/assmaa_allah.dart';
 import 'package:qurany_karim/model/error_result.dart';
-import 'dart:convert';
+import 'package:qurany_karim/repositories/assmaa_allah/repository.dart';
 
 class AssmaaAllahLocalService extends AssmaaAllahRepository {
   @override
@@ -15,7 +15,7 @@ class AssmaaAllahLocalService extends AssmaaAllahRepository {
           .loadString('assets/json_db/asmaa_allah_alhosna.json');
       List<dynamic> jsonData = jsonDecode(response);
       List<AssmaaAllah> assmaaAllahList =
-      jsonData.map((e) => AssmaaAllah.fromJson(e)).toList();
+          jsonData.map((e) => AssmaaAllah.fromJson(e)).toList();
       return Left(assmaaAllahList);
     } catch (exception) {
       ErrorResult error = ErrorResult(

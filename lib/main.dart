@@ -14,7 +14,7 @@ import 'utils/helper/dio_helper.dart';
 import 'utils/providers.dart';
 import 'view/drawer_view/components.dart';
 import 'view/home_view/home_view.dart';
-import 'view/single_views/welcome_view.dart';
+import 'view/welcome_view/welcome_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,33 +43,34 @@ class QuranyKarim extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshConfiguration(
-        headerBuilder: () => WaterDropHeader(),
-        footerBuilder: () => ClassicFooter(),
-        headerTriggerDistance: 30.0,
-        springDescription:
-            SpringDescription(stiffness: 170, damping: 16, mass: 1.9),
-        maxOverScrollExtent: 30,
-        maxUnderScrollExtent: 0,
-        enableScrollWhenRefreshCompleted: true,
-        enableLoadingWhenFailed: true,
-        hideFooterWhenNotFull: false,
-        enableBallisticLoad: true,
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Qurani Karim - قراّني كريم',
-          initialRoute: CacheHelper.getBooleanData(key: isCachingQuran) == null
-              ? WelcomeView.id
-              : HomeView.id,
-          routes: Routes.routes,
-          localizationsDelegates: translator.delegates,
-          locale: translator.activeLocale,
-          supportedLocales: translator.locals(),
-          theme: lightTheme(),
-          darkTheme: darkTheme(),
-          themeMode:
-              context.select<AppThemeProvider, bool>((value) => value.isDark)
-                  ? ThemeMode.dark
-                  : ThemeMode.light,
-        ));
+      headerBuilder: () => WaterDropHeader(),
+      footerBuilder: () => ClassicFooter(),
+      headerTriggerDistance: 30.0,
+      springDescription:
+          SpringDescription(stiffness: 170, damping: 16, mass: 1.9),
+      maxOverScrollExtent: 30,
+      maxUnderScrollExtent: 0,
+      enableScrollWhenRefreshCompleted: true,
+      enableLoadingWhenFailed: true,
+      hideFooterWhenNotFull: false,
+      enableBallisticLoad: true,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Qurani Karim - قراّني كريم',
+        initialRoute: CacheHelper.getBooleanData(key: isCachingQuran) == null
+            ? WelcomeView.id
+            : HomeView.id,
+        routes: Routes.routes,
+        localizationsDelegates: translator.delegates,
+        locale: translator.activeLocale,
+        supportedLocales: translator.locals(),
+        theme: lightTheme(),
+        darkTheme: darkTheme(),
+        themeMode:
+            context.select<AppThemeProvider, bool>((value) => value.isDark)
+                ? ThemeMode.dark
+                : ThemeMode.light,
+      ),
+    );
   }
 }

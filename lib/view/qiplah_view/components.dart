@@ -151,7 +151,8 @@ class LocationErrorWidget extends StatelessWidget {
             ),
             bigVerticalSpace(),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Theme.of(context).primaryColor),
+              style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).primaryColor),
               child: Text(
                 'retry'.tr(),
                 style: Theme.of(context).textTheme.bodyText1,
