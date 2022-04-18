@@ -7,9 +7,9 @@ import 'package:qurany_karim/model/error_result.dart';
 import 'package:qurany_karim/repositories/elders/repository.dart';
 
 class EldersLocalService extends EldersRepository {
-  @required
+  @override
   Future<Either<List<Elder>, ErrorResult>> getElders(
-      {@required BuildContext context}) async {
+      {required BuildContext context}) async {
     try {
       var response = await DefaultAssetBundle.of(context)
           .loadString('assets/json_db/elders.json');

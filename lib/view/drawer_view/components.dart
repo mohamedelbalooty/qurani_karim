@@ -1,15 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
-import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/utils/theme/colors.dart';
+import 'package:store_redirect/store_redirect.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../app_components.dart';
 
 class BuildCustomDivider extends StatelessWidget {
-  const BuildCustomDivider({Key key, @required this.margin}) : super(key: key);
+  const BuildCustomDivider({Key? key, required this.margin}) : super(key: key);
   final EdgeInsets margin;
 
   @override
@@ -28,7 +29,7 @@ class BuildCustomDivider extends StatelessWidget {
 }
 
 class BuildVersionWidget extends StatelessWidget {
-  const BuildVersionWidget({Key key}) : super(key: key);
+  const BuildVersionWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,17 +45,17 @@ class BuildVersionWidget extends StatelessWidget {
                 children: [
                   GradientText(
                     'version'.tr(),
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: mainColor,
-                      fontSize: 26.0,
+                      fontSize: 26.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   GradientText(
-                    ' ${snapshot.data.version}',
-                    style: const TextStyle(
+                    ' ${snapshot.data?.version}',
+                    style: TextStyle(
                       color: mainColor,
-                      fontSize: 24.0,
+                      fontSize: 24.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -67,17 +68,17 @@ class BuildVersionWidget extends StatelessWidget {
               children: [
                 GradientText(
                   'version'.tr(),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: mainColor,
-                    fontSize: 26.0,
+                    fontSize: 26.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 GradientText(
                   ' 1.0.0',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: mainColor,
-                    fontSize: 24.0,
+                    fontSize: 24.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -91,34 +92,34 @@ class BuildVersionWidget extends StatelessWidget {
 
 class BuildDrawerItemWidget extends StatelessWidget {
   const BuildDrawerItemWidget(
-      {Key key,
-      @required this.title,
-      @required this.icon,
-      @required this.onClick,
+      {Key? key,
+      required this.title,
+      required this.icon,
+      required this.onClick,
       this.isThemeToggle = false})
       : super(key: key);
   final String title;
   final IconData icon;
-  final Function onClick;
+  final VoidCallback onClick;
   final bool isThemeToggle;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: padding2(),
       child: InkWell(
         onTap: onClick,
         child: Row(
           children: [
             GradientIcon(
               icon: icon,
-              size: 24.0,
+              size: 24.sp,
             ),
-            mediumHorizontalSpace(),
+            horizontalSpace4(),
             GradientText(
               title,
-              style: const TextStyle(
-                fontSize: 18.0,
+              style: TextStyle(
+                fontSize: 18.sp,
                 color: mainColor,
                 fontWeight: FontWeight.bold,
               ),
@@ -127,14 +128,14 @@ class BuildDrawerItemWidget extends StatelessWidget {
             !isThemeToggle
                 ? GradientIcon(
                     icon: Icons.arrow_forward_ios,
-                    size: 20.0,
+                    size: 20.sp,
                   )
                 : GradientIcon(
                     icon: context.select<AppThemeProvider, bool>(
                             (value) => value.isDark)
                         ? Icons.brightness_4_outlined
                         : Icons.brightness_4,
-                    size: 24.0,
+                    size: 24.sp,
                   ),
           ],
         ),
@@ -163,7 +164,7 @@ List<Widget> drawerItems(BuildContext context) {
                 selector: (context, provider) => provider.isDark,
                 builder: (context, value, child) {
                   return Container(
-                    height: 250.0,
+                    height: 250.h,
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 30.0, vertical: 5.0),
@@ -179,8 +180,8 @@ List<Widget> drawerItems(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
+                          const Padding(
+                            padding: EdgeInsets.symmetric(
                                 horizontal: 60.0, vertical: 5.0),
                             child: Divider(
                               thickness: 3,
@@ -189,8 +190,8 @@ List<Widget> drawerItems(BuildContext context) {
                           ),
                           GradientText(
                             'about_app'.tr(),
-                            style: const TextStyle(
-                                fontSize: 16.0,
+                            style: TextStyle(
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w500,
                                 height: 2),
                             textAlign: TextAlign.center,
@@ -207,25 +208,24 @@ List<Widget> drawerItems(BuildContext context) {
     BuildDrawerItemWidget(
       title: 'privacy'.tr(),
       icon: Icons.lock_outline,
-      onClick: () {
-        launchURL(
-            'https://github.com/mohamedelbalooty/Qurani_Privacy_Policy/blob/main/README.md');
-      },
+      onClick: () => launchURL(
+          'https://github.com/mohamedelbalooty/Qurani_Privacy_Policy/blob/main/README.md'),
     ),
     BuildDrawerItemWidget(
-      title: 'contact_us'.tr(),
-      icon: Icons.email_outlined,
-      onClick: () {
-        launchURL('mailto:mohamedelbalooty123@gmail.com?%20subject&%20body');
-      },
+      title: 'share_app'.tr(),
+      icon: Icons.share,
+      onClick: () => shareText(textValue: 'https://play.google.com/store/apps/details?id=com.mohamedElbalooty.qurani_karim'),
+    ),
+    BuildDrawerItemWidget(
+      title: 'ratting_app'.tr(),
+      icon: Icons.shop,
+      onClick: () => StoreRedirect.redirect(),
     ),
     BuildDrawerItemWidget(
       title: 'dark_mode'.tr(),
       icon: Icons.wb_sunny_outlined,
       isThemeToggle: true,
-      onClick: () {
-        context.read<AppThemeProvider>().changeAppTheme();
-      },
+      onClick: () => context.read<AppThemeProvider>().changeAppTheme(),
     )
   ];
 }
@@ -233,79 +233,3 @@ List<Widget> drawerItems(BuildContext context) {
 void launchURL(String url) async {
   if (!await launch(url)) throw 'Could not launch';
 }
-
-ThemeData lightTheme() => ThemeData(
-      primaryColor: mainColor,
-      primarySwatch: Colors.purple,
-      fontFamily: 'Tajawal',
-      scaffoldBackgroundColor: Colors.grey.shade50,
-      appBarTheme: AppBarTheme(
-        backgroundColor: mainColor,
-        titleTextStyle: const TextStyle(
-            color: whiteColor,
-            fontSize: 22.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Tajawal'),
-        centerTitle: true,
-      ),
-      textTheme: TextTheme(
-        headline1: const TextStyle(
-          color: whiteColor,
-          fontSize: 38.0,
-          fontWeight: FontWeight.bold,
-        ),
-        headline2: const TextStyle(
-          color: whiteColor,
-          fontSize: 22.0,
-          fontWeight: FontWeight.bold,
-        ),
-        bodyText1: const TextStyle(
-          color: whiteColor,
-          fontSize: 16.0,
-          fontWeight: FontWeight.bold,
-        ),
-        bodyText2: const TextStyle(
-          color: whiteColor,
-          fontSize: 14.0,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-    );
-
-ThemeData darkTheme() => ThemeData(
-      primaryColor: mainDarkColor,
-      primarySwatch: Colors.purple,
-      fontFamily: 'Tajawal',
-      scaffoldBackgroundColor: secondDarkColor,
-      appBarTheme: AppBarTheme(
-        backgroundColor: mainDarkColor,
-        titleTextStyle: const TextStyle(
-            color: mainDarkColor,
-            fontSize: 22.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Tajawal'),
-        centerTitle: true,
-      ),
-      textTheme: TextTheme(
-        headline1: const TextStyle(
-          color: mainDarkColor,
-          fontSize: 38.0,
-          fontWeight: FontWeight.bold,
-        ),
-        headline2: const TextStyle(
-          color: whiteColor,
-          fontSize: 22.0,
-          fontWeight: FontWeight.bold,
-        ),
-        bodyText1: const TextStyle(
-          color: whiteColor,
-          fontSize: 16.0,
-          fontWeight: FontWeight.bold,
-        ),
-        bodyText2: const TextStyle(
-          color: whiteColor,
-          fontSize: 14.0,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-    );

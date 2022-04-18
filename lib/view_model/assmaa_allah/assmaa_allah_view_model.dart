@@ -7,25 +7,31 @@ import 'package:qurany_karim/repositories/assmaa_allah/local_service.dart';
 import 'states.dart';
 
 class AssmaaAllahViewModel extends ChangeNotifier {
-  AssmaaAllahStates states;
-  AssmaaAllahOnRefreshState refreshState;
-  AssmaaAllahOnLoadState loadState;
+  late AssmaaAllahStates states;
+  late AssmaaAllahOnRefreshState refreshState;
+  late AssmaaAllahOnLoadState loadState;
 
-  List<AssmaaAllah> _assmaaAllah;
+  AssmaaAllahViewModel() {
+    states = AssmaaAllahStates.Initial;
+    refreshState = AssmaaAllahOnRefreshState.OnRefreshInitialState;
+    loadState = AssmaaAllahOnLoadState.OnLoadInitialState;
+  }
 
-  List<AssmaaAllah> get assmaaAllah => _assmaaAllah;
+  List<AssmaaAllah>? _assmaaAllah;
 
-  ErrorResult _error;
+  List<AssmaaAllah> get assmaaAllah => _assmaaAllah!;
 
-  ErrorResult get error => _error;
+  ErrorResult? _error;
 
-  String _refreshError;
+  ErrorResult get error => _error!;
 
-  String get refreshError => _refreshError;
+  String? _refreshError;
+
+  String get refreshError => _refreshError!;
 
   int page = 1;
 
-  AssmaaAllahLocalService _service = AssmaaAllahLocalService();
+  final AssmaaAllahLocalService _service = AssmaaAllahLocalService();
 
   Future<void> getAssmaaAllahAlhosna(BuildContext context) async {
     states = AssmaaAllahStates.Loading;
@@ -43,12 +49,12 @@ class AssmaaAllahViewModel extends ChangeNotifier {
   }
 
   Future<void> onRefresh(BuildContext context,
-      {@required RefreshController controller}) async {
-    await Future.delayed(Duration(seconds: 2));
+      {required RefreshController controller}) async {
+    await Future.delayed(const Duration(seconds: 2));
     try {
       await _service.getAssmaaAllahAlhosna(context: context).then((value) {
         value.fold((left) {
-          _assmaaAllah.clear();
+          _assmaaAllah!.clear();
           page = 1;
           _assmaaAllah = left.getRange(0, 21).toList();
           controller.refreshCompleted();
@@ -68,20 +74,20 @@ class AssmaaAllahViewModel extends ChangeNotifier {
   }
 
   Future<void> onLoad(BuildContext context,
-      {@required RefreshController controller}) async {
+      {required RefreshController controller}) async {
     if (page >= 1 && page < 5) {
       page += 1;
       try {
         await _service.getAssmaaAllahAlhosna(context: context).then((value) {
           value.fold((left) async {
-            _assmaaAllah.addAll(page == 2
+            _assmaaAllah!.addAll(page == 2
                 ? left.getRange(21, 41).toList()
                 : page == 3
                     ? left.getRange(41, 61).toList()
                     : page == 4
                         ? left.getRange(61, 81).toList()
                         : left.getRange(81, 99).toList());
-            await Future.delayed(Duration(seconds: 2));
+            await Future.delayed(const Duration(seconds: 2));
             controller.loadComplete();
             loadState = AssmaaAllahOnLoadState.OnLoadSuccessState;
           }, (right) {
@@ -104,7 +110,7 @@ class AssmaaAllahViewModel extends ChangeNotifier {
   }
 
   void disposeData() {
-    _assmaaAllah.clear();
+    _assmaaAllah!.clear();
     page = 1;
   }
 }

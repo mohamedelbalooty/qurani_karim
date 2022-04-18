@@ -10,7 +10,7 @@ import 'components.dart';
 class AzkarDetailsView extends StatefulWidget {
   final String title;
 
-  const AzkarDetailsView({Key key, @required this.title}) : super(key: key);
+  const AzkarDetailsView({Key? key, required this.title}) : super(key: key);
 
   @override
   _AzkarDetailsViewState createState() => _AzkarDetailsViewState();
@@ -18,7 +18,7 @@ class AzkarDetailsView extends StatefulWidget {
 
 class _AzkarDetailsViewState extends State<AzkarDetailsView>
     with AfterLayoutMixin {
-  AzkarViewModel _azkarViewModel;
+  late AzkarViewModel _azkarViewModel;
 
   @override
   void afterFirstLayout(BuildContext context) {
@@ -32,11 +32,11 @@ class _AzkarDetailsViewState extends State<AzkarDetailsView>
       body: Consumer<AzkarViewModel>(
         builder: (context, provider, child) {
           if (provider.detailsStates == AzkarDetailsStates.Loading) {
-            return BuildLoadingWidget();
+            return const BuildLoadingWidget();
           } else if (provider.detailsStates == AzkarDetailsStates.Loaded) {
             return ElasticInUp(
               child: ListView.separated(
-                padding: const EdgeInsets.all(10.0),
+                padding: padding2(),
                 physics: const BouncingScrollPhysics(),
                 itemCount: provider.azkarDetails.length,
                 itemBuilder: (_, index) {
@@ -44,7 +44,7 @@ class _AzkarDetailsViewState extends State<AzkarDetailsView>
                     details: provider.azkarDetails[index],
                   );
                 },
-                separatorBuilder: (_, index) => minimumVerticalSpace(),
+                separatorBuilder: (_, index) => verticalSpace2(),
               ),
             );
           } else {

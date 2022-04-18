@@ -1,8 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
-import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:provider/provider.dart';
+import 'package:qurany_karim/utils/theme/colors.dart';
 import 'package:qurany_karim/view/home_view/home_view.dart';
 import 'package:qurany_karim/view_model/quran/quran_view_model.dart';
 import 'package:qurany_karim/view_model/quran/states.dart';
@@ -10,7 +11,7 @@ import '../app_components.dart';
 import 'components.dart';
 
 class WelcomeView extends StatelessWidget {
-  const WelcomeView({Key key}) : super(key: key);
+  const WelcomeView({Key? key}) : super(key: key);
   static const String id = 'WelcomeView';
 
   @override
@@ -20,28 +21,27 @@ class WelcomeView extends StatelessWidget {
         child: Center(
           child: SingleChildScrollView(
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  bigVerticalSpace(),
+                  verticalSpace5(),
                   Text(
                     'qurany_karim'.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline1
+                        .headline1!
                         .copyWith(color: mainColor, fontFamily: 'ReemKufi'),
                   ),
-                  minimumVerticalSpace(),
+                  verticalSpace2(),
                   Text(
                     'beauty_our_sound'.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline2
+                        .headline2!
                         .copyWith(color: mainColor),
                   ),
-                  bigVerticalSpace(),
+                  verticalSpace5(),
                   Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
@@ -49,8 +49,8 @@ class WelcomeView extends StatelessWidget {
                         children: [
                           Container(
                             width: double.infinity,
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 25.0, horizontal: 10.0),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 25.h, horizontal: 10.w),
                             decoration: const BoxDecoration(
                               color: mainColor,
                               borderRadius: BorderRadius.all(
@@ -58,8 +58,7 @@ class WelcomeView extends StatelessWidget {
                               ),
                             ),
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 30.0),
+                              padding: EdgeInsets.symmetric(horizontal: 30.w),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,28 +67,28 @@ class WelcomeView extends StatelessWidget {
                                     'read_question'.tr(),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2
-                                        .copyWith(fontSize: 24.0, height: 1.3),
+                                        .headline2!
+                                        .copyWith(fontSize: 24.sp, height: 1.3),
                                     textAlign: TextAlign.center,
                                   ),
-                                  minimumVerticalSpace(),
+                                  verticalSpace2(),
                                   Text(
                                     'read_answer'.tr(),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2
-                                        .copyWith(fontSize: 20.0, height: 1.6),
+                                        .headline2!
+                                        .copyWith(fontSize: 20.sp, height: 1.6),
                                     textAlign: TextAlign.center,
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                          const SizedBox(height: 25),
+                          SizedBox(height: 25.h),
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                        padding: EdgeInsets.symmetric(horizontal: 60.w),
                         child: Consumer<QuranViewModel>(
                           builder: (context, provider, child) {
                             return BuildWelcomeButton(
@@ -105,7 +104,7 @@ class WelcomeView extends StatelessWidget {
                                 }
                                 if (provider.remoteDataStates ==
                                     QuranGetRemoteDataStates.Error) {
-                                  showToast(context,
+                                  showToast(
                                       toastValue: provider.error.errorMessage);
                                 }
                               },

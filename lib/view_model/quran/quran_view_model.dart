@@ -9,23 +9,30 @@ import 'package:qurany_karim/utils/helper/cache_helper.dart';
 import 'states.dart';
 
 class QuranViewModel extends ChangeNotifier {
-  QuranGetRemoteDataStates remoteDataStates;
-  QuranGetLocalDataStates localDataStates;
-  QuranGetCachedSurahDataStates cachedSurahDataStates;
-  List<Surah> _quranData;
+  late QuranGetRemoteDataStates remoteDataStates;
+  late QuranGetLocalDataStates localDataStates;
+  late QuranGetCachedSurahDataStates cachedSurahDataStates;
 
-  List<Surah> get quranData => _quranData;
+  QuranViewModel() {
+    remoteDataStates = QuranGetRemoteDataStates.Initial;
+    localDataStates = QuranGetLocalDataStates.Initial;
+    cachedSurahDataStates = QuranGetCachedSurahDataStates.Initial;
+  }
 
-  Surah _cachedSurah;
+  final QuranRemoteService _remoteService = QuranRemoteService();
+  final QuranLocalService _localService = QuranLocalService();
 
-  Surah get cachedSurah => _cachedSurah;
+  List<Surah>? _quranData;
 
-  ErrorResult _error;
+  List<Surah> get quranData => _quranData!;
 
-  ErrorResult get error => _error;
+  Surah? _cachedSurah;
 
-  QuranRemoteService _remoteService = QuranRemoteService();
-  QuranLocalService _localService = QuranLocalService();
+  Surah get cachedSurah => _cachedSurah!;
+
+  ErrorResult? _error;
+
+  ErrorResult get error => _error!;
 
   Future<void> getRemoteData() async {
     remoteDataStates = QuranGetRemoteDataStates.Loading;
@@ -52,20 +59,15 @@ class QuranViewModel extends ChangeNotifier {
         localDataStates = QuranGetLocalDataStates.Loaded;
       }, (right) {
         _error = right;
-        print(right);
         localDataStates = QuranGetLocalDataStates.Error;
       });
     });
     notifyListeners();
   }
 
-  void cachingSurah({@required int surahId}) {
-    CacheHelper.setIntData(key: isCachingSurahText, value: surahId);
-  }
-
   Future<void> getSurahData() async {
     await _localService
-        .getSurahData(CacheHelper.getIntData(key: isCachingSurahText))
+        .getSurahData(CacheHelper.getIntData(key: isCachingSurahText)!)
         .then((value) {
       value.fold((left) {
         _cachedSurah = left;
@@ -78,9 +80,13 @@ class QuranViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> cachingSurah({required int surahId}) async{
+    await CacheHelper.setIntData(key: isCachingSurahText, value: surahId);
+  }
+
   void disposeData() async {
     Box<Surah> box = await Hive.openBox<Surah>(quranResponse);
-    _quranData.clear();
+    _quranData!.clear();
     box.close();
   }
 }

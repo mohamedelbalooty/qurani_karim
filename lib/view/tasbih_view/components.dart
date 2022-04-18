@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class MyPopUpMenuItem<T> extends PopupMenuItem<T> {
-  final Function onClick;
+  final VoidCallback onClick;
   final Widget child;
-  final T value;
+  final T? value;
 
   const MyPopUpMenuItem(
-      {@required this.child, @required this.onClick, this.value})
-      : super(child: child, value: value);
+      {Key? key, required this.child, required this.onClick, this.value})
+      : super(key: key, child: child, value: value);
 
   @override
   PopupMenuItemState<T, PopupMenuItem<T>> createState() {

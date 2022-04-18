@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class TasbihProvider extends ChangeNotifier {
   int tasbihNumber = 0;
 
@@ -15,10 +14,16 @@ class TasbihProvider extends ChangeNotifier {
   }
 
   String selectedValue = 'سبحان الله';
-  List<String> tasbihData = ['سبحان الله', 'الحمد لله', 'لا اله الا الله', 'الله اكبر'];
+  List<String> tasbihData = [
+    'سبحان الله',
+    'الحمد لله',
+    'لا اله الا الله',
+    'الله اكبر'
+  ];
 
   bool collaps = false;
-  selectCurrentValue({@required String value}){
+
+  selectCurrentValue({required String value}) {
     collaps = false;
     selectedValue = value;
     notifyListeners();

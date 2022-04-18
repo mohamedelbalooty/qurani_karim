@@ -1,10 +1,11 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:qurany_karim/model/elder.dart';
 import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
-import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/utils/theme/colors.dart';
 import 'package:qurany_karim/view_model/audio/audio_view_model.dart';
 import 'package:qurany_karim/view_model/audio/states.dart';
 import 'package:qurany_karim/view_model/quran/quran_view_model.dart';
@@ -15,15 +16,15 @@ import 'components.dart';
 class SurahAudioView extends StatefulWidget {
   final Elder elder;
 
-  const SurahAudioView({Key key, @required this.elder}) : super(key: key);
+  const SurahAudioView({Key ?key, required this.elder}) : super(key: key);
 
   @override
   _SurahAudioViewState createState() => _SurahAudioViewState();
 }
 
 class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
-  QuranViewModel _quranViewModel;
-  AudioViewModel _audioViewModel;
+  late QuranViewModel _quranViewModel;
+  late AudioViewModel _audioViewModel;
 
   @override
   void afterFirstLayout(BuildContext context) {
@@ -41,7 +42,7 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
           Consumer<QuranViewModel>(
             builder: (context, provider, child) {
               if (provider.localDataStates == QuranGetLocalDataStates.Loading) {
-                return BuildLoadingWidget();
+                return const BuildLoadingWidget();
               } else if (provider.localDataStates ==
                   QuranGetLocalDataStates.Loaded) {
                 context
@@ -55,7 +56,7 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
                     itemBuilder: (_, index) {
                       return Padding(
                         padding: index == provider.quranData.length - 1
-                            ? EdgeInsets.only(bottom: 95.0)
+                            ? EdgeInsets.only(bottom: 95.h)
                             : EdgeInsets.zero,
                         child: BuildSurahAudioItemWidget(
                           name: provider.quranData[index].name,
@@ -68,7 +69,7 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
                         ),
                       );
                     },
-                    separatorBuilder: (_, index) => minimumVerticalSpace(),
+                    separatorBuilder: (_, index) => verticalSpace2(),
                   ),
                 );
               } else {
@@ -82,14 +83,14 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
             builder: (context, provider, child) {
               return provider.openedAudio
                   ? Container(
-                      height: 90.0,
+                      height: 90.h,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: context.select<AppThemeProvider, bool>(
                                 (value) => value.isDark)
                             ? mainDarkColor
                             : mainColor,
-                        borderRadius: BorderRadiusDirectional.only(
+                        borderRadius: const BorderRadiusDirectional.only(
                           topEnd: Radius.circular(20.0),
                           topStart: Radius.circular(20.0),
                         ),
@@ -98,15 +99,15 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
                         children: [
                           Text(
                             provider.surah.name,
-                            style: const TextStyle(
-                                fontSize: 14.0,
+                            style: TextStyle(
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.bold,
                                 color: whiteColor,
                                 height: 2),
                           ),
                           const Spacer(),
                           provider.audioDataStates == AudioDataStates.Loading
-                              ? BuildAudioLoading()
+                              ? const BuildAudioLoading()
                               : Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -124,13 +125,13 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
                                                       widget.elder.identifier);
                                             },
                                     ),
-                                    mediumHorizontalSpace(),
+                                    horizontalSpace4(),
                                     BuildAudioButton(
                                       icon: !provider.isPlaying
                                           ? Icons.play_arrow
                                           : Icons.pause,
                                       buttonSize: 7.0,
-                                      iconSize: 36.0,
+                                      iconSize: 36.sp,
                                       onClick: () {
                                         provider.playState == PlayState.Ended ||
                                                 provider.playState ==
@@ -139,7 +140,7 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
                                             : provider.pauseAudio();
                                       },
                                     ),
-                                    mediumHorizontalSpace(),
+                                    horizontalSpace4(),
                                     BuildAudioButton(
                                       icon: Icons.skip_previous,
                                       buttonColor: provider.surah.number == 1
@@ -156,7 +157,7 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
                                     ),
                                   ],
                                 ),
-                          const SizedBox(height: 5),
+                          verticalSpace1(),
                         ],
                       ),
                     )

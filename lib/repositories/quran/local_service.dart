@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:qurany_karim/model/error_result.dart';
@@ -22,7 +21,7 @@ class QuranLocalService extends QuranRepository {
     }
   }
 
-  Future<void> cachingQuranData({@required List<Surah> data}) async {
+  Future<void> cachingQuranData({required List<Surah> data}) async {
     Box<Surah> box = await Hive.openBox<Surah>(quranResponse);
     for (Surah item in data) {
       box.add(item);
@@ -33,8 +32,8 @@ class QuranLocalService extends QuranRepository {
   Future<Either<Surah, ErrorResult>> getSurahData(int index) async {
     try {
       Box<Surah> box = await Hive.openBox<Surah>(quranResponse);
-      Surah cachedSurah = box.getAt(index - 1);
-      return Left(cachedSurah);
+      Surah? cachedSurah = box.getAt(index - 1);
+      return Left(cachedSurah!);
     } catch (exception) {
       ErrorResult error = ErrorResult(
           errorMessage: 'local_exception'.tr(),

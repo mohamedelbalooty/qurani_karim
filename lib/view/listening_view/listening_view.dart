@@ -1,8 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
-import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/utils/theme/colors.dart';
 import 'package:qurany_karim/view_model/elders/elders_view_model.dart';
 import 'package:qurany_karim/view_model/elders/states.dart';
 import 'package:qurany_karim/view_model/quran/quran_view_model.dart';
@@ -10,7 +11,7 @@ import '../app_components.dart';
 import 'surah_audio_view/surah_audio_view.dart';
 
 class ListeningView extends StatelessWidget {
-  const ListeningView({Key key}) : super(key: key);
+  const ListeningView({Key? key}) : super(key: key);
   static const String id = 'ListeningView';
 
   @override
@@ -21,49 +22,50 @@ class ListeningView extends StatelessWidget {
         builder: (context, provider, child) {
           if (provider.states == EldersStates.Initial) {
             provider.getElders(context);
-            return BuildLoadingWidget();
+            return const BuildLoadingWidget();
           } else if (provider.states == EldersStates.Loading) {
-            return BuildLoadingWidget();
+            return const BuildLoadingWidget();
           } else if (provider.states == EldersStates.Loaded) {
             return FadeInRight(
               child: ListView.separated(
-                padding: const EdgeInsets.all(10.0),
+                padding: padding2(),
                 physics: const BouncingScrollPhysics(),
                 itemCount: provider.elders.length,
                 itemBuilder: (_, index) {
                   return BuildDefaultGradientButton(
-                    height: 60.0,
+                    height: 60.h,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: symmetricHorizontalPadding1(),
                       child: Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.music_note,
-                            size: 26.0,
+                            size: 26.sp,
                             color: whiteColor,
                           ),
-                          minimumHorizontalSpace(),
+                          horizontalSpace2(),
                           Text(
                             provider.elders[index].name,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1
+                                .bodyText1!
                                 .copyWith(fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
                           ),
+                          horizontalSpace0(),
                           const Spacer(),
                           Text(
                             'go'.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2
+                                .bodyText2!
                                 .copyWith(
                                     fontWeight: FontWeight.bold, height: 1.6),
                           ),
-                          const Icon(
+                          Icon(
                             Icons.arrow_forward_ios,
                             color: whiteColor,
-                            size: 18.0,
+                            size: 18.sp,
                           ),
                         ],
                       ),
@@ -79,7 +81,7 @@ class ListeningView extends StatelessWidget {
                     },
                   );
                 },
-                separatorBuilder: (_, index) => minimumVerticalSpace(),
+                separatorBuilder: (_, index) => verticalSpace2(),
               ),
             );
           } else {

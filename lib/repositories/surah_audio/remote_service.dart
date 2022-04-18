@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:qurany_karim/core/status_code_errors.dart';
 import 'package:qurany_karim/model/error_result.dart';
@@ -11,7 +10,7 @@ import 'repository.dart';
 class SurahAudioRemoteService extends SurahAudioRepository {
   @override
   Future<Either<List<AyahAudio>, ErrorResult>> getSurahAudio(
-      {@required int surahId, @required String elderFormat}) async {
+      {required int surahId, required String elderFormat}) async {
     try {
       var response =
           await DioHelper.getData(url: 'surah/$surahId/$elderFormat');
@@ -26,7 +25,7 @@ class SurahAudioRemoteService extends SurahAudioRepository {
       }
     } on DioError catch (dioException) {
       if (dioException.type == DioErrorType.response) {
-        return Right(returnResponse(dioException.response));
+        return Right(returnResponse(dioException.response!));
       } else {
         return Right(
           ErrorResult(

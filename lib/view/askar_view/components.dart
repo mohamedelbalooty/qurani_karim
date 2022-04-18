@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:qurany_karim/model/azkar_details.dart';
 import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
-import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/utils/theme/colors.dart';
 import '../app_components.dart';
 
 class BuildAzkarCategoryWidgetItem extends StatelessWidget {
   final String name;
-  final Function onClick;
+  final VoidCallback onClick;
 
   const BuildAzkarCategoryWidgetItem(
-      {Key key, @required this.name, @required this.onClick})
+      {Key? key, required this.name, required this.onClick})
       : super(key: key);
 
   @override
@@ -19,16 +20,16 @@ class BuildAzkarCategoryWidgetItem extends StatelessWidget {
     return InkWell(
       onTap: onClick,
       child: Container(
-        height: 80.0,
+        height: 80.h,
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        padding: symmetricHorizontalPadding1(),
         decoration: BoxDecoration(
           gradient:
               context.select<AppThemeProvider, bool>((value) => value.isDark)
                   ? darkGradient()
                   : lightGradient(),
-          boxShadow: [
-            const BoxShadow(
+          boxShadow: const [
+            BoxShadow(
               color: Colors.black12,
               offset: Offset(0.5, 0.5),
               spreadRadius: 1.5,
@@ -41,15 +42,15 @@ class BuildAzkarCategoryWidgetItem extends StatelessWidget {
           children: [
             Image.asset(
               'assets/icons/azkar.png',
-              height: 40.0,
-              width: 40.0,
+              height: 40.r,
+              width: 40.r,
               fit: BoxFit.fill,
             ),
-            minimumHorizontalSpace(),
+            horizontalSpace2(),
             Text(
               name,
               style:
-                  Theme.of(context).textTheme.headline2.copyWith(height: 1.6),
+                  Theme.of(context).textTheme.headline2!.copyWith(height: 1.6),
             ),
             const Spacer(),
             Row(
@@ -58,13 +59,13 @@ class BuildAzkarCategoryWidgetItem extends StatelessWidget {
                   'go'.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText2
+                      .bodyText2!
                       .copyWith(fontWeight: FontWeight.bold, height: 1.6),
                 ),
-                const Icon(
+                Icon(
                   Icons.arrow_forward_ios,
                   color: whiteColor,
-                  size: 18.0,
+                  size: 18.sp,
                 ),
               ],
             ),
@@ -78,7 +79,7 @@ class BuildAzkarCategoryWidgetItem extends StatelessWidget {
 class BuildAzkarDetailsItemWidget extends StatelessWidget {
   final AzkarDetails details;
 
-  const BuildAzkarDetailsItemWidget({Key key, @required this.details})
+  const BuildAzkarDetailsItemWidget({Key? key, required this.details})
       : super(key: key);
 
   @override
@@ -91,8 +92,8 @@ class BuildAzkarDetailsItemWidget extends StatelessWidget {
                 ? darkGradient()
                 : lightGradient(),
         border: Border.all(color: whiteColor, width: 1.5),
-        boxShadow: [
-          const BoxShadow(
+        boxShadow: const [
+          BoxShadow(
             color: Colors.black26,
             offset: Offset(0.5, 0.5),
             spreadRadius: 1.5,
@@ -104,12 +105,12 @@ class BuildAzkarDetailsItemWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          minimumVerticalSpace(),
+          verticalSpace2(),
           Row(
             children: [
               Container(
-                height: 30.0,
-                width: 60.0,
+                height: 30.h,
+                width: 60.w,
                 alignment: Alignment.topRight,
                 decoration: const BoxDecoration(
                   color: whiteColor,
@@ -120,7 +121,7 @@ class BuildAzkarDetailsItemWidget extends StatelessWidget {
                 child: Center(
                   child: Text(
                     '${details.count} ${int.parse(details.count) > 1 ? 'many'.tr() : 'once'.tr()}',
-                    style: Theme.of(context).textTheme.bodyText2.copyWith(
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         fontWeight: FontWeight.bold,
                         color: context.select<AppThemeProvider, bool>(
                                 (value) => value.isDark)
@@ -138,29 +139,29 @@ class BuildAzkarDetailsItemWidget extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
             child: Text(
-              '${details.content}',
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  fontWeight: FontWeight.bold, fontSize: 18.0, height: 1.8),
+              details.content,
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  fontWeight: FontWeight.bold, fontSize: 18.sp, height: 1.8),
               textAlign: TextAlign.center,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            padding: symmetricHorizontalPadding1(),
             child: Align(
               alignment: AlignmentDirectional.topEnd,
               child: Text(
-                '${details.reference}',
+                details.reference,
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText2
+                    .bodyText2!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
             ),
           ),
-          minimumVerticalSpace(),
+          verticalSpace2(),
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(10.0),
+            padding: padding2(),
             decoration: const BoxDecoration(
               color: whiteColor,
               borderRadius: BorderRadiusDirectional.only(
@@ -182,10 +183,10 @@ class BuildAzkarDetailsItemWidget extends StatelessWidget {
                           Rect.fromLTWH(0, 0, bounds.width, bounds.height),
                         ),
                   child: Text(
-                    '${details.description}',
+                    details.description,
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText2
+                        .bodyText2!
                         .copyWith(fontWeight: FontWeight.bold, height: 1.8),
                     textAlign: TextAlign.center,
                   ),

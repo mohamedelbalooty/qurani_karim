@@ -9,7 +9,7 @@ import 'package:qurany_karim/repositories/assmaa_allah/repository.dart';
 class AssmaaAllahLocalService extends AssmaaAllahRepository {
   @override
   Future<Either<List<AssmaaAllah>, ErrorResult>> getAssmaaAllahAlhosna(
-      {@required BuildContext context}) async {
+      {required BuildContext context}) async {
     try {
       var response = await DefaultAssetBundle.of(context)
           .loadString('assets/json_db/asmaa_allah_alhosna.json');

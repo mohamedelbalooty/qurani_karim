@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:qurany_karim/model/elder.dart';
 import 'package:qurany_karim/model/error_result.dart';
 
 abstract class EldersRepository{
-  Future<Either<List<Elder>, ErrorResult>> getElders();
+  Future<Either<List<Elder>, ErrorResult>> getElders({required BuildContext context});
 }

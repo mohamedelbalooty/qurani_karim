@@ -20,7 +20,7 @@ class SurahAdapter extends TypeAdapter<Surah> {
       number: fields[0] as int,
       name: fields[1] as String,
       revelationType: fields[2] as String,
-      ayahs: (fields[3] as List)?.cast<Ayah>(),
+      ayahs: (fields[3] as List).cast<Ayah>(),
     );
   }
 

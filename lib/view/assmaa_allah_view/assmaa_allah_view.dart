@@ -6,14 +6,15 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/ui_provider/toggle_provider.dart';
-import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/utils/helper/size_configuration_helper.dart';
+import 'package:qurany_karim/utils/theme/colors.dart';
 import 'package:qurany_karim/view/app_components.dart';
 import 'package:qurany_karim/view_model/assmaa_allah/assmaa_allah_view_model.dart';
 import 'package:qurany_karim/view_model/assmaa_allah/states.dart';
 import 'components.dart';
 
 class AssmaaAllahView extends StatefulWidget {
-  const AssmaaAllahView({Key key}) : super(key: key);
+  const AssmaaAllahView({Key? key}) : super(key: key);
   static const String id = 'AssmaaAllahView';
 
   @override
@@ -22,7 +23,7 @@ class AssmaaAllahView extends StatefulWidget {
 
 class _AssmaaAllahViewState extends State<AssmaaAllahView>
     with AfterLayoutMixin {
-  AssmaaAllahViewModel _assmaaAllahViewModel;
+  late AssmaaAllahViewModel _assmaaAllahViewModel;
   final GlobalKey _refreshKey = GlobalKey();
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
@@ -36,39 +37,39 @@ class _AssmaaAllahViewState extends State<AssmaaAllahView>
   @override
   Widget build(BuildContext context) {
     bool isPortrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
+        SizeConfigurationHelper.screenOrientation == Orientation.portrait;
     return Scaffold(
       appBar: buildDefaultAppBar(title: 'asmaa_allah'.tr()),
       body: Consumer<AssmaaAllahViewModel>(
         builder: (context, provider, child) {
           if (provider.states == AssmaaAllahStates.Loading) {
-            return BuildLoadingWidget();
+            return const BuildLoadingWidget();
           } else if (provider.states == AssmaaAllahStates.Loaded) {
             return FadeInRight(
               child: SmartRefresher(
                 key: _refreshKey,
-                controller: this._refreshController,
+                controller: _refreshController,
                 enablePullUp: true,
-                physics: BouncingScrollPhysics(),
-                footer: ClassicFooter(
+                physics: const BouncingScrollPhysics(),
+                footer: const ClassicFooter(
                   loadStyle: LoadStyle.ShowWhenLoading,
                 ),
                 onRefresh: () {
                   provider.onRefresh(context, controller: _refreshController);
                   if (provider.refreshState ==
                       AssmaaAllahOnRefreshState.OnRefreshErrorState) {
-                    showToast(context, toastValue: provider.refreshError);
+                    showToast(toastValue: provider.refreshError);
                   }
                 },
                 onLoading: () {
                   provider.onLoad(context, controller: _refreshController);
                   if (provider.loadState ==
                       AssmaaAllahOnLoadState.OnLoadErrorState) {
-                    showToast(context, toastValue: provider.refreshError);
+                    showToast(toastValue: provider.refreshError);
                   }
                 },
                 child: GridView.builder(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    padding: symmetricVerticalPadding1(),
                     itemCount: provider.assmaaAllah.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: isPortrait ? 3 : 5,
@@ -146,7 +147,7 @@ class _AssmaaAllahViewState extends State<AssmaaAllahView>
                                         provider.assmaaAllah[index].name,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline2
+                                            .headline2!
                                             .copyWith(color: whiteColor),
                                         textAlign: TextAlign.center,
                                       ),

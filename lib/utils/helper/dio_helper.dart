@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
 class DioHelper {
-  static Dio dio;
+  static late Dio dio;
 
   static init() {
     dio = Dio(
@@ -11,12 +10,12 @@ class DioHelper {
   }
 
   static Future<Response> getData(
-      {@required String url, Options options}) async {
+      {required String url, Options? options}) async {
     return await dio.get(url, options: options);
   }
 
   static Future<Response> postData(
-      {@required String url, @required Options options, @required data}) async {
+      {required String url, required Options options, required data}) async {
     return await dio.post(url, options: options, data: data);
   }
 }

@@ -6,6 +6,7 @@ enum AzkarCategoriesStates{
 }
 
 enum AzkarDetailsStates{
+  Initial,
   Loading,
   Loaded,
   Error

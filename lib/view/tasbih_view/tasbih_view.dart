@@ -1,15 +1,16 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:provider/provider.dart';
 import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/ui_provider/tasbih_provider.dart';
-import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/utils/theme/colors.dart';
 import '../app_components.dart';
 import 'components.dart';
 
 class TasbihView extends StatelessWidget {
-  const TasbihView({Key key}) : super(key: key);
+  const TasbihView({Key? key}) : super(key: key);
   static const String id = 'TasbihView';
 
   @override
@@ -22,14 +23,14 @@ class TasbihView extends StatelessWidget {
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                padding: symmetricHorizontalPadding1(),
                 child: Column(
                   children: [
-                    minimumVerticalSpace(),
+                    verticalSpace2(),
                     BuildDefaultGradientButton(
-                      height: 60.0,
+                      height: 60.h,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: symmetricHorizontalPadding1(),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -39,14 +40,14 @@ class TasbihView extends StatelessWidget {
                             ),
                             Icon(
                               Icons.keyboard_arrow_down,
-                              size: 28.0,
+                              size: 28.sp,
                               color: whiteColor,
                             ),
                           ],
                         ),
                       ),
-                      onTapUp: (TapUpDetails details) {
-                        double dx = details.globalPosition.dx;
+                      onTapUp: (TapUpDetails? details) {
+                        double dx = details!.globalPosition.dx;
                         double dy = details.globalPosition.dy;
                         double dx2 = MediaQuery.of(context).size.width - dx;
                         double dy2 = MediaQuery.of(context).size.width - dy;
@@ -56,8 +57,8 @@ class TasbihView extends StatelessWidget {
                             color: Theme.of(context).primaryColor,
                             shape: OutlineInputBorder(
                               borderRadius: defaultBorderRadius(),
-                              borderSide:
-                                  BorderSide(color: whiteColor, width: 1.5),
+                              borderSide: const BorderSide(
+                                  color: whiteColor, width: 1.5),
                             ),
                             items: provider.tasbihData
                                 .map(
@@ -66,7 +67,7 @@ class TasbihView extends StatelessWidget {
                                     child: Text(e,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyText2
+                                            .bodyText2!
                                             .copyWith(
                                                 fontWeight: FontWeight.bold,
                                                 height: 2)),
@@ -80,35 +81,35 @@ class TasbihView extends StatelessWidget {
                                 .toList());
                       },
                     ),
-                    mediumVerticalSpace(),
+                    verticalSpace4(),
                     GradientText(
                       provider.selectedValue,
                       style: Theme.of(context)
                           .textTheme
-                          .headline2
-                          .copyWith(color: mainColor, fontSize: 28.0),
+                          .headline2!
+                          .copyWith(color: mainColor, fontSize: 28.sp),
                     ),
-                    mediumVerticalSpace(),
+                    verticalSpace4(),
                     GradientText(
                       provider.tasbihNumber.toString(),
-                      style: const TextStyle(
-                        fontSize: 45.0,
+                      style:  TextStyle(
+                        fontSize: 45.sp,
                         color: mainColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    minimumVerticalSpace(),
+                    verticalSpace2(),
                     GradientText(
                       'tasbih_number'.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .headline2
-                          .copyWith(color: mainColor, fontSize: 28.0),
+                          .headline2!
+                          .copyWith(color: mainColor, fontSize: 28.sp),
                     ),
-                    const SizedBox(height: 5),
+                    verticalSpace1(),
                     BuildDefaultTextButton(
                       text: 'reset'.tr(),
-                      fontSize: 22.0,
+                      fontSize: 22.sp,
                       buttonColor: context.select<AppThemeProvider, bool>(
                               (value) => value.isDark)
                           ? whiteColor
@@ -117,9 +118,8 @@ class TasbihView extends StatelessWidget {
                         provider.reset();
                       },
                     ),
-                    const SizedBox(
-                      height: 50.0,
-                    ),
+                    verticalSpace5(),
+                    verticalSpace4(),
                     InkWell(
                       borderRadius: defaultBorderRadius(),
                       splashColor:
@@ -136,8 +136,8 @@ class TasbihView extends StatelessWidget {
                                 (value) => value.isDark)
                             ? 'assets/icons/dark_fingerprint.png'
                             : 'assets/icons/light_figerprint.png',
-                        height: 140.0,
-                        width: 140.0,
+                        height: 140.w,
+                        width: 140.w,
                         fit: BoxFit.fill,
                       ),
                     ),

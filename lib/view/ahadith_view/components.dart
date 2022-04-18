@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:qurany_karim/model/hadith.dart';
 import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
-import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/utils/theme/colors.dart';
 import '../app_components.dart';
 
 class BuildSearchWidget extends StatelessWidget {
   final Widget suffixIcon;
   final TextEditingController controller;
-  final Function onChanged;
+  final Function(String?) onChanged;
 
   const BuildSearchWidget(
-      {Key key,
-      @required this.controller,
-      @required this.suffixIcon,
-      @required this.onChanged})
+      {Key? key,
+      required this.controller,
+      required this.suffixIcon,
+      required this.onChanged})
       : super(key: key);
 
   @override
@@ -29,8 +30,8 @@ class BuildSearchWidget extends StatelessWidget {
                 ? darkGradient()
                 : lightGradient(),
         border: Border.all(color: whiteColor, width: 1.5),
-        boxShadow: [
-          const BoxShadow(
+        boxShadow: const [
+          BoxShadow(
             color: Colors.black26,
             offset: Offset(0.5, 0.5),
             spreadRadius: 1.5,
@@ -46,7 +47,7 @@ class BuildSearchWidget extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyText1,
         decoration: InputDecoration(
           contentPadding:
-              EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+              const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
           hintText: 'search'.tr(),
           hintStyle: Theme.of(context).textTheme.bodyText1,
           suffixIcon: suffixIcon,
@@ -61,7 +62,7 @@ class BuildSearchWidget extends StatelessWidget {
 class BuildHadithItemWidget extends StatelessWidget {
   final Hadith hadith;
 
-  const BuildHadithItemWidget({Key key, @required this.hadith})
+  const BuildHadithItemWidget({Key? key, required this.hadith})
       : super(key: key);
 
   @override
@@ -74,8 +75,8 @@ class BuildHadithItemWidget extends StatelessWidget {
                 ? darkGradient()
                 : lightGradient(),
         border: Border.all(color: whiteColor, width: 1.5),
-        boxShadow: [
-          const BoxShadow(
+        boxShadow: const [
+          BoxShadow(
             color: Colors.black26,
             offset: Offset(0.5, 0.5),
             spreadRadius: 1.5,
@@ -90,8 +91,8 @@ class BuildHadithItemWidget extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
             child: Text(
               hadith.hadith,
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  fontWeight: FontWeight.bold, fontSize: 18.0, height: 1.8),
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  fontWeight: FontWeight.bold, fontSize: 18.sp, height: 1.8),
               textAlign: TextAlign.center,
             ),
           ),
@@ -103,7 +104,7 @@ class BuildHadithItemWidget extends StatelessWidget {
                 hadith.reference,
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText2
+                    .bodyText2!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
             ),

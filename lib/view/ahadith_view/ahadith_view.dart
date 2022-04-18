@@ -10,7 +10,7 @@ import '../app_components.dart';
 import 'components.dart';
 
 class AhadithView extends StatefulWidget {
-  const AhadithView({Key key}) : super(key: key);
+  const AhadithView({Key? key}) : super(key: key);
   static const String id = 'AhadithView';
 
   @override
@@ -18,7 +18,7 @@ class AhadithView extends StatefulWidget {
 }
 
 class _AhadithViewState extends State<AhadithView> with AfterLayoutMixin {
-  AhadithViewModel _ahadithViewModel;
+  late AhadithViewModel _ahadithViewModel;
   final TextEditingController _controller = TextEditingController();
   final GlobalKey _refreshKey = GlobalKey();
   final RefreshController _refreshController =
@@ -36,33 +36,33 @@ class _AhadithViewState extends State<AhadithView> with AfterLayoutMixin {
       body: Consumer<AhadithViewModel>(
         builder: (context, provider, child) {
           if (provider.states == AhadithStates.Loading) {
-            return BuildLoadingWidget();
+            return const BuildLoadingWidget();
           } else if (provider.states == AhadithStates.Loaded) {
             return FadeInRight(
               child: SmartRefresher(
                 key: _refreshKey,
-                controller: this._refreshController,
+                controller: _refreshController,
                 enablePullUp: true,
-                physics: BouncingScrollPhysics(),
-                footer: ClassicFooter(
+                physics: const BouncingScrollPhysics(),
+                footer: const ClassicFooter(
                   loadStyle: LoadStyle.ShowWhenLoading,
                 ),
                 onRefresh: () {
                   provider.onRefresh(context, controller: _refreshController);
                   if (provider.refreshState ==
                       AhadithOnRefreshState.OnRefreshErrorState) {
-                    showToast(context, toastValue: provider.refreshError);
+                    showToast(toastValue: provider.refreshError);
                   }
                 },
                 onLoading: () {
                   provider.onLoad(context, controller: _refreshController);
                   if (provider.loadState ==
                       AhadithOnLoadState.OnLoadErrorState) {
-                    showToast(context, toastValue: provider.refreshError);
+                    showToast(toastValue: provider.refreshError);
                   }
                 },
                 child: ListView.separated(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: padding2(),
                   physics: const BouncingScrollPhysics(),
                   itemCount: provider.ahadithDisplayed.length + 1,
                   itemBuilder: (_, index) {
@@ -78,14 +78,14 @@ class _AhadithViewState extends State<AhadithView> with AfterLayoutMixin {
                                 provider.clearSearchTerms();
                               },
                             ),
-                            onChanged: (String value) {
-                              provider.searchQuery(value);
+                            onChanged: (String? value) {
+                              provider.searchQuery(value!);
                             },
                           )
                         : BuildHadithItemWidget(
                             hadith: provider.ahadithDisplayed[index - 1]);
                   },
-                  separatorBuilder: (_, index) => minimumVerticalSpace(),
+                  separatorBuilder: (_, index) => verticalSpace2(),
                 ),
               ),
             );

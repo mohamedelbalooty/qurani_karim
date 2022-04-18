@@ -7,9 +7,9 @@ import 'package:qurany_karim/model/hadith.dart';
 import 'package:qurany_karim/repositories/ahadith/repository.dart';
 
 class AhadithLocalService extends AhadithRepository {
-  @required
+  @override
   Future<Either<List<Hadith>, ErrorResult>> getAhadith(
-      {@required BuildContext context}) async {
+      {required BuildContext context}) async {
     try {
       var response = await DefaultAssetBundle.of(context)
           .loadString('assets/json_db/hadith.json');

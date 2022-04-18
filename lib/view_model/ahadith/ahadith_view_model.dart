@@ -7,29 +7,37 @@ import 'package:qurany_karim/repositories/ahadith/local_service.dart';
 import 'package:qurany_karim/view_model/ahadith/states.dart';
 
 class AhadithViewModel extends ChangeNotifier {
-  AhadithStates states;
-  AhadithOnRefreshState refreshState;
-  AhadithOnLoadState loadState;
+  late AhadithStates states;
 
-  List<Hadith> _ahadith;
+  late AhadithOnRefreshState refreshState;
 
-  List<Hadith> get ahadith => _ahadith;
+  late AhadithOnLoadState loadState;
 
-  List<Hadith> _ahadithDisplayed;
+  AhadithViewModel() {
+    states = AhadithStates.Inital;
+    refreshState = AhadithOnRefreshState.OnRefreshInitialState;
+    loadState = AhadithOnLoadState.OnLoadInitialState;
+  }
 
-  List<Hadith> get ahadithDisplayed => _ahadithDisplayed;
+  final AhadithLocalService _service = AhadithLocalService();
 
-  ErrorResult _error;
+  List<Hadith>? _ahadith;
 
-  ErrorResult get error => _error;
+  List<Hadith> get ahadith => _ahadith!;
 
-  String _refreshError;
+  List<Hadith>? _ahadithDisplayed;
 
-  String get refreshError => _refreshError;
+  List<Hadith> get ahadithDisplayed => _ahadithDisplayed!;
+
+  ErrorResult? _error;
+
+  ErrorResult get error => _error!;
+
+  String? _refreshError;
+
+  String get refreshError => _refreshError!;
 
   int page = 1;
-
-  AhadithLocalService _service = AhadithLocalService();
 
   Future<void> getAhadith(BuildContext context) async {
     states = AhadithStates.Loading;
@@ -48,12 +56,12 @@ class AhadithViewModel extends ChangeNotifier {
   }
 
   Future<void> onRefresh(BuildContext context,
-      {@required RefreshController controller}) async {
-    await Future.delayed(Duration(seconds: 2));
+      {required RefreshController controller}) async {
+    await Future.delayed(const Duration(seconds: 2));
     try {
       await _service.getAhadith(context: context).then((value) {
         value.fold((left) {
-          _ahadith.clear();
+          _ahadith!.clear();
           page = 1;
           _ahadith = left.getRange(0, 11).toList();
           _ahadithDisplayed = _ahadith;
@@ -74,13 +82,13 @@ class AhadithViewModel extends ChangeNotifier {
   }
 
   Future<void> onLoad(BuildContext context,
-      {@required RefreshController controller}) async {
+      {required RefreshController controller}) async {
     if (page >= 1 && page < 5) {
       page += 1;
       try {
         await _service.getAhadith(context: context).then((value) {
           value.fold((left) async {
-            _ahadith.addAll(page == 2
+            _ahadith!.addAll(page == 2
                 ? left.getRange(11, 21).toList()
                 : page == 3
                     ? left.getRange(21, 31).toList()
@@ -88,7 +96,7 @@ class AhadithViewModel extends ChangeNotifier {
                         ? left.getRange(31, 41).toList()
                         : left.getRange(41, 48).toList());
             _ahadithDisplayed = _ahadith;
-            await Future.delayed(Duration(seconds: 2));
+            await Future.delayed(const Duration(seconds: 2));
             controller.loadComplete();
             loadState = AhadithOnLoadState.OnLoadSuccessState;
           }, (right) {
@@ -112,7 +120,7 @@ class AhadithViewModel extends ChangeNotifier {
 
   void searchQuery(String searchKey) {
     searchKey = searchKey.toLowerCase();
-    _ahadithDisplayed = _ahadith.where((element) {
+    _ahadithDisplayed = _ahadith!.where((element) {
       var searchTerm = element.searchTerm.toLowerCase();
       return searchTerm.contains(searchKey);
     }).toList();
@@ -125,8 +133,8 @@ class AhadithViewModel extends ChangeNotifier {
   }
 
   void disposeData() {
-    _ahadith.clear();
-    _ahadithDisplayed.clear();
+    _ahadith!.clear();
+    _ahadithDisplayed!.clear();
     page = 1;
   }
 }

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'states.dart';
 
 class RadioViewModel extends ChangeNotifier {
+  late RadioStates states;
+
   RadioViewModel() {
     states = RadioStates.Initial;
   }
 
-  RadioStates states;
-  final String streamUrl = 'http://livstream.xyz:8000/192k.mp3';
+  final String streamUrl =
+      'https://n06.radiojar.com/8s5u5tpdtwzuv?fbclid=IwAR3lf6Nuf5RtC9Z3TjVFroVbugA8vVOo_PmY9ohGrsXWJKrg9B4rn_v-dYE&rj-tok=AAABgDMkq6AAvkhw1FCNhuruXA&rj-ttl=5';
 
   Future<void> playRadio(AssetsAudioPlayer assetsAudioPlayer) async {
     states = RadioStates.Loading;

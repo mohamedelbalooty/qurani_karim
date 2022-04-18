@@ -1,14 +1,17 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
-import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/utils/theme/colors.dart';
 import 'package:qurany_karim/view/app_components.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:async';
 import 'dart:math';
 
 class QiblahCompass extends StatefulWidget {
+  const QiblahCompass({Key? key}) : super(key: key);
+
   @override
   _QiblahCompassState createState() => _QiblahCompassState();
 }
@@ -29,17 +32,18 @@ class _QiblahCompassState extends State<QiblahCompass> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      padding: const EdgeInsets.all(8.0),
+      padding: padding2(),
       child: StreamBuilder(
         stream: stream,
         builder: (context, AsyncSnapshot<LocationStatus> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting)
-            return BuildLoadingWidget();
-          if (snapshot.data.enabled == true) {
-            switch (snapshot.data.status) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const BuildLoadingWidget();
+          }
+          if (snapshot.data?.enabled == true) {
+            switch (snapshot.data?.status) {
               case LocationPermission.always:
               case LocationPermission.whileInUse:
-                return QiblahCompassWidget();
+                return const QiblahCompassWidget();
               case LocationPermission.denied:
                 return LocationErrorWidget(
                   error: "location_denied".tr(),
@@ -71,8 +75,9 @@ class _QiblahCompassState extends State<QiblahCompass> {
       await FlutterQiblah.requestPermissions();
       final s = await FlutterQiblah.checkLocationStatus();
       _locationStreamController.sink.add(s);
-    } else
+    } else {
       _locationStreamController.sink.add(locationStatus);
+    }
   }
 
   @override
@@ -84,16 +89,17 @@ class _QiblahCompassState extends State<QiblahCompass> {
 }
 
 class QiblahCompassWidget extends StatelessWidget {
+  const QiblahCompassWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FlutterQiblah.qiblahStream,
       builder: (_, AsyncSnapshot<QiblahDirection> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting)
-          return BuildLoadingWidget();
-
         final qiblahDirection = snapshot.data;
-
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const BuildLoadingWidget();
+        }
         return FadeInRight(
           child: SingleChildScrollView(
             child: Column(
@@ -101,19 +107,19 @@ class QiblahCompassWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Transform.rotate(
-                  angle: ((qiblahDirection.qiblah ?? 0) * (pi / 180) * -1),
+                  angle: ((qiblahDirection?.qiblah ?? 0) * (pi / 180) * -1),
                   alignment: Alignment.center,
                   child: Image.asset(
                     'assets/icons/qibla_compass.png',
                     fit: BoxFit.fill,
-                    height: 250,
-                    width: 250,
+                    height: 250.w,
+                    width: 250.w,
                     alignment: Alignment.center,
                   ),
                 ),
-                bigVerticalSpace(),
+                verticalSpace5(),
                 Text(
-                  "${qiblahDirection.offset.toStringAsFixed(3)}°",
+                  "${qiblahDirection?.offset.toStringAsFixed(3)}°",
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ],
@@ -126,10 +132,10 @@ class QiblahCompassWidget extends StatelessWidget {
 }
 
 class LocationErrorWidget extends StatelessWidget {
-  final String error;
-  final Function callback;
+  final String? error;
+  final VoidCallback? callback;
 
-  const LocationErrorWidget({Key key, this.error, this.callback})
+  const LocationErrorWidget({Key? key, this.error, this.callback})
       : super(key: key);
 
   @override
@@ -139,17 +145,17 @@ class LocationErrorWidget extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const Icon(
+            Icon(
               Icons.location_off,
-              size: 150.0,
+              size: 150.sp,
               color: whiteColor,
             ),
-            bigVerticalSpace(),
+            verticalSpace5(),
             Text(
               error ?? '',
               style: Theme.of(context).textTheme.headline2,
             ),
-            bigVerticalSpace(),
+            verticalSpace5(),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   primary: Theme.of(context).primaryColor),
@@ -158,7 +164,7 @@ class LocationErrorWidget extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyText1,
               ),
               onPressed: () {
-                if (callback != null) callback();
+                if (callback != null) callback!();
               },
             )
           ],

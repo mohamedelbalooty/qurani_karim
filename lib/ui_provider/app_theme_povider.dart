@@ -11,7 +11,7 @@ class AppThemeProvider extends ChangeNotifier {
 
   bool isDark = true;
 
-  void changeAppTheme({bool currentTheme}) {
+  void changeAppTheme({bool? currentTheme}) {
     if (currentTheme != null) {
       isDark = currentTheme;
       notifyListeners();

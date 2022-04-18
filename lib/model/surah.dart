@@ -1,15 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'ayah.dart';
+
 part 'surah.g.dart';
 
 @HiveType(typeId: 0)
 class Surah extends HiveObject {
   Surah({
-    @required this.number,
-    @required this.name,
-    @required this.revelationType,
-    @required this.ayahs,
+    required this.number,
+    required this.name,
+    required this.revelationType,
+    required this.ayahs,
   });
 
   @HiveField(0)
@@ -28,4 +28,3 @@ class Surah extends HiveObject {
         ayahs: List<Ayah>.from(json["ayahs"].map((x) => Ayah.fromJson(x))),
       );
 }
-

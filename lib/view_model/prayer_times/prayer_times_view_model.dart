@@ -4,19 +4,19 @@ import 'package:geolocator/geolocator.dart';
 import 'states.dart';
 
 class PrayerTimesViewModel extends ChangeNotifier {
+  late PrayerTimesStates states;
+
   PrayerTimesViewModel() {
     states = PrayerTimesStates.Initial;
   }
 
-  PrayerTimesStates states;
+  Position? _currentPosition;
 
-  Position _currentPosition;
+  Position get currentPosition => _currentPosition!;
 
-  Position get currentPosition => _currentPosition;
-
-  PrayerTimes prayerTimes;
-  bool serviceEnabled;
-  LocationPermission permission;
+  late PrayerTimes prayerTimes;
+  late bool serviceEnabled;
+  late LocationPermission permission;
   final params = CalculationMethod.egyptian.getParameters();
 
   Future<void> determinePosition() async {
@@ -40,7 +40,7 @@ class PrayerTimesViewModel extends ChangeNotifier {
       _currentPosition = await Geolocator.getCurrentPosition();
       params.madhab = Madhab.hanafi;
       prayerTimes = PrayerTimes.today(
-          Coordinates(_currentPosition.latitude, _currentPosition.longitude),
+          Coordinates(_currentPosition!.latitude, _currentPosition!.longitude),
           params);
       states = PrayerTimesStates.Success;
     } catch (locationException) {

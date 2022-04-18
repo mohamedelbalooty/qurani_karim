@@ -9,41 +9,38 @@ import 'package:qurany_karim/utils/helper/cache_helper.dart';
 import 'states.dart';
 
 class AudioViewModel extends ChangeNotifier {
-  AudioDataStates audioDataStates;
-  PlayState playState = PlayState.Initial;
+  late AudioDataStates audioDataStates;
+  late PlayState playState;
 
-  SurahAudioRemoteService _service = SurahAudioRemoteService();
+  AudioViewModel() {
+    audioDataStates = AudioDataStates.Initial;
+    playState = PlayState.Initial;
+  }
 
-  List<AyahAudio> _surahAudio;
+  final SurahAudioRemoteService _service = SurahAudioRemoteService();
+  final AssetsAudioPlayer player = AssetsAudioPlayer();
 
-  List<AyahAudio> get surahAudio => _surahAudio;
+  List<AyahAudio>? _surahAudio;
 
-  ErrorResult _error;
+  List<AyahAudio> get surahAudio => _surahAudio!;
 
-  ErrorResult get error => _error;
+  ErrorResult? _error;
 
-  List<Surah> _displayQuranData;
+  ErrorResult get error => _error!;
 
-  List<Surah> get displayQuranData => _displayQuranData;
+  List<Surah>? _displayQuranData;
 
-  Surah _surah;
+  List<Surah> get displayQuranData => _displayQuranData!;
 
-  Surah get surah => _surah;
+  Surah? _surah;
+
+  Surah get surah => _surah!;
 
   bool openedAudio = false;
   bool isPlaying = false;
 
-  void initializeQuranData(List<Surah> data) {
-    _displayQuranData = data;
-  }
-
-  void isOpenedAudio() {
-    openedAudio = true;
-    notifyListeners();
-  }
-
   Future<void> getSurahAudio(
-      {@required int surahId, @required String elderFormat}) async {
+      {required int surahId, required String elderFormat}) async {
     audioDataStates = AudioDataStates.Loading;
     notifyListeners();
     await _service
@@ -61,7 +58,7 @@ class AudioViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> selectSurah({int id, @required String elderFormat}) async {
+  Future<void> selectSurah({int? id, required String elderFormat}) async {
     player.stop();
     isPlaying = false;
     for (var item in displayQuranData) {
@@ -69,7 +66,7 @@ class AudioViewModel extends ChangeNotifier {
         _surah = item;
       }
     }
-    await getSurahAudio(elderFormat: elderFormat, surahId: id).then((value) {
+    await getSurahAudio(elderFormat: elderFormat, surahId: id!).then((value) {
       if (audioDataStates == AudioDataStates.Error) {
         for (var item in displayQuranData) {
           if (item.number == CacheHelper.getIntData(key: isCachingSurahAudio)) {
@@ -82,7 +79,14 @@ class AudioViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  AssetsAudioPlayer player = AssetsAudioPlayer();
+  void initializeQuranData(List<Surah> data) {
+    _displayQuranData = data;
+  }
+
+  void isOpenedAudio() {
+    openedAudio = true;
+    notifyListeners();
+  }
 
   void playSurahAudio() async {
     isPlaying = !isPlaying;
@@ -90,7 +94,7 @@ class AudioViewModel extends ChangeNotifier {
     try {
       await player.open(
         Playlist(
-          audios: _surahAudio.map((e) => Audio.network(e.audio)).toList(),
+          audios: _surahAudio!.map((e) => Audio.network(e.audio)).toList(),
           startIndex: 0,
         ),
         loopMode: LoopMode.none,
@@ -109,7 +113,7 @@ class AudioViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  listenOnAudioStates() {
+  void listenOnAudioStates() {
     player.playerState.listen((state) {
       if (state == PlayerState.stop) {
         isPlaying = false;
@@ -135,6 +139,6 @@ class AudioViewModel extends ChangeNotifier {
     openedAudio = false;
     isPlaying = false;
     _surah = null;
-    _displayQuranData.clear();
+    _displayQuranData!.clear();
   }
 }

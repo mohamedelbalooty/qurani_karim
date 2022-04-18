@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:qurany_karim/model/surah.dart';
 import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
-import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/utils/theme/colors.dart';
 import '../app_components.dart';
 
 class BuildSurahItemWidget extends StatelessWidget {
   final Surah surah;
   final String surahType;
-  final Function onClick;
+  final VoidCallback onClick;
 
   const BuildSurahItemWidget(
-      {Key key,
-      @required this.surah,
-      @required this.surahType,
-      @required this.onClick})
+      {Key? key,
+      required this.surah,
+      required this.surahType,
+      required this.onClick})
       : super(key: key);
 
   @override
@@ -23,16 +24,16 @@ class BuildSurahItemWidget extends StatelessWidget {
     return InkWell(
       onTap: onClick,
       child: Container(
-        height: 80.0,
+        height: 80.h,
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        padding: symmetricHorizontalPadding1(),
         decoration: BoxDecoration(
           gradient:
               context.select<AppThemeProvider, bool>((value) => value.isDark)
                   ? darkGradient()
                   : lightGradient(),
-          boxShadow: [
-            const BoxShadow(
+          boxShadow: const [
+            BoxShadow(
               color: Colors.black12,
               offset: Offset(0.5, 0.5),
               spreadRadius: 1.5,
@@ -46,21 +47,21 @@ class BuildSurahItemWidget extends StatelessWidget {
             Stack(
               alignment: Alignment.center,
               children: [
-                const Icon(
+                Icon(
                   Icons.brightness_5,
-                  size: 60,
+                  size: 60.sp,
                   color: whiteColor,
                 ),
                 Text(
                   surah.number.toString(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText2
+                      .bodyText2!
                       .copyWith(fontWeight: FontWeight.bold, height: 1.6),
                 ),
               ],
             ),
-            minimumHorizontalSpace(),
+            horizontalSpace2(),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,14 +70,12 @@ class BuildSurahItemWidget extends StatelessWidget {
                   surah.name,
                   style: Theme.of(context).textTheme.headline2,
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
+                verticalSpace1(),
                 Text(
                   '${surah.ayahs.length} ${'ayah'.tr()} - $surahType',
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: whiteColor,
-                      fontSize: 12.0,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.bold),
                 ),
               ],
@@ -88,13 +87,13 @@ class BuildSurahItemWidget extends StatelessWidget {
                   'go'.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText2
+                      .bodyText2!
                       .copyWith(fontWeight: FontWeight.bold, height: 1.6),
                 ),
-                const Icon(
+                Icon(
                   Icons.arrow_forward_ios,
                   color: whiteColor,
-                  size: 18.0,
+                  size: 18.sp,
                 ),
               ],
             ),

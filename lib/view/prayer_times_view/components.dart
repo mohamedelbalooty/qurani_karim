@@ -1,19 +1,19 @@
 import 'dart:math';
-
 import 'package:adhan/adhan.dart';
 import 'package:after_layout/after_layout.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:qurany_karim/model/prayer_times.dart';
 import 'package:qurany_karim/ui_provider/time_provider.dart';
-import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/utils/theme/colors.dart';
 import '../app_components.dart';
 
 class BuildDigitalClock extends StatelessWidget {
-  const BuildDigitalClock({Key key, @required this.time, @required this.period})
+  const BuildDigitalClock({Key? key, required this.time, required this.period})
       : super(key: key);
   final String time, period;
 
@@ -24,9 +24,9 @@ class BuildDigitalClock extends StatelessWidget {
       children: [
         Text(
           time,
-          style: const TextStyle(
+          style: TextStyle(
             color: whiteColor,
-            fontSize: 60.0,
+            fontSize: 60.sp,
           ),
         ),
         Text(
@@ -39,7 +39,7 @@ class BuildDigitalClock extends StatelessWidget {
 }
 
 class BuildAnalogClock extends StatelessWidget {
-  const BuildAnalogClock({Key key, @required this.dateTime}) : super(key: key);
+  const BuildAnalogClock({Key? key, required this.dateTime}) : super(key: key);
   final DateTime dateTime;
 
   @override
@@ -54,20 +54,20 @@ class BuildAnalogClock extends StatelessWidget {
           child: AspectRatio(
             aspectRatio: isPortrait ? 1.2 : 1.5,
             child: Container(
-              padding: const EdgeInsets.all(15.0),
+              padding: padding3(),
               decoration: BoxDecoration(
                 color: whiteColor.withOpacity(0.1),
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                      offset: Offset(1, 1),
+                      offset: const Offset(1, 1),
                       color: whiteColor.withOpacity(0.14),
                       blurRadius: 64,
                       spreadRadius: 5),
                 ],
               ),
               child: Container(
-                padding: const EdgeInsets.all(15.0),
+                padding: padding3(),
                 decoration: BoxDecoration(
                   color: whiteColor.withOpacity(0.3),
                   shape: BoxShape.circle,
@@ -102,7 +102,7 @@ class BuildAnalogClock extends StatelessWidget {
           child: Icon(
             Icons.brightness_4_outlined,
             color: Theme.of(context).primaryColor.withOpacity(0.7),
-            size: 30.0,
+            size: 30.sp,
           ),
         ),
       ],
@@ -201,7 +201,7 @@ double getProportionateScreenWidth(double inputWidth, context) {
 }
 
 class PrayerTimesCompass extends StatefulWidget {
-  const PrayerTimesCompass({Key key, @required this.prayerTimes})
+  const PrayerTimesCompass({Key? key, required this.prayerTimes})
       : super(key: key);
   final PrayerTimes prayerTimes;
 
@@ -211,12 +211,12 @@ class PrayerTimesCompass extends StatefulWidget {
 
 class _PrayerTimesCompassState extends State<PrayerTimesCompass>
     with AfterLayoutMixin {
-  TimeProvider _timeProvider;
+  late TimeProvider _timeProvider;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       context.read<TimeProvider>().initializeTimer();
     });
   }
@@ -259,31 +259,31 @@ class _PrayerTimesCompassState extends State<PrayerTimesCompass>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                minimumVerticalSpace(),
+                verticalSpace2(),
                 BuildDigitalClock(
                     time:
                         '${provider.timeOfDay.hourOfPeriod}:${provider.timeOfDay.minute}',
-                    period: '${provider.period()}'),
+                    period: provider.period()),
                 BuildAnalogClock(
                   dateTime: provider.dateTime,
                 ),
-                minimumVerticalSpace(),
+                verticalSpace2(),
                 ListView.separated(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: padding2(),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: times(widget.prayerTimes).length,
                   itemBuilder: (_, index) {
                     return Container(
-                      height: 50.0,
+                      height: 50.h,
                       width: double.infinity,
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: symmetricHorizontalPadding1(),
                       decoration: BoxDecoration(
                         color: transparent,
                         borderRadius: defaultBorderRadius(),
                         border: Border.all(color: whiteColor, width: 1.5),
-                        boxShadow: [
-                          const BoxShadow(
+                        boxShadow: const [
+                          BoxShadow(
                             color: Colors.black26,
                             offset: Offset(0.5, 0.5),
                             spreadRadius: 1.5,
@@ -299,7 +299,7 @@ class _PrayerTimesCompassState extends State<PrayerTimesCompass>
                             times(widget.prayerTimes)[index].prayerName,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1
+                                .bodyText1!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           Text(
@@ -310,15 +310,15 @@ class _PrayerTimesCompassState extends State<PrayerTimesCompass>
                       ),
                     );
                   },
-                  separatorBuilder: (_, index) => minimumVerticalSpace(),
+                  separatorBuilder: (_, index) => verticalSpace2(),
                 ),
-                minimumVerticalSpace(),
+                verticalSpace2(),
                 Text(
                   'prayer_time_title'.tr(),
                   style: Theme.of(context).textTheme.bodyText1,
                   textAlign: TextAlign.center,
                 ),
-                minimumVerticalSpace(),
+                verticalSpace2(),
               ],
             ),
           ),

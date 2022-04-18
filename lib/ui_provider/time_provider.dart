@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 
 class TimeProvider extends ChangeNotifier {
-  Timer timer;
+  late Timer timer;
   TimeOfDay timeOfDay = TimeOfDay.now();
   DateTime dateTime = DateTime.now();
 
   void initializeTimer() {
     period();
-    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       dateTime = DateTime.now();
       if (timeOfDay.minute != TimeOfDay.now().minute) {
         timeOfDay = TimeOfDay.now();

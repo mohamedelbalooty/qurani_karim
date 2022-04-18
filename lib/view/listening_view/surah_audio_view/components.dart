@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
-import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/utils/theme/colors.dart';
 import '../../app_components.dart';
 
 class BuildSurahAudioItemWidget extends StatelessWidget {
   final String name;
-  final Function onClick;
+  final VoidCallback onClick;
 
   const BuildSurahAudioItemWidget(
-      {Key key, @required this.name, @required this.onClick})
+      {Key? key, required this.name, required this.onClick})
       : super(key: key);
 
   @override
@@ -17,16 +18,16 @@ class BuildSurahAudioItemWidget extends StatelessWidget {
     return InkWell(
       onTap: onClick,
       child: Container(
-        height: 80.0,
+        height: 80.h,
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        padding:  symmetricHorizontalPadding1(),
         decoration: BoxDecoration(
           gradient:
               context.select<AppThemeProvider, bool>((value) => value.isDark)
                   ? darkGradient()
                   : lightGradient(),
-          boxShadow: [
-            const BoxShadow(
+          boxShadow: const [
+            BoxShadow(
               color: Colors.black12,
               offset: Offset(0.5, 0.5),
               spreadRadius: 1.5,
@@ -39,16 +40,18 @@ class BuildSurahAudioItemWidget extends StatelessWidget {
           children: [
             Image.asset(
               'assets/icons/mic.png',
-              height: 40.0,
-              width: 40.0,
+              height: 40.r,
+              width: 40.r,
               fit: BoxFit.fill,
             ),
-            minimumHorizontalSpace(),
+            horizontalSpace2(),
             Expanded(
               child: Text(
                 name,
-                style:
-                    Theme.of(context).textTheme.headline2.copyWith(height: 1.6),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline2!
+                    .copyWith(height: 1.6),
               ),
             ),
           ],
@@ -62,12 +65,12 @@ class BuildAudioButton extends StatelessWidget {
   final double buttonSize, iconSize;
   final Color buttonColor;
   final IconData icon;
-  final Function onClick;
+  final VoidCallback onClick;
 
   const BuildAudioButton(
-      {Key key,
-      @required this.icon,
-      @required this.onClick,
+      {Key? key,
+      required this.icon,
+      required this.onClick,
       this.buttonSize = 3.0,
       this.buttonColor = whiteColor,
       this.iconSize = 26.0})
@@ -95,19 +98,19 @@ class BuildAudioButton extends StatelessWidget {
 }
 
 class BuildAudioLoading extends StatelessWidget {
-  const BuildAudioLoading({Key key}) : super(key: key);
+  const BuildAudioLoading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: symmetricHorizontalPadding3(),
       child: Column(
         children: [
           LinearProgressIndicator(
             valueColor:
                 AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
           ),
-          mediumVerticalSpace(),
+          verticalSpace4(),
         ],
       ),
     );

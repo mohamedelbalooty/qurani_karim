@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
-import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/utils/theme/colors.dart';
 
 class BuildCircleButton extends StatelessWidget {
   final String symbol;
-  final Function onClick;
+  final VoidCallback onClick;
 
   const BuildCircleButton(
-      {Key key, @required this.symbol, @required this.onClick})
+      {Key? key, required this.symbol, required this.onClick})
       : super(key: key);
 
   @override
@@ -17,7 +18,7 @@ class BuildCircleButton extends StatelessWidget {
       child: Text(
         symbol,
         style: TextStyle(
-          fontSize: 30.0,
+          fontSize: 30.sp,
           color: context.select<AppThemeProvider, bool>((value) => value.isDark)
               ? mainDarkColor
               : mainColor,
@@ -26,7 +27,7 @@ class BuildCircleButton extends StatelessWidget {
       style: OutlinedButton.styleFrom(
         backgroundColor: whiteColor,
         shadowColor: mainColor,
-        shape: CircleBorder(),
+        shape: const CircleBorder(),
         padding: const EdgeInsets.all(2.0),
       ),
       onPressed: onClick,

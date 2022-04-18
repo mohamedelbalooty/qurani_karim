@@ -6,26 +6,27 @@ import 'package:qurany_karim/repositories/azkar/local_service.dart';
 import 'states.dart';
 
 class AzkarViewModel extends ChangeNotifier {
+  late AzkarCategoriesStates categoriesStates;
+  late AzkarDetailsStates detailsStates;
+
   AzkarViewModel() {
     categoriesStates = AzkarCategoriesStates.Initial;
+    detailsStates = AzkarDetailsStates.Initial;
   }
 
-  AzkarCategoriesStates categoriesStates;
-  AzkarDetailsStates detailsStates;
+  final AzkarLocalService _service = AzkarLocalService();
 
-  List<AzkarCategory> _categories;
+  List<AzkarCategory>? _categories;
 
-  List<AzkarCategory> get categories => _categories;
+  List<AzkarCategory> get categories => _categories!;
 
-  List<AzkarDetails> _azkarDetails;
+  List<AzkarDetails>? _azkarDetails;
 
-  List<AzkarDetails> get azkarDetails => _azkarDetails;
+  List<AzkarDetails> get azkarDetails => _azkarDetails!;
 
-  ErrorResult _error;
+  ErrorResult? _error;
 
-  ErrorResult get error => _error;
-
-  AzkarLocalService _service = AzkarLocalService();
+  ErrorResult get error => _error!;
 
   Future<void> getCategories(BuildContext context) async {
     categoriesStates = AzkarCategoriesStates.Loading;
@@ -42,7 +43,7 @@ class AzkarViewModel extends ChangeNotifier {
   }
 
   Future<void> getAzkarDetails(BuildContext context,
-      {@required int categoryId}) async {
+      {required int categoryId}) async {
     _azkarDetails = [];
     detailsStates = AzkarDetailsStates.Loading;
     notifyListeners();
@@ -52,7 +53,7 @@ class AzkarViewModel extends ChangeNotifier {
       value.fold((left) {
         for (var item in left) {
           if (item.id == categoryId) {
-            _azkarDetails.add(item);
+            _azkarDetails!.add(item);
           }
         }
         detailsStates = AzkarDetailsStates.Loaded;
@@ -66,6 +67,6 @@ class AzkarViewModel extends ChangeNotifier {
   }
 
   void disposeData() {
-    _azkarDetails.clear();
+    _azkarDetails!.clear();
   }
 }

@@ -1,11 +1,13 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:qurany_karim/model/surah.dart';
 import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/ui_provider/change_font_size_provider.dart';
-import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/utils/theme/colors.dart';
 import 'package:qurany_karim/view_model/quran/quran_view_model.dart';
 import '../../app_components.dart';
 import 'components.dart';
@@ -13,19 +15,26 @@ import 'components.dart';
 class SurahTextView extends StatefulWidget {
   final Surah surah;
 
-  const SurahTextView({Key key, @required this.surah}) : super(key: key);
+  const SurahTextView({Key? key, required this.surah}) : super(key: key);
 
   @override
   _SurahTextViewState createState() => _SurahTextViewState();
 }
 
-class _SurahTextViewState extends State<SurahTextView> {
+class _SurahTextViewState extends State<SurahTextView> with AfterLayoutMixin {
+  late QuranViewModel _quranViewModel;
+
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       context.read<QuranViewModel>().cachingSurah(surahId: widget.surah.number);
     });
     super.initState();
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    _quranViewModel = Provider.of<QuranViewModel>(context, listen: false);
   }
 
   @override
@@ -34,16 +43,18 @@ class _SurahTextViewState extends State<SurahTextView> {
       appBar: buildDefaultAppBar(title: widget.surah.name),
       body: ElasticInUp(
         child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: symmetricHorizontalPadding1(),
           children: [
-            bigVerticalSpace(),
+            verticalSpace5(),
             GradientText(
               'besm_allah'.tr(),
-              style:
-                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 24.sp,
+              ),
               textAlign: TextAlign.center,
             ),
-            minimumVerticalSpace(),
+            verticalSpace2(),
             Selector<ChangeFontSizeProvider, int>(
               selector: (context, provider) => provider.fontSize,
               builder: (context, value, child) {
@@ -60,13 +71,15 @@ class _SurahTextViewState extends State<SurahTextView> {
                               foreground: Paint()
                                 ..shader = context.select<AppThemeProvider,
                                         bool>((value) => value.isDark)
-                                    ? LinearGradient(
+                                    ? const LinearGradient(
                                             colors: [whiteColor, whiteColor])
                                         .createShader(
-                                        Rect.fromLTWH(0.0, 220.0, 220.0, 0.0),
+                                        const Rect.fromLTWH(
+                                            0.0, 220.0, 220.0, 0.0),
                                       )
                                     : lightGradient().createShader(
-                                        Rect.fromLTWH(0.0, 220.0, 220.0, 0.0),
+                                        const Rect.fromLTWH(
+                                            0.0, 220.0, 220.0, 0.0),
                                       ),
                             ),
                           ),
@@ -84,20 +97,20 @@ class _SurahTextViewState extends State<SurahTextView> {
         color: transparent,
         elevation: 5.0,
         child: Container(
-          height: 60.0,
+          height: 65.h,
           width: double.infinity,
           decoration: BoxDecoration(
             color:
                 context.select<AppThemeProvider, bool>((value) => value.isDark)
                     ? mainDarkColor
                     : mainColor,
-            borderRadius: BorderRadiusDirectional.only(
+            borderRadius: const BorderRadiusDirectional.only(
               topEnd: Radius.circular(20.0),
               topStart: Radius.circular(20.0),
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            padding: symmetricHorizontalPadding1(),
             child: Consumer<ChangeFontSizeProvider>(
               builder: (context, provider, child) {
                 return Row(
@@ -124,5 +137,11 @@ class _SurahTextViewState extends State<SurahTextView> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _quranViewModel.getSurahData();
+    super.dispose();
   }
 }

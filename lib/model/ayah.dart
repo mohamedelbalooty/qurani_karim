@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+
 part 'ayah.g.dart';
 
 @HiveType(typeId: 1)
 class Ayah extends HiveObject {
   Ayah({
-    @required this.text,
-    @required this.numberInSurah,
+    required this.text,
+    required this.numberInSurah,
   });
 
   @HiveField(0)

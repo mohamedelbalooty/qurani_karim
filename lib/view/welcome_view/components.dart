@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
-import 'package:qurany_karim/utils/constants/colors.dart';
+import 'package:qurany_karim/utils/theme/colors.dart';
 import '../app_components.dart';
 
 void showLoading(BuildContext context) {
@@ -10,9 +11,9 @@ void showLoading(BuildContext context) {
         return AlertDialog(
           backgroundColor: transparent,
           content: Container(
-            height: 120.0,
-            width: 150.0,
-            padding: const EdgeInsets.all(15.0),
+            height: 130.h,
+            width: 150.w,
+            padding: padding3(),
             decoration: BoxDecoration(
               color: whiteColor,
               borderRadius: defaultBorderRadius(),
@@ -21,13 +22,13 @@ void showLoading(BuildContext context) {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                BuildLoadingWidget(),
-                minimumVerticalSpace(),
+                const BuildLoadingWidget(),
+                verticalSpace2(),
                 Text(
                   'fetch_data'.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1
+                      .bodyText1!
                       .copyWith(color: mainColor),
                   textAlign: TextAlign.center,
                 ),
@@ -42,12 +43,12 @@ class BuildWelcomeButton extends StatelessWidget {
   final double height, width, radius;
   final Color color;
   final String title;
-  final Function onClick;
+  final VoidCallback onClick;
 
   const BuildWelcomeButton(
-      {Key key,
-      @required this.title,
-      @required this.onClick,
+      {Key? key,
+      required this.title,
+      required this.onClick,
       this.height = 50.0,
       this.width = double.infinity,
       this.color = whiteColor,
@@ -65,7 +66,7 @@ class BuildWelcomeButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(radius),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
                 color: Colors.black26,
                 offset: Offset(1.5, 1.5),
@@ -78,7 +79,7 @@ class BuildWelcomeButton extends StatelessWidget {
             title,
             style: Theme.of(context)
                 .textTheme
-                .headline2
+                .headline2!
                 .copyWith(color: mainColor),
           ),
         ),

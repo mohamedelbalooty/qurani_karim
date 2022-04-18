@@ -22,7 +22,7 @@ class QuranRemoteService extends QuranRepository {
       }
     } on DioError catch (dioException) {
       if (dioException.type == DioErrorType.response) {
-        return Right(returnResponse(dioException.response));
+        return Right(returnResponse(dioException.response!));
       } else {
         return Right(
           ErrorResult(
