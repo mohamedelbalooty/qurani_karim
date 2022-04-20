@@ -47,23 +47,23 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
                   QuranGetLocalDataStates.Loaded) {
                 context
                     .read<AudioViewModel>()
-                    .initializeQuranData(provider.quranData);
+                    .initializeQuranData(provider.quranData!);
                 return ElasticInUp(
                   child: ListView.separated(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     physics: const BouncingScrollPhysics(),
-                    itemCount: provider.quranData.length,
+                    itemCount: provider.quranData!.length,
                     itemBuilder: (_, index) {
                       return Padding(
-                        padding: index == provider.quranData.length - 1
+                        padding: index == provider.quranData!.length - 1
                             ? EdgeInsets.only(bottom: 95.h)
                             : EdgeInsets.zero,
                         child: BuildSurahAudioItemWidget(
-                          name: provider.quranData[index].name,
+                          name: provider.quranData![index].name,
                           onClick: () {
                             context.read<AudioViewModel>().isOpenedAudio();
                             context.read<AudioViewModel>().selectSurah(
-                                id: provider.quranData[index].number,
+                                id: provider.quranData![index].number,
                                 elderFormat: widget.elder.identifier);
                           },
                         ),
@@ -74,7 +74,7 @@ class _SurahAudioViewState extends State<SurahAudioView> with AfterLayoutMixin {
                 );
               } else {
                 return BuildErrorWidget(
-                  errorResult: provider.error,
+                  errorResult: provider.error!,
                 );
               }
             },

@@ -11,7 +11,6 @@ import 'package:qurany_karim/utils/theme/colors.dart';
 import 'package:qurany_karim/view/app_components.dart';
 import 'package:qurany_karim/view_model/assmaa_allah/assmaa_allah_view_model.dart';
 import 'package:qurany_karim/view_model/assmaa_allah/states.dart';
-import 'components.dart';
 
 class AssmaaAllahView extends StatefulWidget {
   const AssmaaAllahView({Key? key}) : super(key: key);
@@ -36,7 +35,7 @@ class _AssmaaAllahViewState extends State<AssmaaAllahView>
 
   @override
   Widget build(BuildContext context) {
-    bool isPortrait =
+    final bool isPortrait =
         SizeConfigurationHelper.screenOrientation == Orientation.portrait;
     return Scaffold(
       appBar: buildDefaultAppBar(title: 'asmaa_allah'.tr()),
@@ -86,7 +85,8 @@ class _AssmaaAllahViewState extends State<AssmaaAllahView>
                                     context: context,
                                     builder: (_) {
                                       return BuildAlertDialogWidget(
-                                          text: provider
+                                        title: 'description'.tr(),
+                                          description: provider
                                               .assmaaAllah[index].description);
                                     },
                                   ));

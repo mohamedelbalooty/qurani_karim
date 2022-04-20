@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
-import 'package:qurany_karim/utils/constants/cache_keys.dart';
 import 'package:qurany_karim/utils/theme/colors.dart';
-import 'package:qurany_karim/utils/helper/cache_helper.dart';
 import 'package:qurany_karim/view/ahadith_view/ahadith_view.dart';
 import 'package:qurany_karim/view/askar_view/azkar_view.dart';
 import 'package:qurany_karim/view/assmaa_allah_view/assmaa_allah_view.dart';
@@ -14,40 +12,27 @@ import 'package:qurany_karim/view/prayer_times_view/prayer_times_view.dart';
 import 'package:qurany_karim/view/qiplah_view/qiplah_view.dart';
 import 'package:qurany_karim/view/radio_view/radio_view.dart';
 import 'package:qurany_karim/view/reading_view/reading_view.dart';
-import 'package:qurany_karim/view/reading_view/surah_text_view/surah_text_view.dart';
 import 'package:qurany_karim/view/tasbih_view/tasbih_view.dart';
 import 'package:qurany_karim/view_model/ahadith/ahadith_view_model.dart';
 import 'package:qurany_karim/view_model/assmaa_allah/assmaa_allah_view_model.dart';
 import 'package:qurany_karim/view_model/quran/quran_view_model.dart';
-import 'package:qurany_karim/view_model/quran/states.dart';
 import '../app_components.dart';
 
-AppBar buildAppBar() => AppBar(
+AppBar buildAppBar(BuildContext context) => AppBar(
       actions: [
         Padding(
           padding: const EdgeInsetsDirectional.only(end: 5.0),
-          child: Consumer<QuranViewModel>(
-            builder: (context, provider, child) {
-              return CacheHelper.getIntData(key: isCachingSurahText) != null
-                  ? InkWell(
-                      onTap: () {
-                        provider.getSurahData().then((value) {
-                          if (provider.cachedSurahDataStates ==
-                              QuranGetCachedSurahDataStates.Loaded) {
-                            materialNavigator(context,
-                                SurahTextView(surah: provider.cachedSurah));
-                          } else {
-                            showToast(toastValue: provider.error.errorMessage);
-                          }
-                        });
-                      },
-                      child: Image.asset(
-                        'assets/icons/drawer_logo.png',
-                      ),
-                    )
-                  : const SizedBox();
-            },
-          ),
+          child: InkWell(
+              child: Image.asset(
+                'assets/icons/drawer_logo.png',
+              ),
+              onTap: () => showDialog(
+                  context: context,
+                  builder: (_) {
+                    return BuildAlertDialogWidget(
+                        title: 'doaa_description'.tr(),
+                        description: 'doaa'.tr());
+                  })),
         )
       ],
       title: Text(
@@ -180,7 +165,10 @@ class BuildHomePortraitLayout extends StatelessWidget {
           icon: 'assets/icons/quran.png',
           onClick: () {
             context.read<QuranViewModel>().getLocalData();
-            namedNavigator(context, ReadingView.id);
+            context
+                .read<QuranViewModel>()
+                .getSurahData()
+                .then((value) => namedNavigator(context, ReadingView.id));
           }),
       BuildGridCategoryItem(
           title: 'listen_moshaf'.tr(),
@@ -291,7 +279,10 @@ class BuildHomeLandScapeLayout extends StatelessWidget {
           icon: 'assets/icons/quran.png',
           onClick: () {
             context.read<QuranViewModel>().getLocalData();
-            namedNavigator(context, ReadingView.id);
+            context
+                .read<QuranViewModel>()
+                .getSurahData()
+                .then((value) => namedNavigator(context, ReadingView.id));
           }),
       BuildGridCategoryItem(
           title: 'listen_moshaf'.tr(),

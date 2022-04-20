@@ -11,6 +11,7 @@ import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/utils/theme/colors.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../utils/helper/size_configuration_helper.dart';
 
 SizedBox verticalSpace0() => SizedBox(height: 3.h);
 
@@ -57,9 +58,7 @@ EdgeInsets symmetricHorizontalPadding2() =>
 EdgeInsets symmetricHorizontalPadding3() =>
     const EdgeInsets.symmetric(horizontal: 20);
 
-
-AppBar buildDefaultAppBar({required String title}) =>
-    AppBar(
+AppBar buildDefaultAppBar({required String title}) => AppBar(
       automaticallyImplyLeading: true,
       title: Text(
         title,
@@ -73,12 +72,13 @@ class BuildDefaultGradientButton extends StatelessWidget {
   final VoidCallback? onClick;
   final Function(TapUpDetails?)? onTapUp;
 
-  const BuildDefaultGradientButton({Key? key,
-    required this.child,
-    this.onClick,
-    this.onTapUp,
-    this.height = 100.0,
-    this.width = double.infinity})
+  const BuildDefaultGradientButton(
+      {Key? key,
+      required this.child,
+      this.onClick,
+      this.onTapUp,
+      this.height = 100.0,
+      this.width = double.infinity})
       : super(key: key);
 
   @override
@@ -91,9 +91,9 @@ class BuildDefaultGradientButton extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
           gradient:
-          context.select<AppThemeProvider, bool>((value) => value.isDark)
-              ? darkGradient()
-              : lightGradient(),
+              context.select<AppThemeProvider, bool>((value) => value.isDark)
+                  ? darkGradient()
+                  : lightGradient(),
           borderRadius: defaultBorderRadius(),
           border: Border.all(color: whiteColor, width: 1.5),
           boxShadow: const [
@@ -116,10 +116,11 @@ class BuildDefaultIconButton extends StatelessWidget {
   final VoidCallback onClick;
   final Color color;
 
-  const BuildDefaultIconButton({Key? key,
-    required this.icon,
-    required this.onClick,
-    this.color = whiteColor})
+  const BuildDefaultIconButton(
+      {Key? key,
+      required this.icon,
+      required this.onClick,
+      this.color = whiteColor})
       : super(key: key);
 
   @override
@@ -154,10 +155,7 @@ class BuildDefaultTextButton extends StatelessWidget {
     return TextButton(
       style: ButtonStyle(
         overlayColor: MaterialStateProperty.all(
-          Theme
-              .of(context)
-              .primaryColor
-              .withOpacity(0.3),
+          Theme.of(context).primaryColor.withOpacity(0.3),
         ),
       ),
       child: Text(
@@ -172,19 +170,6 @@ class BuildDefaultTextButton extends StatelessWidget {
     );
   }
 }
-
-BuildDefaultIconButton copyButton(BuildContext context,
-    {required String textValue}) =>
-    BuildDefaultIconButton(
-      icon: Icons.copy,
-      onClick: () => copyText(context, textValue: textValue),
-    );
-
-BuildDefaultIconButton shareButton({required String textValue}) =>
-    BuildDefaultIconButton(
-      icon: Icons.share,
-      onClick: () => shareText(textValue: textValue),
-    );
 
 class GradientText extends StatelessWidget {
   const GradientText(this.text, {Key? key, this.style, this.textAlign})
@@ -201,15 +186,14 @@ class GradientText extends StatelessWidget {
       builder: (context, value, child) {
         return ShaderMask(
           blendMode: BlendMode.srcIn,
-          shaderCallback: (bounds) =>
-          value
+          shaderCallback: (bounds) => value
               ? const LinearGradient(colors: [whiteColor, whiteColor])
-              .createShader(
-            Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-          )
+                  .createShader(
+                  Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+                )
               : lightGradient().createShader(
-            Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-          ),
+                  Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+                ),
           child: Text(
             text,
             style: style,
@@ -250,7 +234,7 @@ class GradientIcon extends StatelessWidget {
             final Rect rect = Rect.fromLTRB(0, 0, size, size);
             return value
                 ? const LinearGradient(colors: [whiteColor, whiteColor])
-                .createShader(rect)
+                    .createShader(rect)
                 : lightGradient().createShader(rect);
           },
         );
@@ -267,11 +251,11 @@ class BuildLoadingWidget extends StatelessWidget {
     return Center(
       child: (Platform.isAndroid)
           ? CircularProgressIndicator(
-        valueColor:
-        context.select<AppThemeProvider, bool>((value) => value.isDark)
-            ? const AlwaysStoppedAnimation<Color>(Colors.white)
-            : const AlwaysStoppedAnimation<Color>(mainColor),
-      )
+              valueColor: context
+                      .select<AppThemeProvider, bool>((value) => value.isDark)
+                  ? const AlwaysStoppedAnimation<Color>(Colors.white)
+                  : const AlwaysStoppedAnimation<Color>(mainColor),
+            )
           : const CupertinoActivityIndicator(),
     );
   }
@@ -311,8 +295,7 @@ class BuildErrorWidget extends StatelessWidget {
               child: Center(
                 child: Text(
                   errorResult.errorMessage,
-                  style: Theme
-                      .of(context)
+                  style: Theme.of(context)
                       .textTheme
                       .bodyText1!
                       .copyWith(fontWeight: FontWeight.bold),
@@ -326,16 +309,138 @@ class BuildErrorWidget extends StatelessWidget {
   }
 }
 
-BorderRadius defaultBorderRadius() =>
-    const BorderRadius.all(
+class BuildAlertDialogWidget extends StatelessWidget {
+  final String description, title;
+
+  const BuildAlertDialogWidget(
+      {Key? key, required this.title, required this.description})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final bool isPortrait =
+        SizeConfigurationHelper.screenOrientation == Orientation.portrait;
+    return AlertDialog(
+      contentPadding: padding2(),
+      backgroundColor: transparent,
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: padding1(),
+              decoration: BoxDecoration(
+                color: whiteColor,
+                borderRadius: defaultBorderRadius(),
+                border:
+                    Border.all(color: Theme.of(context).primaryColor, width: 2.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  BuildDialogGradientText(
+                    text: title,
+                    fontSize: isPortrait ? 22.sp : 20.sp,
+                  ),
+                  Divider(
+                    color: Theme.of(context).primaryColor,
+                    thickness: 2.0,
+                    height: 2.h,
+                    endIndent: 10.0,
+                    indent: 10.0,
+                  ),
+                  BuildDialogGradientText(
+                    text: description,
+                    fontSize: isPortrait ? 18.sp : 16.sp,
+                  ),
+                ],
+              ),
+            ),
+            verticalSpace1(),
+            GestureDetector(
+              onTap: () => popNavigate(context),
+              child: Container(
+                height: 50.sp,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: whiteColor,
+                  borderRadius: defaultBorderRadius(),
+                  border: Border.all(
+                      color: Theme.of(context).primaryColor, width: 2.0),
+                ),
+                child: Center(
+                    child: BuildDialogGradientText(
+                  text: 'cancel'.tr(),
+                  fontSize: 20.sp,
+                )),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BuildDialogGradientText extends StatelessWidget {
+  final String text;
+  final double fontSize;
+
+  const BuildDialogGradientText(
+      {Key? key, required this.text, required this.fontSize})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Selector<AppThemeProvider, bool>(
+      selector: (context, provider) => provider.isDark,
+      builder: (context, value, child) {
+        return ShaderMask(
+          blendMode: BlendMode.srcIn,
+          shaderCallback: (bounds) => value
+              ? const LinearGradient(colors: [mainDarkColor, mainDarkColor])
+                  .createShader(
+                  Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+                )
+              : lightGradient().createShader(
+                  Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+                ),
+          child: Text(
+            text,
+            style: TextStyle(
+                color: whiteColor,
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                height: 2),
+            textAlign: TextAlign.center,
+          ),
+        );
+      },
+    );
+  }
+}
+
+BuildDefaultIconButton copyButton(BuildContext context,
+        {required String textValue}) =>
+    BuildDefaultIconButton(
+      icon: Icons.copy,
+      onClick: () => copyText(context, textValue: textValue),
+    );
+
+BuildDefaultIconButton shareButton({required String textValue}) =>
+    BuildDefaultIconButton(
+      icon: Icons.share,
+      onClick: () => shareText(textValue: textValue),
+    );
+
+BorderRadius defaultBorderRadius() => const BorderRadius.all(
       Radius.circular(10.0),
     );
 
-LinearGradient lightGradient() =>
-    const LinearGradient(
-        colors: [Colors.purple, Colors.indigo],
-        begin: Alignment.topRight,
-        end: Alignment.bottomLeft);
+LinearGradient lightGradient() => const LinearGradient(
+    colors: [Colors.purple, Colors.indigo],
+    begin: Alignment.topRight,
+    end: Alignment.bottomLeft);
 
 LinearGradient darkGradient() =>
     const LinearGradient(colors: [mainDarkColor, mainDarkColor]);
@@ -366,8 +471,7 @@ void namedNavigator(BuildContext context, String routeName) =>
 void replacementNamedNavigator(BuildContext context, String routeName) =>
     Navigator.pushReplacementNamed(context, routeName);
 
-void materialNavigator(BuildContext context, Widget screen) =>
-    Navigator.push(
+void materialNavigator(BuildContext context, Widget screen) => Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => screen),
     );

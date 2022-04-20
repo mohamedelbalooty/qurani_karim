@@ -105,7 +105,7 @@ class WelcomeView extends StatelessWidget {
                                 if (provider.remoteDataStates ==
                                     QuranGetRemoteDataStates.Error) {
                                   showToast(
-                                      toastValue: provider.error.errorMessage);
+                                      toastValue: provider.error!.errorMessage);
                                 }
                               },
                             );

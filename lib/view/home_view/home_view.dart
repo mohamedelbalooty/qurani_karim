@@ -13,7 +13,7 @@ class HomeView extends StatelessWidget {
     SizeConfigurationHelper.initSizeConfiguration(context);
     return Scaffold(
       drawer: const DrawerView(),
-      appBar: buildAppBar(),
+      appBar: buildAppBar(context),
       body: LayoutBuilder(builder: (_, constraints) {
         if (SizeConfigurationHelper.screenOrientation == Orientation.portrait) {
           return const BuildHomePortraitLayout();

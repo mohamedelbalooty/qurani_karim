@@ -62,6 +62,12 @@ class QuraniKarim extends StatelessWidget {
         hideFooterWhenNotFull: false,
         enableBallisticLoad: true,
         child: MaterialApp(
+          builder: (BuildContext context, Widget? widget) {
+            return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+              child: widget!,
+            );
+          },
           debugShowCheckedModeBanner: false,
           title: 'Qurani Karim - قراّني كريم',
           initialRoute: CacheHelper.getBooleanData(key: isCachingQuran) == false
@@ -74,9 +80,9 @@ class QuraniKarim extends StatelessWidget {
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode:
-          context.select<AppThemeProvider, bool>((value) => value.isDark)
-              ? ThemeMode.dark
-              : ThemeMode.light,
+              context.select<AppThemeProvider, bool>((value) => value.isDark)
+                  ? ThemeMode.dark
+                  : ThemeMode.light,
         ),
       ),
     );

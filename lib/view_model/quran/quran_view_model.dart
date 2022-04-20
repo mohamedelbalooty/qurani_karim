@@ -24,15 +24,15 @@ class QuranViewModel extends ChangeNotifier {
 
   List<Surah>? _quranData;
 
-  List<Surah> get quranData => _quranData!;
+  List<Surah>? get quranData => _quranData;
 
   Surah? _cachedSurah;
 
-  Surah get cachedSurah => _cachedSurah!;
+  Surah? get cachedSurah => _cachedSurah;
 
   ErrorResult? _error;
 
-  ErrorResult get error => _error!;
+  ErrorResult? get error => _error!;
 
   Future<void> getRemoteData() async {
     remoteDataStates = QuranGetRemoteDataStates.Loading;
@@ -67,7 +67,7 @@ class QuranViewModel extends ChangeNotifier {
 
   Future<void> getSurahData() async {
     await _localService
-        .getSurahData(CacheHelper.getIntData(key: isCachingSurahText)!)
+        .getSurahData(CacheHelper.getIntData(key: isCachingSurahText) ?? 1)
         .then((value) {
       value.fold((left) {
         _cachedSurah = left;

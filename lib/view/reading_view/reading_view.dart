@@ -30,19 +30,12 @@ class _ReadingViewState extends State<ReadingView> with AfterLayoutMixin {
   }
 
   @override
-  void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      context.read<QuranViewModel>().getSurahData();
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Consumer<QuranViewModel>(
         builder: (context, provider, child) {
-          if (provider.localDataStates == QuranGetLocalDataStates.Loading) {
+          if (provider.localDataStates ==
+              QuranGetLocalDataStates.Loading) {
             return const SizedBox();
           } else if (provider.localDataStates ==
               QuranGetLocalDataStates.Loaded) {
@@ -74,7 +67,7 @@ class _ReadingViewState extends State<ReadingView> with AfterLayoutMixin {
                       ),
                       child: GestureDetector(
                         onTap: () => materialNavigator(context,
-                            SurahTextView(surah: provider.cachedSurah)),
+                            SurahTextView(surah: provider.cachedSurah!)),
                         child: Card(
                           color: Theme.of(context).scaffoldBackgroundColor,
                           shape: const OutlineInputBorder(
@@ -88,8 +81,8 @@ class _ReadingViewState extends State<ReadingView> with AfterLayoutMixin {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Expanded(
-                                    child:
-                                        Image.asset('assets/images/quran.png')),
+                                  child: Image.asset('assets/images/quran.png'),
+                                ),
                                 Expanded(
                                   child: SingleChildScrollView(
                                     child: Column(
@@ -107,14 +100,14 @@ class _ReadingViewState extends State<ReadingView> with AfterLayoutMixin {
                                         ),
                                         verticalSpace2(),
                                         GradientText(
-                                          provider.cachedSurah.name,
+                                          provider.cachedSurah!.name,
                                           style: TextStyle(
                                             fontSize: 18.sp,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                         GradientText(
-                                          '${provider.cachedSurah.ayahs.length} ${'ayah'.tr()} - ${provider.cachedSurah.revelationType == 'Meccan' ? 'meccan'.tr() : 'medinan'.tr()}',
+                                          '${provider.cachedSurah!.ayahs.length} ${'ayah'.tr()} - ${provider.cachedSurah!.revelationType == 'Meccan' ? 'meccan'.tr() : 'medinan'.tr()}',
                                           style: TextStyle(
                                             fontSize: 14.sp,
                                             fontWeight: FontWeight.bold,
@@ -137,9 +130,9 @@ class _ReadingViewState extends State<ReadingView> with AfterLayoutMixin {
                         children: [
                           index == 0 ? verticalSpace2() : const SizedBox(),
                           BuildSurahItemWidget(
-                            surah: provider.quranData[index],
+                            surah: provider.quranData![index],
                             surahType:
-                                provider.quranData[index].revelationType ==
+                                provider.quranData![index].revelationType ==
                                         'Meccan'
                                     ? 'meccan'.tr()
                                     : 'medinan'.tr(),
@@ -147,7 +140,7 @@ class _ReadingViewState extends State<ReadingView> with AfterLayoutMixin {
                               materialNavigator(
                                 context,
                                 SurahTextView(
-                                  surah: provider.quranData[index],
+                                  surah: provider.quranData![index],
                                 ),
                               );
                             },
@@ -155,7 +148,7 @@ class _ReadingViewState extends State<ReadingView> with AfterLayoutMixin {
                           verticalSpace2(),
                         ],
                       ),
-                      childCount: provider.quranData.length,
+                      childCount: provider.quranData!.length,
                     ),
                   ),
                 ],
@@ -163,7 +156,7 @@ class _ReadingViewState extends State<ReadingView> with AfterLayoutMixin {
             );
           } else {
             return BuildErrorWidget(
-              errorResult: provider.error,
+              errorResult: provider.error!,
             );
           }
         },
