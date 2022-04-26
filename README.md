@@ -1,10 +1,12 @@
-# Qurani Karim
+# 🔥 Qurani Karim
 
 ### Qurani Karim is the islamic application that you can read quran and listen to it.
 
+#### Star⭐ the repo if you like what you see😉.
+
 -----------------------------------------------------------------------------
 
-## App Design :
+## 📸 App Design :
 ![Preview](readme_images/1.png)
 ![Preview](readme_images/2.png)
 ![Preview](readme_images/3.png)
@@ -16,7 +18,7 @@
 
 -----------------------------------------------------------------------------
 
-### Plugins and Concepts :
+### ✨ Plugins and Concepts :
 
 - This project is built using MVVM architecture pattern with Provider for state management.
 - Functional programming concept using dartz plugin for handling server errors and exceptions.
@@ -32,7 +34,7 @@
 
 -----------------------------------------------------------------------------
 
-### App Features :
+### ✨ App Features :
 
 - Native Splash screen.
 - Reading and Listening All Quran.
