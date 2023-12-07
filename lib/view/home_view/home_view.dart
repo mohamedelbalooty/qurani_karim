@@ -4,7 +4,7 @@ import '../../utils/helper/size_configuration_helper.dart';
 import 'components.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   static const String id = 'HomeView';
 

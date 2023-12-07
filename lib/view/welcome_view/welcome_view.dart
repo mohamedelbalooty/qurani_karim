@@ -11,7 +11,7 @@ import '../app_components.dart';
 import 'components.dart';
 
 class WelcomeView extends StatelessWidget {
-  const WelcomeView({Key? key}) : super(key: key);
+  const WelcomeView({super.key});
   static const String id = 'WelcomeView';
 
   @override

@@ -8,7 +8,7 @@ import 'package:qurany_karim/view/app_components.dart';
 import 'components.dart';
 
 class QiplahView extends StatelessWidget {
-  const QiplahView({Key? key}) : super(key: key);
+  const QiplahView({super.key});
   static const String id = 'QiplahView';
 
   @override

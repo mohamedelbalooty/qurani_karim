@@ -16,7 +16,7 @@ import 'components.dart';
 class SurahAudioView extends StatefulWidget {
   final Elder elder;
 
-  const SurahAudioView({Key ?key, required this.elder}) : super(key: key);
+  const SurahAudioView({super.key, required this.elder});
 
   @override
   _SurahAudioViewState createState() => _SurahAudioViewState();

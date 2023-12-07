@@ -51,16 +51,16 @@ class BuildListCategoryItem extends StatelessWidget {
   final VoidCallback onClick;
 
   const BuildListCategoryItem(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.icon,
-      required this.onClick})
-      : super(key: key);
+      required this.onClick});
 
   @override
   Widget build(BuildContext context) {
     return BuildDefaultGradientButton(
       height: 80.h,
+      onClick: onClick,
       child: Padding(
         padding: symmetricHorizontalPadding1(),
         child: Row(
@@ -94,7 +94,6 @@ class BuildListCategoryItem extends StatelessWidget {
           ],
         ),
       ),
-      onClick: onClick,
     );
   }
 }
@@ -104,15 +103,15 @@ class BuildGridCategoryItem extends StatelessWidget {
   final VoidCallback onClick;
 
   const BuildGridCategoryItem(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.icon,
-      required this.onClick})
-      : super(key: key);
+      required this.onClick});
 
   @override
   Widget build(BuildContext context) {
     return BuildDefaultGradientButton(
+      onClick: onClick,
       child: Padding(
         padding: padding2(),
         child: Column(
@@ -150,13 +149,12 @@ class BuildGridCategoryItem extends StatelessWidget {
           ],
         ),
       ),
-      onClick: onClick,
     );
   }
 }
 
 class BuildHomePortraitLayout extends StatelessWidget {
-  const BuildHomePortraitLayout({Key? key}) : super(key: key);
+  const BuildHomePortraitLayout({super.key});
 
   List<BuildGridCategoryItem> portraitGridWidgets(BuildContext context) {
     return [
@@ -270,7 +268,7 @@ class BuildHomePortraitLayout extends StatelessWidget {
 }
 
 class BuildHomeLandScapeLayout extends StatelessWidget {
-  const BuildHomeLandScapeLayout({Key? key}) : super(key: key);
+  const BuildHomeLandScapeLayout({super.key});
 
   List<BuildGridCategoryItem> landScapeGridWidgets(BuildContext context) {
     return [

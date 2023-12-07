@@ -10,7 +10,7 @@ import '../app_components.dart';
 import 'components.dart';
 
 class AhadithView extends StatefulWidget {
-  const AhadithView({Key? key}) : super(key: key);
+  const AhadithView({super.key});
   static const String id = 'AhadithView';
 
   @override

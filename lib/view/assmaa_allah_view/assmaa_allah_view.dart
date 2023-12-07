@@ -13,7 +13,7 @@ import 'package:qurany_karim/view_model/assmaa_allah/assmaa_allah_view_model.dar
 import 'package:qurany_karim/view_model/assmaa_allah/states.dart';
 
 class AssmaaAllahView extends StatefulWidget {
-  const AssmaaAllahView({Key? key}) : super(key: key);
+  const AssmaaAllahView({super.key});
   static const String id = 'AssmaaAllahView';
 
   @override

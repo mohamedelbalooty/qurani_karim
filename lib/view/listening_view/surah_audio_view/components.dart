@@ -10,8 +10,7 @@ class BuildSurahAudioItemWidget extends StatelessWidget {
   final VoidCallback onClick;
 
   const BuildSurahAudioItemWidget(
-      {Key? key, required this.name, required this.onClick})
-      : super(key: key);
+      {super.key, required this.name, required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +67,12 @@ class BuildAudioButton extends StatelessWidget {
   final VoidCallback onClick;
 
   const BuildAudioButton(
-      {Key? key,
+      {super.key,
       required this.icon,
       required this.onClick,
       this.buttonSize = 3.0,
       this.buttonColor = whiteColor,
-      this.iconSize = 26.0})
-      : super(key: key);
+      this.iconSize = 26.0});
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +96,7 @@ class BuildAudioButton extends StatelessWidget {
 }
 
 class BuildAudioLoading extends StatelessWidget {
-  const BuildAudioLoading({Key? key}) : super(key: key);
+  const BuildAudioLoading({super.key});
 
   @override
   Widget build(BuildContext context) {

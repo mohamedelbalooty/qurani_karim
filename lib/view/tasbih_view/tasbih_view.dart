@@ -10,7 +10,7 @@ import '../app_components.dart';
 import 'components.dart';
 
 class TasbihView extends StatelessWidget {
-  const TasbihView({Key? key}) : super(key: key);
+  const TasbihView({super.key});
   static const String id = 'TasbihView';
 
   @override

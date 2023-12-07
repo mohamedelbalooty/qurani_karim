@@ -9,7 +9,7 @@ import 'azkar_details_view.dart';
 import 'components.dart';
 
 class AzkarView extends StatelessWidget {
-  const AzkarView({Key ?key}) : super(key: key);
+  const AzkarView({super.key});
   static const String id = 'AzkarView';
 
   @override

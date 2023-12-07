@@ -10,7 +10,7 @@ import '../app_components.dart';
 import 'components.dart';
 
 class PrayerTimesView extends StatelessWidget {
-  const PrayerTimesView({Key? key}) : super(key: key);
+  const PrayerTimesView({super.key});
   static const String id = 'PrayerTimesView';
 
   @override

@@ -13,7 +13,7 @@ import 'components.dart';
 import 'surah_text_view/surah_text_view.dart';
 
 class ReadingView extends StatefulWidget {
-  const ReadingView({Key? key}) : super(key: key);
+  const ReadingView({super.key});
 
   static const String id = 'ReadingView';
 

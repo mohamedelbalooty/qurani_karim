@@ -10,7 +10,7 @@ import 'package:qurany_karim/view/app_components.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class LiveView extends StatefulWidget {
-  const LiveView({Key? key}) : super(key: key);
+  const LiveView({super.key});
   static const String id = 'LiveView';
 
   @override

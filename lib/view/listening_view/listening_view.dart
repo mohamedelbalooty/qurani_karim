@@ -11,7 +11,7 @@ import '../app_components.dart';
 import 'surah_audio_view/surah_audio_view.dart';
 
 class ListeningView extends StatelessWidget {
-  const ListeningView({Key? key}) : super(key: key);
+  const ListeningView({super.key});
   static const String id = 'ListeningView';
 
   @override

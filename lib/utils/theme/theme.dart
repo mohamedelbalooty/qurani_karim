@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'colors.dart';
 
-class AppTheme{
+class AppTheme {
   static final ThemeData lightTheme = ThemeData(
     primaryColor: mainColor,
     primarySwatch: Colors.purple,
@@ -16,6 +16,7 @@ class AppTheme{
           fontWeight: FontWeight.bold,
           fontFamily: 'Tajawal'),
       centerTitle: true,
+      iconTheme: const IconThemeData(color: whiteColor),
     ),
     textTheme: TextTheme(
       headline1: TextStyle(
@@ -54,6 +55,7 @@ class AppTheme{
           fontWeight: FontWeight.bold,
           fontFamily: 'Tajawal'),
       centerTitle: true,
+      iconTheme: const IconThemeData(color: whiteColor),
     ),
     textTheme: TextTheme(
       headline1: TextStyle(

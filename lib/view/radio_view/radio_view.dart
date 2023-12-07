@@ -13,7 +13,7 @@ import '../../utils/helper/size_configuration_helper.dart';
 import '../app_components.dart';
 
 class RadioView extends StatefulWidget {
-  const RadioView({Key? key}) : super(key: key);
+  const RadioView({super.key});
   static const String id = 'RadioView';
 
   @override
@@ -25,7 +25,7 @@ class _RadioViewState extends State<RadioView> {
 
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<RadioViewModel>().playRadio(_player);
     });
     super.initState();
