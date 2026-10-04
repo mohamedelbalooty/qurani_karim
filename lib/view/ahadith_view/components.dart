@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:qurany_karim/model/hadith.dart';
 import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/utils/theme/colors.dart';
+
 import '../app_components.dart';
 
 class BuildSearchWidget extends StatelessWidget {
@@ -12,12 +13,12 @@ class BuildSearchWidget extends StatelessWidget {
   final TextEditingController controller;
   final Function(String?) onChanged;
 
-  const BuildSearchWidget(
-      {Key? key,
-      required this.controller,
-      required this.suffixIcon,
-      required this.onChanged})
-      : super(key: key);
+  const BuildSearchWidget({
+    super.key,
+    required this.controller,
+    required this.suffixIcon,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +45,12 @@ class BuildSearchWidget extends StatelessWidget {
         onChanged: onChanged,
         cursorColor: whiteColor,
         maxLines: 1,
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme.of(context).textTheme.bodyLarge,
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
           hintText: 'search'.tr(),
-          hintStyle: Theme.of(context).textTheme.bodyText1,
+          hintStyle: Theme.of(context).textTheme.bodyLarge,
           suffixIcon: suffixIcon,
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
@@ -62,8 +63,7 @@ class BuildSearchWidget extends StatelessWidget {
 class BuildHadithItemWidget extends StatelessWidget {
   final Hadith hadith;
 
-  const BuildHadithItemWidget({Key? key, required this.hadith})
-      : super(key: key);
+  const BuildHadithItemWidget({super.key, required this.hadith});
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +91,7 @@ class BuildHadithItemWidget extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
             child: Text(
               hadith.hadith,
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   fontWeight: FontWeight.bold, fontSize: 18.sp, height: 1.8),
               textAlign: TextAlign.center,
             ),
@@ -104,7 +104,7 @@ class BuildHadithItemWidget extends StatelessWidget {
                 hadith.reference,
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText2!
+                    .bodyMedium!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
             ),

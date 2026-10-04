@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:adhan/adhan.dart';
+import 'package:adhan_dart/adhan_dart.dart';
 import 'package:after_layout/after_layout.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +13,7 @@ import 'package:qurany_karim/utils/theme/colors.dart';
 import '../app_components.dart';
 
 class BuildDigitalClock extends StatelessWidget {
-  const BuildDigitalClock({Key? key, required this.time, required this.period})
-      : super(key: key);
+  const BuildDigitalClock({super.key, required this.time, required this.period});
   final String time, period;
 
   @override
@@ -31,7 +30,7 @@ class BuildDigitalClock extends StatelessWidget {
         ),
         Text(
           period,
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.displayLarge,
         ),
       ],
     );
@@ -39,7 +38,7 @@ class BuildDigitalClock extends StatelessWidget {
 }
 
 class BuildAnalogClock extends StatelessWidget {
-  const BuildAnalogClock({Key? key, required this.dateTime}) : super(key: key);
+  const BuildAnalogClock({super.key, required this.dateTime});
   final DateTime dateTime;
 
   @override
@@ -180,7 +179,10 @@ class ClockPainter extends CustomPainter {
     Paint dotPainter = Paint()..color = Theme.of(context).primaryColor;
     canvas.drawCircle(center, 20, dotPainter);
     canvas.drawCircle(
-        center, 18, Paint()..color = Theme.of(context).backgroundColor);
+      center,
+      18,
+      Paint()..color = Theme.of(context).colorScheme.surface,
+    );
     canvas.drawCircle(center, 8, dotPainter);
   }
 
@@ -201,8 +203,7 @@ double getProportionateScreenWidth(double inputWidth, context) {
 }
 
 class PrayerTimesCompass extends StatefulWidget {
-  const PrayerTimesCompass({Key? key, required this.prayerTimes})
-      : super(key: key);
+  const PrayerTimesCompass({super.key, required this.prayerTimes});
   final PrayerTimes prayerTimes;
 
   @override
@@ -216,7 +217,7 @@ class _PrayerTimesCompassState extends State<PrayerTimesCompass>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<TimeProvider>().initializeTimer();
     });
   }
@@ -299,12 +300,12 @@ class _PrayerTimesCompassState extends State<PrayerTimesCompass>
                             times(widget.prayerTimes)[index].prayerName,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1!
+                                .bodyLarge!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           Text(
                             times(widget.prayerTimes)[index].time,
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ],
                       ),
@@ -315,7 +316,7 @@ class _PrayerTimesCompassState extends State<PrayerTimesCompass>
                 verticalSpace2(),
                 Text(
                   'prayer_time_title'.tr(),
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyLarge,
                   textAlign: TextAlign.center,
                 ),
                 verticalSpace2(),

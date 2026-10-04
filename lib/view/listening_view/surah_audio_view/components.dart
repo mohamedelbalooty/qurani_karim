@@ -49,7 +49,7 @@ class BuildSurahAudioItemWidget extends StatelessWidget {
                 name,
                 style: Theme.of(context)
                     .textTheme
-                    .headline2!
+                    .displayMedium!
                     .copyWith(height: 1.6),
               ),
             ),

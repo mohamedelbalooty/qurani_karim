@@ -9,12 +9,18 @@ class BuildCircleButton extends StatelessWidget {
   final VoidCallback onClick;
 
   const BuildCircleButton(
-      {Key? key, required this.symbol, required this.onClick})
-      : super(key: key);
+      {super.key, required this.symbol, required this.onClick});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: OutlinedButton.styleFrom(
+        backgroundColor: whiteColor,
+        shadowColor: mainColor,
+        shape: const CircleBorder(),
+        padding: const EdgeInsets.all(2.0),
+      ),
+      onPressed: onClick,
       child: Text(
         symbol,
         style: TextStyle(
@@ -24,13 +30,6 @@ class BuildCircleButton extends StatelessWidget {
               : mainColor,
         ),
       ),
-      style: OutlinedButton.styleFrom(
-        backgroundColor: whiteColor,
-        shadowColor: mainColor,
-        shape: const CircleBorder(),
-        padding: const EdgeInsets.all(2.0),
-      ),
-      onPressed: onClick,
     );
   }
 }

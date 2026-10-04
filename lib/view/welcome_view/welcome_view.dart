@@ -30,7 +30,7 @@ class WelcomeView extends StatelessWidget {
                     'qurany_karim'.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .displayLarge!
                         .copyWith(color: mainColor, fontFamily: 'ReemKufi'),
                   ),
                   verticalSpace2(),
@@ -38,7 +38,7 @@ class WelcomeView extends StatelessWidget {
                     'beauty_our_sound'.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline2!
+                        .displayMedium!
                         .copyWith(color: mainColor),
                   ),
                   verticalSpace5(),
@@ -67,7 +67,7 @@ class WelcomeView extends StatelessWidget {
                                     'read_question'.tr(),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(fontSize: 24.sp, height: 1.3),
                                     textAlign: TextAlign.center,
                                   ),
@@ -76,7 +76,7 @@ class WelcomeView extends StatelessWidget {
                                     'read_answer'.tr(),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline2!
+                                        .displayMedium!
                                         .copyWith(fontSize: 20.sp, height: 1.6),
                                     textAlign: TextAlign.center,
                                   ),

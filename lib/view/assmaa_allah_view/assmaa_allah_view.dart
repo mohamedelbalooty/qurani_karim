@@ -124,7 +124,7 @@ class _AssmaaAllahViewState extends State<AssmaaAllahView>
                                           provider.assmaaAllah[index].name,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2,
+                                              .displayMedium,
                                           textAlign: TextAlign.center,
                                         ),
                                       );
@@ -147,7 +147,7 @@ class _AssmaaAllahViewState extends State<AssmaaAllahView>
                                         provider.assmaaAllah[index].name,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline2!
+                                            .displayMedium!
                                             .copyWith(color: whiteColor),
                                         textAlign: TextAlign.center,
                                       ),

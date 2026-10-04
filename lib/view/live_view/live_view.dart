@@ -86,7 +86,7 @@ class _LiveViewState extends State<LiveView> {
                             _channels[index].name,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1!
+                                .bodyLarge!
                                 .copyWith(overflow: TextOverflow.ellipsis),
                           ),
                         ],

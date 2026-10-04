@@ -10,7 +10,7 @@ import 'components.dart';
 class AzkarDetailsView extends StatefulWidget {
   final String title;
 
-  const AzkarDetailsView({Key? key, required this.title}) : super(key: key);
+  const AzkarDetailsView({super.key, required this.title});
 
   @override
   _AzkarDetailsViewState createState() => _AzkarDetailsViewState();

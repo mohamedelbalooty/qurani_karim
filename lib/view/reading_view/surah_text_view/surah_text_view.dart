@@ -15,7 +15,7 @@ import 'components.dart';
 class SurahTextView extends StatefulWidget {
   final Surah surah;
 
-  const SurahTextView({Key? key, required this.surah}) : super(key: key);
+  const SurahTextView({super.key, required this.surah});
 
   @override
   _SurahTextViewState createState() => _SurahTextViewState();
@@ -26,7 +26,7 @@ class _SurahTextViewState extends State<SurahTextView> with AfterLayoutMixin {
 
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<QuranViewModel>().cachingSurah(surahId: widget.surah.number);
     });
     super.initState();
@@ -123,7 +123,7 @@ class _SurahTextViewState extends State<SurahTextView> with AfterLayoutMixin {
                     ),
                     Text(
                       'font_size'.tr(),
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     BuildCircleButton(
                       symbol: '－',

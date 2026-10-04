@@ -10,7 +10,7 @@ import 'dart:async';
 import 'dart:math';
 
 class QiblahCompass extends StatefulWidget {
-  const QiblahCompass({Key? key}) : super(key: key);
+  const QiblahCompass({super.key});
 
   @override
   _QiblahCompassState createState() => _QiblahCompassState();
@@ -89,7 +89,7 @@ class _QiblahCompassState extends State<QiblahCompass> {
 }
 
 class QiblahCompassWidget extends StatelessWidget {
-  const QiblahCompassWidget({Key? key}) : super(key: key);
+  const QiblahCompassWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +120,7 @@ class QiblahCompassWidget extends StatelessWidget {
                 verticalSpace5(),
                 Text(
                   "${qiblahDirection?.offset.toStringAsFixed(3)}°",
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ],
             ),
@@ -135,8 +135,7 @@ class LocationErrorWidget extends StatelessWidget {
   final String? error;
   final VoidCallback? callback;
 
-  const LocationErrorWidget({Key? key, this.error, this.callback})
-      : super(key: key);
+  const LocationErrorWidget({super.key, this.error, this.callback});
 
   @override
   Widget build(BuildContext context) {
@@ -153,15 +152,15 @@ class LocationErrorWidget extends StatelessWidget {
             verticalSpace5(),
             Text(
               error ?? '',
-              style: Theme.of(context).textTheme.headline2,
+              style: Theme.of(context).textTheme.displayMedium,
             ),
             verticalSpace5(),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  primary: Theme.of(context).primaryColor),
+                  backgroundColor: Theme.of(context).primaryColor),
               child: Text(
                 'retry'.tr(),
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
               onPressed: () {
                 if (callback != null) callback!();

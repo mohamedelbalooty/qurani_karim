@@ -48,7 +48,7 @@ class ListeningView extends StatelessWidget {
                             provider.elders[index].name,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1!
+                                .bodyLarge!
                                 .copyWith(fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
                           ),
@@ -58,7 +58,7 @@ class ListeningView extends StatelessWidget {
                             'go'.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2!
+                                .bodyMedium!
                                 .copyWith(
                                     fontWeight: FontWeight.bold, height: 1.6),
                           ),

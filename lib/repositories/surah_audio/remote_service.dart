@@ -23,8 +23,8 @@ class SurahAudioRemoteService extends SurahAudioRepository {
       } else {
         return Right(returnResponse(response));
       }
-    } on DioError catch (dioException) {
-      if (dioException.type == DioErrorType.response) {
+    } on DioException catch (dioException) {
+      if (dioException.type == DioExceptionType.badResponse) {
         return Right(returnResponse(dioException.response!));
       } else {
         return Right(

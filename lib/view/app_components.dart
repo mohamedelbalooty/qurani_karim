@@ -73,13 +73,12 @@ class BuildDefaultGradientButton extends StatelessWidget {
   final Function(TapUpDetails?)? onTapUp;
 
   const BuildDefaultGradientButton(
-      {Key? key,
+      {super.key,
       required this.child,
       this.onClick,
       this.onTapUp,
       this.height = 100.0,
-      this.width = double.infinity})
-      : super(key: key);
+      this.width = double.infinity});
 
   @override
   Widget build(BuildContext context) {
@@ -117,11 +116,10 @@ class BuildDefaultIconButton extends StatelessWidget {
   final Color color;
 
   const BuildDefaultIconButton(
-      {Key? key,
+      {super.key,
       required this.icon,
       required this.onClick,
-      this.color = whiteColor})
-      : super(key: key);
+      this.color = whiteColor});
 
   @override
   Widget build(BuildContext context) {
@@ -143,21 +141,22 @@ class BuildDefaultTextButton extends StatelessWidget {
   final Color buttonColor;
 
   const BuildDefaultTextButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.onClick,
     this.fontSize = 16.0,
     this.buttonColor = mainColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       style: ButtonStyle(
-        overlayColor: MaterialStateProperty.all(
-          Theme.of(context).primaryColor.withOpacity(0.3),
+        overlayColor: WidgetStateProperty.all(
+          Theme.of(context).primaryColor.withValues(alpha: 0.3),
         ),
       ),
+      onPressed: onClick,
       child: Text(
         text,
         style: TextStyle(
@@ -166,14 +165,12 @@ class BuildDefaultTextButton extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      onPressed: onClick,
     );
   }
 }
 
 class GradientText extends StatelessWidget {
-  const GradientText(this.text, {Key? key, this.style, this.textAlign})
-      : super(key: key);
+  const GradientText(this.text, {super.key, this.style, this.textAlign});
 
   final String text;
   final TextStyle? style;
@@ -207,10 +204,10 @@ class GradientText extends StatelessWidget {
 
 class GradientIcon extends StatelessWidget {
   const GradientIcon({
-    Key? key,
+    super.key,
     required this.icon,
     required this.size,
-  }) : super(key: key);
+  });
 
   final IconData icon;
   final double size;
@@ -244,7 +241,7 @@ class GradientIcon extends StatelessWidget {
 }
 
 class BuildLoadingWidget extends StatelessWidget {
-  const BuildLoadingWidget({Key? key}) : super(key: key);
+  const BuildLoadingWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -264,8 +261,7 @@ class BuildLoadingWidget extends StatelessWidget {
 class BuildErrorWidget extends StatelessWidget {
   final ErrorResult errorResult;
 
-  const BuildErrorWidget({Key? key, required this.errorResult})
-      : super(key: key);
+  const BuildErrorWidget({super.key, required this.errorResult});
 
   @override
   Widget build(BuildContext context) {
@@ -297,7 +293,7 @@ class BuildErrorWidget extends StatelessWidget {
                   errorResult.errorMessage,
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -313,8 +309,7 @@ class BuildAlertDialogWidget extends StatelessWidget {
   final String description, title;
 
   const BuildAlertDialogWidget(
-      {Key? key, required this.title, required this.description})
-      : super(key: key);
+      {super.key, required this.title, required this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -387,8 +382,7 @@ class BuildDialogGradientText extends StatelessWidget {
   final double fontSize;
 
   const BuildDialogGradientText(
-      {Key? key, required this.text, required this.fontSize})
-      : super(key: key);
+      {super.key, required this.text, required this.fontSize});
 
   @override
   Widget build(BuildContext context) {
@@ -452,7 +446,7 @@ void showToast({required String toastValue}) {
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
       textColor: Colors.white,
-      backgroundColor: Colors.black87.withOpacity(0.5),
+      backgroundColor: Colors.black87.withValues(alpha: 0.5),
       fontSize: 16.sp);
 }
 

@@ -13,11 +13,10 @@ class BuildSurahItemWidget extends StatelessWidget {
   final VoidCallback onClick;
 
   const BuildSurahItemWidget(
-      {Key? key,
+      {super.key,
       required this.surah,
       required this.surahType,
-      required this.onClick})
-      : super(key: key);
+      required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +55,7 @@ class BuildSurahItemWidget extends StatelessWidget {
                   surah.number.toString(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText2!
+                      .bodyMedium!
                       .copyWith(fontWeight: FontWeight.bold, height: 1.6),
                 ),
               ],
@@ -68,7 +67,7 @@ class BuildSurahItemWidget extends StatelessWidget {
               children: [
                 Text(
                   surah.name,
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.displayMedium,
                 ),
                 verticalSpace1(),
                 Text(
@@ -87,7 +86,7 @@ class BuildSurahItemWidget extends StatelessWidget {
                   'go'.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText2!
+                      .bodyMedium!
                       .copyWith(fontWeight: FontWeight.bold, height: 1.6),
                 ),
                 Icon(

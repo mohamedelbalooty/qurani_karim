@@ -19,22 +19,22 @@ class AppTheme {
       iconTheme: const IconThemeData(color: whiteColor),
     ),
     textTheme: TextTheme(
-      headline1: TextStyle(
+      displayLarge: TextStyle(
         color: whiteColor,
         fontSize: 38.sp,
         fontWeight: FontWeight.bold,
       ),
-      headline2: TextStyle(
+      displayMedium: TextStyle(
         color: whiteColor,
         fontSize: 22.sp,
         fontWeight: FontWeight.bold,
       ),
-      bodyText1: TextStyle(
+      bodyLarge: TextStyle(
         color: whiteColor,
         fontSize: 16.sp,
         fontWeight: FontWeight.bold,
       ),
-      bodyText2: TextStyle(
+      bodyMedium: TextStyle(
         color: whiteColor,
         fontSize: 14.sp,
         fontWeight: FontWeight.w500,
@@ -58,22 +58,22 @@ class AppTheme {
       iconTheme: const IconThemeData(color: whiteColor),
     ),
     textTheme: TextTheme(
-      headline1: TextStyle(
+      displayLarge: TextStyle(
         color: mainDarkColor,
         fontSize: 38.sp,
         fontWeight: FontWeight.bold,
       ),
-      headline2: TextStyle(
+      displayMedium: TextStyle(
         color: whiteColor,
         fontSize: 22.sp,
         fontWeight: FontWeight.bold,
       ),
-      bodyText1: TextStyle(
+      bodyLarge: TextStyle(
         color: whiteColor,
         fontSize: 16.sp,
         fontWeight: FontWeight.bold,
       ),
-      bodyText2: TextStyle(
+      bodyMedium: TextStyle(
         color: whiteColor,
         fontSize: 14.sp,
         fontWeight: FontWeight.w500,

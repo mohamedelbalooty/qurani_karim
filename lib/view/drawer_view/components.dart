@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:qurany_karim/ui_provider/app_theme_povider.dart';
 import 'package:qurany_karim/utils/theme/colors.dart';
@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../app_components.dart';
 
 class BuildCustomDivider extends StatelessWidget {
-  const BuildCustomDivider({Key? key, required this.margin}) : super(key: key);
+  const BuildCustomDivider({super.key, required this.margin});
   final EdgeInsets margin;
 
   @override
@@ -29,7 +29,7 @@ class BuildCustomDivider extends StatelessWidget {
 }
 
 class BuildVersionWidget extends StatelessWidget {
-  const BuildVersionWidget({Key? key}) : super(key: key);
+  const BuildVersionWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -92,12 +92,11 @@ class BuildVersionWidget extends StatelessWidget {
 
 class BuildDrawerItemWidget extends StatelessWidget {
   const BuildDrawerItemWidget(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.icon,
       required this.onClick,
-      this.isThemeToggle = false})
-      : super(key: key);
+      this.isThemeToggle = false});
   final String title;
   final IconData icon;
   final VoidCallback onClick;

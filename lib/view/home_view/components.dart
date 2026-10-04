@@ -75,7 +75,7 @@ class BuildListCategoryItem extends StatelessWidget {
             horizontalSpace2(),
             Text(
               title,
-              style: Theme.of(context).textTheme.headline2,
+              style: Theme.of(context).textTheme.displayMedium,
             ),
             horizontalSpace0(),
             const Spacer(),
@@ -83,7 +83,7 @@ class BuildListCategoryItem extends StatelessWidget {
               'go'.tr(),
               style: Theme.of(context)
                   .textTheme
-                  .bodyText2!
+                  .bodyMedium!
                   .copyWith(fontWeight: FontWeight.bold, height: 1.6),
             ),
             Icon(
@@ -127,7 +127,7 @@ class BuildGridCategoryItem extends StatelessWidget {
             verticalSpace4(),
             Text(
               title,
-              style: Theme.of(context).textTheme.headline2,
+              style: Theme.of(context).textTheme.displayMedium,
             ),
             const Spacer(),
             Row(
@@ -136,7 +136,7 @@ class BuildGridCategoryItem extends StatelessWidget {
                   'go'.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText2!
+                      .bodyMedium!
                       .copyWith(fontWeight: FontWeight.bold, height: 1.6),
                 ),
                 Icon(

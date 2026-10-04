@@ -33,7 +33,7 @@ class QiplahView extends StatelessWidget {
               return Center(
                 child: Text(
                   "Error: ${snapshot.error.toString()}",
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.displayMedium,
                 ),
               );
             }

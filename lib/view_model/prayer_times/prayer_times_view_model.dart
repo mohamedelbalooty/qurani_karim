@@ -1,4 +1,4 @@
-import 'package:adhan/adhan.dart';
+import 'package:adhan_dart/adhan_dart.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'states.dart';
@@ -17,7 +17,7 @@ class PrayerTimesViewModel extends ChangeNotifier {
   late PrayerTimes prayerTimes;
   late bool serviceEnabled;
   late LocationPermission permission;
-  final params = CalculationMethod.egyptian.getParameters();
+  final params = CalculationMethodParameters.muslimWorldLeague();
 
   Future<void> determinePosition() async {
     states = PrayerTimesStates.Loading;
@@ -39,9 +39,13 @@ class PrayerTimesViewModel extends ChangeNotifier {
       states = PrayerTimesStates.Loading;
       _currentPosition = await Geolocator.getCurrentPosition();
       params.madhab = Madhab.hanafi;
-      prayerTimes = PrayerTimes.today(
-          Coordinates(_currentPosition!.latitude, _currentPosition!.longitude),
-          params);
+      prayerTimes = PrayerTimes(
+        date: DateTime.now(),
+        coordinates: Coordinates(
+            _currentPosition!.latitude, _currentPosition!.longitude),
+        calculationParameters: params,
+        precision: true,
+      );
       states = PrayerTimesStates.Success;
     } catch (locationException) {
       states = PrayerTimesStates.Error;

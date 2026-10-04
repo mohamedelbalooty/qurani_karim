@@ -11,7 +11,7 @@ void showLoading(BuildContext context) {
         return AlertDialog(
           backgroundColor: transparent,
           content: Container(
-            height: 130.h,
+            height: 140.h,
             width: 150.w,
             padding: padding3(),
             decoration: BoxDecoration(
@@ -28,7 +28,7 @@ void showLoading(BuildContext context) {
                   'fetch_data'.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(color: mainColor),
                   textAlign: TextAlign.center,
                 ),
@@ -46,14 +46,13 @@ class BuildWelcomeButton extends StatelessWidget {
   final VoidCallback onClick;
 
   const BuildWelcomeButton(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.onClick,
       this.height = 50.0,
       this.width = double.infinity,
       this.color = whiteColor,
-      this.radius = 25.0})
-      : super(key: key);
+      this.radius = 25.0});
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +78,7 @@ class BuildWelcomeButton extends StatelessWidget {
             title,
             style: Theme.of(context)
                 .textTheme
-                .headline2!
+                .displayMedium!
                 .copyWith(color: mainColor),
           ),
         ),

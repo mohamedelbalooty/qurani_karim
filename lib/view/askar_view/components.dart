@@ -12,8 +12,7 @@ class BuildAzkarCategoryWidgetItem extends StatelessWidget {
   final VoidCallback onClick;
 
   const BuildAzkarCategoryWidgetItem(
-      {Key? key, required this.name, required this.onClick})
-      : super(key: key);
+      {super.key, required this.name, required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +49,7 @@ class BuildAzkarCategoryWidgetItem extends StatelessWidget {
             Text(
               name,
               style:
-                  Theme.of(context).textTheme.headline2!.copyWith(height: 1.6),
+                  Theme.of(context).textTheme.displayMedium!.copyWith(height: 1.6),
             ),
             const Spacer(),
             Row(
@@ -59,7 +58,7 @@ class BuildAzkarCategoryWidgetItem extends StatelessWidget {
                   'go'.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText2!
+                      .bodyMedium!
                       .copyWith(fontWeight: FontWeight.bold, height: 1.6),
                 ),
                 Icon(
@@ -79,8 +78,7 @@ class BuildAzkarCategoryWidgetItem extends StatelessWidget {
 class BuildAzkarDetailsItemWidget extends StatelessWidget {
   final AzkarDetails details;
 
-  const BuildAzkarDetailsItemWidget({Key? key, required this.details})
-      : super(key: key);
+  const BuildAzkarDetailsItemWidget({super.key, required this.details});
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +119,7 @@ class BuildAzkarDetailsItemWidget extends StatelessWidget {
                 child: Center(
                   child: Text(
                     '${details.count} ${int.parse(details.count) > 1 ? 'many'.tr() : 'once'.tr()}',
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.bold,
                         color: context.select<AppThemeProvider, bool>(
                                 (value) => value.isDark)
@@ -140,7 +138,7 @@ class BuildAzkarDetailsItemWidget extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
             child: Text(
               details.content,
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   fontWeight: FontWeight.bold, fontSize: 18.sp, height: 1.8),
               textAlign: TextAlign.center,
             ),
@@ -153,7 +151,7 @@ class BuildAzkarDetailsItemWidget extends StatelessWidget {
                 details.reference,
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText2!
+                    .bodyMedium!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
             ),
@@ -186,7 +184,7 @@ class BuildAzkarDetailsItemWidget extends StatelessWidget {
                     details.description,
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText2!
+                        .bodyMedium!
                         .copyWith(fontWeight: FontWeight.bold, height: 1.8),
                     textAlign: TextAlign.center,
                   ),

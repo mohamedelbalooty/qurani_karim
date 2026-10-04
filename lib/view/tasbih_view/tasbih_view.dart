@@ -36,7 +36,7 @@ class TasbihView extends StatelessWidget {
                           children: [
                             Text(
                               provider.selectedValue,
-                              style: Theme.of(context).textTheme.headline2,
+                              style: Theme.of(context).textTheme.displayMedium,
                             ),
                             Icon(
                               Icons.keyboard_arrow_down,
@@ -67,7 +67,7 @@ class TasbihView extends StatelessWidget {
                                     child: Text(e,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyText2!
+                                            .bodyMedium!
                                             .copyWith(
                                                 fontWeight: FontWeight.bold,
                                                 height: 2)),
@@ -86,7 +86,7 @@ class TasbihView extends StatelessWidget {
                       provider.selectedValue,
                       style: Theme.of(context)
                           .textTheme
-                          .headline2!
+                          .displayMedium!
                           .copyWith(color: mainColor, fontSize: 28.sp),
                     ),
                     verticalSpace4(),
@@ -103,7 +103,7 @@ class TasbihView extends StatelessWidget {
                       'tasbih_number'.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .headline2!
+                          .displayMedium!
                           .copyWith(color: mainColor, fontSize: 28.sp),
                     ),
                     verticalSpace1(),
